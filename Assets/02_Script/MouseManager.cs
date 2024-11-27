@@ -4,8 +4,9 @@ using UnityEngine;
 public class MouseManager : MonoBehaviour
 {
     [SerializeField] GameObject SelectedTile;
-    [SerializeField] List<Mesh> meshs; //인스펙터에서 할당
-    [SerializeField] Material mat;//타일이 놓였을때 바뀔 머티리얼. 인스펙터에서 할당 
+    [SerializeField] List<Mesh> meshs; // 돌을 놓으면 바뀔 디자인. 인스펙터에서 할당
+    [SerializeField] Material mat;//타일이 놓였을때 바뀔 머티리얼. 투명에서 이 머티리얼로 바꿔야함. 인스펙터에서 할당
+
     private void Start()
     {
         SelectedTile = null;
@@ -26,11 +27,6 @@ public class MouseManager : MonoBehaviour
                 if (hit.transform.GetComponent<TileInfo>().State == 2) {
                     SelectTile(hit.transform.gameObject);
                 }
-                else
-                {
-                    UnSeletTile();
-                }
-
             }
             //기존에 셀렉된게 있다면 
             else
@@ -44,10 +40,10 @@ public class MouseManager : MonoBehaviour
                 }
             }
         }
+        //레이캐스드가 아무랑도 충돌하지 않으면
         else
         {
-            //레이캐스드가 아무랑도 충돌하지 않으면
-            if(SelectedTile) UnSeletTile();
+            if(SelectedTile) UnSeletTile(); //셀렉된거 언셀렉 
         }
 
         //마우스 클릭 이벤트 - 타일놓기 
@@ -61,15 +57,13 @@ public class MouseManager : MonoBehaviour
     {
         SelectedTile = obj.transform.gameObject;
         SelectedTile.GetComponent<Outline>().enabled = true;
-        Debug.Log(SelectedTile.name + "is Selected");
+        //Debug.Log(SelectedTile.name + "is Selected");
 
     }
 
-    //TODO : 어디서 null을 언셀렉하는데 나중에 고쳐~
-
     void UnSeletTile()
     {
-        Debug.Log(SelectedTile.name + "is Selected");
+        //Debug.Log(SelectedTile.name + "is Selected");
         SelectedTile.GetComponent<Outline>().enabled = false;
         SelectedTile = null;
     }
