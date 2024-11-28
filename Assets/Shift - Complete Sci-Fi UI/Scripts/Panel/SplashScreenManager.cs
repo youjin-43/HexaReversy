@@ -6,10 +6,10 @@ namespace Michsky.UI.Shift
     {
         [Header("Resources")]
         public GameObject splashScreen;
-        public GameObject mainPanels;
+        //public GameObject mainPanels;
 
         private Animator splashScreenAnimator;
-        private Animator mainPanelsAnimator;
+        //private Animator mainPanelsAnimator;
         private TimedEvent ssTimedEvent;
 
         [Header("Settings")]
@@ -25,41 +25,41 @@ namespace Michsky.UI.Shift
             if (showOnlyOnce && GameObject.Find("[Shift UI - Splash Screen Helper]") != null) { disableSplashScreen = true; }
             if (splashScreenAnimator == null) { splashScreenAnimator = splashScreen.GetComponent<Animator>(); }
             if (ssTimedEvent == null) { ssTimedEvent = splashScreen.GetComponent<TimedEvent>(); }
-            if (mainPanelsAnimator == null) { mainPanelsAnimator = mainPanels.GetComponent<Animator>(); }
+            //if (mainPanelsAnimator == null) { mainPanelsAnimator = mainPanels.GetComponent<Animator>(); }
             if (mpm == null) { mpm = gameObject.GetComponent<MainPanelManager>(); }
 
             if (disableSplashScreen == true)
             {
                 splashScreen.SetActive(false);
-                mainPanels.SetActive(true);
+                //mainPanels.SetActive(true);
 
-                mainPanelsAnimator.Play("Start");
+                //mainPanelsAnimator.Play("Start");
                 mpm.OpenFirstTab();
             }
 
             if (enableLoginScreen == false && enablePressAnyKeyScreen == true && disableSplashScreen == false)
             {
                 splashScreen.SetActive(true);
-                mainPanelsAnimator.Play("Invisible");
+                //mainPanelsAnimator.Play("Invisible");
             }
 
             if (enableLoginScreen == true && enablePressAnyKeyScreen == true && disableSplashScreen == false)
             {
                 splashScreen.SetActive(true);
-                mainPanelsAnimator.Play("Invisible");
+                //mainPanelsAnimator.Play("Invisible");
             }
 
             if (enableLoginScreen == true && enablePressAnyKeyScreen == false && disableSplashScreen == false)
             {
                 splashScreen.SetActive(true);
-                mainPanelsAnimator.Play("Invisible");
+                //mainPanelsAnimator.Play("Invisible");
                 splashScreenAnimator.Play("Login");
             }
 
             if (enableLoginScreen == false && enablePressAnyKeyScreen == false && disableSplashScreen == false)
             {
                 splashScreen.SetActive(true);
-                mainPanelsAnimator.Play("Invisible");
+                //mainPanelsAnimator.Play("Invisible");
                 splashScreenAnimator.Play("Loading");
                 ssTimedEvent.StartIEnumerator();
             }
