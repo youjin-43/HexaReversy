@@ -6,10 +6,11 @@ namespace Michsky.UI.Shift
     {
         [Header("Resources")]
         public GameObject splashScreen;
-        //public GameObject mainPanels;
+        public CanvasGroup Loading;
+
 
         private Animator splashScreenAnimator;
-        //private Animator mainPanelsAnimator;
+
         private TimedEvent ssTimedEvent;
 
         [Header("Settings")]
@@ -18,50 +19,16 @@ namespace Michsky.UI.Shift
         public bool enableLoginScreen;
         public bool showOnlyOnce = true;
 
-        MainPanelManager mpm;
-
         void OnEnable()
         {
             if (showOnlyOnce && GameObject.Find("[Shift UI - Splash Screen Helper]") != null) { disableSplashScreen = true; }
             if (splashScreenAnimator == null) { splashScreenAnimator = splashScreen.GetComponent<Animator>(); }
             if (ssTimedEvent == null) { ssTimedEvent = splashScreen.GetComponent<TimedEvent>(); }
-            //if (mainPanelsAnimator == null) { mainPanelsAnimator = mainPanels.GetComponent<Animator>(); }
-            if (mpm == null) { mpm = gameObject.GetComponent<MainPanelManager>(); }
 
-            if (disableSplashScreen == true)
-            {
-                splashScreen.SetActive(false);
-                //mainPanels.SetActive(true);
-
-                //mainPanelsAnimator.Play("Start");
-                mpm.OpenFirstTab();
-            }
-
-            if (enableLoginScreen == false && enablePressAnyKeyScreen == true && disableSplashScreen == false)
-            {
-                splashScreen.SetActive(true);
-                //mainPanelsAnimator.Play("Invisible");
-            }
 
             if (enableLoginScreen == true && enablePressAnyKeyScreen == true && disableSplashScreen == false)
             {
                 splashScreen.SetActive(true);
-                //mainPanelsAnimator.Play("Invisible");
-            }
-
-            if (enableLoginScreen == true && enablePressAnyKeyScreen == false && disableSplashScreen == false)
-            {
-                splashScreen.SetActive(true);
-                //mainPanelsAnimator.Play("Invisible");
-                splashScreenAnimator.Play("Login");
-            }
-
-            if (enableLoginScreen == false && enablePressAnyKeyScreen == false && disableSplashScreen == false)
-            {
-                splashScreen.SetActive(true);
-                //mainPanelsAnimator.Play("Invisible");
-                splashScreenAnimator.Play("Loading");
-                ssTimedEvent.StartIEnumerator();
             }
 
             if (showOnlyOnce == true && disableSplashScreen == false)
@@ -88,6 +55,14 @@ namespace Michsky.UI.Shift
             {
                 splashScreenAnimator.Play("Loading");
                 ssTimedEvent.StartIEnumerator();
+            }
+        }
+
+        private void Update()
+        {
+            if (Loading.alpha == 1)
+            {
+                Debug.Log("상대 찾는중 ");
             }
         }
     }

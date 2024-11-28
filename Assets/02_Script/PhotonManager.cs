@@ -25,7 +25,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         //지역 kr로 고정.이 부분이 없으면 자동으로 지역을 찾는데,다른 지역에 걸릴 경우 네트워크를 통해 만날 수 없다.
         PhotonNetwork.PhotonServerSettings.AppSettings.FixedRegion = "kr";
-        PhotonNetwork.AutomaticallySyncScene = false;
+
+        PhotonNetwork.AutomaticallySyncScene = true; //이 값이 true일 때 MasterClient는 PhotonNetwork.LoadLevel()을 호출 할 수 있고 모든 연결된 플레이어들은 동일한 레벨(씬)을 자동적으로 로드
+        //PhotonNetwork.AutomaticallySyncScene = false;
 
         // 같은 버전의 유저끼리 접속 허용. 다른 버전 유저 차단
         //PhotonNetwork.GameVersion = version;
@@ -115,14 +117,19 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             Debug.Log($"{player.Value.NickName}, {player.Value.ActorNumber}"); //ActorNumber:몇번째로 들어왔냐
         }
 
+        if (PhotonNetwork.CurrentRoom.PlayerCount >= 2)
+        {
+            Debug.Log("현재 인원수: " + PhotonNetwork.CurrentRoom.PlayerCount);
 
-        
+            //룸 닫고 
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            PhotonNetwork.CurrentRoom.IsVisible = false;
+            Debug.Log("현재 방 오픈 여부: " + PhotonNetwork.CurrentRoom.IsOpen);
 
-        ////"SpawnPointGroup" 오브젝트를 찾고, 그 자식들의 trnasform을 배열에 저장 : 리스폰 지역
-        //Transform[] points = GameObject.Find("SpawnPointGroup").GetComponentsInChildren<Transform>();
-        //int idx = Random.Range(1, points.Length); //랜덤으로 인덱스 뽑아서 
+            Debug.Log("Game Start!");
+            GameManager.Instance.GameStart();//씬 이동 
 
-        //// 캐릭터 생성 : "Prefabs/Player" 리소스에서 경로로 알아서 찾아줌. 앞에 리소스가 기본으로 디폴트라 리소스에 없으면 안됨!!
-        //PhotonNetwork.Instantiate("Prefabs/Player", points[idx].position, points[idx].rotation, 0);
+           
+        }
     }
 }

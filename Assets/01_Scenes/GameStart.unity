@@ -1047,7 +1047,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 224930668947981608, guid: e667a8f81bf8ebb4e8e15073ee7d697d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -295
       objectReference: {fileID: 0}
     - target: {fileID: 224930668947981608, guid: e667a8f81bf8ebb4e8e15073ee7d697d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1329,6 +1329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   splashScreen: {fileID: 1803523514}
+  Loading: {fileID: 0}
   disableSplashScreen: 0
   enablePressAnyKeyScreen: 1
   enableLoginScreen: 1
@@ -1435,7 +1436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 224862068371750312, guid: 2c8d1949404e6c74f97f2d65cebd687d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224862068371750312, guid: 2c8d1949404e6c74f97f2d65cebd687d, type: 3}
       propertyPath: m_LocalPosition.z
