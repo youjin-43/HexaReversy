@@ -25,7 +25,6 @@ namespace Michsky.UI.Shift
         IEnumerator TimedEventStart()
         {
             yield return new WaitForSeconds(timer);
-            Debug.Log("TimedEventStart 실행됨 a");
             timerAction.Invoke();
         }
 
