@@ -129,9 +129,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             Debug.Log("Game Start!");
 
             //TODO : 3초 finding
-            Invoke("SetFindedText", 3f);
+            Invoke("SetFindedText", 4f);
             //TODO : 2초 Finded! 
-            Invoke("GameStart", 2f); //게임 씬으로 이동 
+            Invoke("GameStart", 6f); //게임 씬으로 이동 
            
         }
     }
@@ -139,11 +139,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     void SetFindedText()
     {
+        Debug.Log("끼에에ㅔ에에에ㅔ");
         GameManager.Instance.SetFindedText();
     }
     void GameStart()
     {
-        //Debug.Log("끼에에ㅔ에에에ㅔ"); //d여기까진 됨 
         GameManager.Instance.GameStart();//씬 이동 
     }
 }
