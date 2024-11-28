@@ -130,10 +130,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             Invoke("GameStart", 4f);
            
         }
+        
+    }
 
-        void GameStart()
-        {
-            GameManager.Instance.GameStart();//씬 이동 
-        }
+    void GameStart()
+    {
+        GameManager.Instance.GameStart();//씬 이동 
     }
 }
