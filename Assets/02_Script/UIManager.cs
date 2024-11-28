@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour
 
     public void Fadeout()
     {
+        Debug.Log("Fadeout 함수 실행됨");
         FadeInOut.GetComponent<Animator>().SetTrigger("FadeOut");
     }
 }
