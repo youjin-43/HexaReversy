@@ -7534,6 +7534,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1773783808}
   - component: {fileID: 1773783807}
+  - component: {fileID: 1773783809}
   m_Layer: 0
   m_Name: MouseControll
   m_TagString: Untagged
@@ -7572,6 +7573,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1773783809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773783806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1779251114 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9160986556529705619, guid: 1a9e597f27d3349be88fc849b435ec93, type: 3}

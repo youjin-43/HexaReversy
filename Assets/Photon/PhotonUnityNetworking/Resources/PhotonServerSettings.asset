@@ -41,6 +41,7 @@ MonoBehaviour:
   - RespawnSpaceship
   - GameStart_RPC
   - SetFindedTextRPC
+  - PutTile_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
