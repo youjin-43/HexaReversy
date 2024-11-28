@@ -1,11 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun; // Pun : 포톤 유니티 네트워크의 약자
 
 public class MouseManager : MonoBehaviour
 {
     [SerializeField] GameObject SelectedTile;
     [SerializeField] List<Mesh> meshs; // 돌을 놓으면 바뀔 디자인. 인스펙터에서 할당
     [SerializeField] Material mat;//타일이 놓였을때 바뀔 머티리얼. 투명에서 이 머티리얼로 바꿔야함. 인스펙터에서 할당
+
+    private PhotonView pv;
+    private void Awake()
+    {
+        //TODO : 이거 포톤뷰 아이디 게임 매니저랑 겹치던데 괜찮나?? 
+        pv = GetComponent<PhotonView>();
+    }
 
     private void Start()
     {
@@ -63,16 +71,25 @@ public class MouseManager : MonoBehaviour
 
     void UnSeletTile()
     {
-        //Debug.Log(SelectedTile.name + "is Selected");
-        SelectedTile.GetComponent<Outline>().enabled = false;
-        SelectedTile = null;
+        if (SelectedTile)
+        {
+            //Debug.Log(SelectedTile.name + "is Selected");
+            SelectedTile.GetComponent<Outline>().enabled = false;
+            SelectedTile = null;
+        }
     }
 
-    void PutTile()
+    [PunRPC]
+    void PutTile_RPC()
     {
         SelectedTile.GetComponent<MeshRenderer>().material = mat;
         SelectedTile.GetComponent<TileInfo>().State = 1;
         UnSeletTile();
+    }
+
+    void PutTile()
+    {
+        pv.RPC("PutTile_RPC", RpcTarget.All);
     }
 
 
