@@ -21,8 +21,8 @@ public class CameraMove : MonoBehaviour
         //오른쪽을 누르고 있으면 마우스 이동 감지 
         if (Input.GetMouseButton(1))
         {
-            Debug.Log("Y : " + Input.GetAxis("Mouse X"));
-            Debug.Log("X : " + Input.GetAxis("Mouse Y"));
+            //Debug.Log("Y : " + Input.GetAxis("Mouse X"));
+            //Debug.Log("X : " + Input.GetAxis("Mouse Y"));
 
             float x = Camera.main.transform.position.x - Input.GetAxis("Mouse X") * panSpeed;
             x = Mathf.Clamp(x, -8, 8);

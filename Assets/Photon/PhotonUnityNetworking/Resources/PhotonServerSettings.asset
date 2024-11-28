@@ -42,6 +42,8 @@ MonoBehaviour:
   - GameStart_RPC
   - SetFindedTextRPC
   - PutTile_RPC
+  - SetStateTo1_RPC
+  - SetStateTo2_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

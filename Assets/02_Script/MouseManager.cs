@@ -4,16 +4,16 @@ using Photon.Pun; // Pun : 포톤 유니티 네트워크의 약자
 
 public class MouseManager : MonoBehaviour
 {
-    [SerializeField] GameObject SelectedTile;
-    [SerializeField] List<Mesh> meshs; // 돌을 놓으면 바뀔 디자인. 인스펙터에서 할당
-    [SerializeField] Material mat;//타일이 놓였을때 바뀔 머티리얼. 투명에서 이 머티리얼로 바꿔야함. 인스펙터에서 할당
+    [SerializeField] TileInfo SelectedTile;
+    //[SerializeField] List<Mesh> meshs; // 돌을 놓으면 바뀔 디자인. 인스펙터에서 할당
+    //[SerializeField] Material mat;//타일이 놓였을때 바뀔 머티리얼. 투명에서 이 머티리얼로 바꿔야함. 인스펙터에서 할당
 
-    private PhotonView pv;
-    private void Awake()
-    {
-        //TODO : 이거 포톤뷰 아이디 게임 매니저랑 겹치던데 괜찮나?? 
-        pv = GetComponent<PhotonView>();
-    }
+    //private PhotonView pv;
+    //private void Awake()
+    //{
+    //    //TODO : 이거 포톤뷰 아이디 게임 매니저랑 겹치던데 괜찮나?? 
+    //    pv = GetComponent<PhotonView>();
+    //}
 
     private void Start()
     {
@@ -54,16 +54,17 @@ public class MouseManager : MonoBehaviour
             if(SelectedTile) UnSeletTile(); //셀렉된거 언셀렉 
         }
 
+        //TODO : 잘 놓아지는지 확인 
         //마우스 클릭 이벤트 - 타일놓기 
         if (Input.GetMouseButtonDown(0))
         {
-            if (SelectedTile) PutTile();
+            SelectedTile?.SetStateTo1();
         }
     }
 
     void SelectTile(GameObject obj)
     {
-        SelectedTile = obj.transform.gameObject;
+        SelectedTile = obj.transform.GetComponent<TileInfo>();
         SelectedTile.GetComponent<Outline>().enabled = true;
         //Debug.Log(SelectedTile.name + "is Selected");
 
@@ -79,26 +80,36 @@ public class MouseManager : MonoBehaviour
         }
     }
 
-    [PunRPC]
-    void PutTile_RPC()
+    //TODO : 마우스에서 할게 아니라 마우슨는 타일의 정보만 바꾸고, 타일에서 정보에 따라 색 바뀌면 될것 같음 
+    void PutTile()
     {
-        SelectedTile.GetComponent<MeshRenderer>().material = mat;
-        SelectedTile.GetComponent<TileInfo>().State = 1;
+        //TODO : 이거 대신 새로운 함수 
+        //SelectedTile.GetComponent<MeshRenderer>().material = mat;
+        //SelectedTile.GetComponent<TileInfo>().State = 1;
+
         UnSeletTile();
     }
 
-    void PutTile()
-    {
-        pv.RPC("PutTile_RPC", RpcTarget.All);
-    }
+    //[PunRPC]
+    //void PutTile_RPC()
+    //{
+    //    SelectedTile.GetComponent<MeshRenderer>().material = mat;
+    //    SelectedTile.GetComponent<TileInfo>().State = 1;
+    //    UnSeletTile();
+    //}
+
+    //void PutTile()
+    //{
+    //    pv.RPC("PutTile_RPC", RpcTarget.All);
+    //}
 
 
     [SerializeField] int i = 0;
     //TODO : 뒤집을때 쓰면 될듯 
-    private void TileChange()
-    {
-        Debug.Log("TileChange is executed");
-        SelectedTile.GetComponent<MeshFilter>().mesh = meshs[i % 2];
-        i++;
-    }
+    //private void TileChange()
+    //{
+    //    Debug.Log("TileChange is executed");
+    //    SelectedTile.GetComponent<MeshFilter>().mesh = meshs[i % 2];
+    //    i++;
+    //}
 }
