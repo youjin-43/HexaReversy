@@ -459,6 +459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e1da66f029524d6fbb73c50ce45aba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FadeInOut: {fileID: 1346425305}
 --- !u!4 &303207526
 Transform:
   m_ObjectHideFlags: 0
@@ -1091,7 +1092,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 224930668947981608, guid: e667a8f81bf8ebb4e8e15073ee7d697d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -295
       objectReference: {fileID: 0}
     - target: {fileID: 224930668947981608, guid: e667a8f81bf8ebb4e8e15073ee7d697d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1480,7 +1481,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 224862068371750312, guid: 2c8d1949404e6c74f97f2d65cebd687d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224862068371750312, guid: 2c8d1949404e6c74f97f2d65cebd687d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1692,6 +1693,17 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!114 &869270216 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114366504036939268, guid: c5e36c0970c552e47a688b1ba4c9fd3c, type: 3}
+  m_PrefabInstance: {fileID: 9292350}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &891392523
 GameObject:
   m_ObjectHideFlags: 0
@@ -6886,6 +6898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbd0de48497e44305b01cbc3ab90a732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LoadingText: {fileID: 869270216}
   UserID: Player
   isPlaying: 0
 --- !u!4 &1174791259

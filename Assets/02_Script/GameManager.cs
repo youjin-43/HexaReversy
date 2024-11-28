@@ -1,5 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -51,6 +52,8 @@ public class GameManager : MonoBehaviour
         pv = GetComponent<PhotonView>();
     }
 
+    [SerializeField] TextMeshProUGUI LoadingText;
+
 
     //TODO : 이거 처음 UI에서 입력한대로 연동되도록 
     public string UserID = "Player";
@@ -60,7 +63,19 @@ public class GameManager : MonoBehaviour
 
     //TODO : 게임 매니저에 포톤뷰를 달고 플레이어 인포를 만들어서 그걸로 플레이어 관리? -> 우선 해보자..
 
-    
+
+
+    [PunRPC]
+    private void SetFindedTextRPC()
+    {
+        LoadingText.text = "Finded!";
+    }
+
+    public void SetFindedText()
+    {
+        pv.RPC("SetFindedTextRPC", RpcTarget.All);
+    }
+
     //포톤 매니저에서 두번째 참여(클라이언트)가 오면 이걸 호출
     /// <summary>
     /// 마스터에게 게임 씬 로드하라고 명령하는 함수 
@@ -68,9 +83,10 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     private void GameStart_RPC()
     {
+
+        UIManager.Instance.Fadeout();
         if (PhotonNetwork.IsMasterClient)
         {
-            UIManager.Instance.Fadeout();
             //TODO : 이거 잘 실행되는지 확인 -> 상대를 찾으면 알아서 씬이 넘어가야함 
             PhotonNetwork.LoadLevel("GameScene");
         }

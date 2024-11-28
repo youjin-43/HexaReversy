@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
     }
 
 
-    GameObject FadeInOut;
+    [SerializeField] GameObject FadeInOut;
 
 
     public void Fadeout()

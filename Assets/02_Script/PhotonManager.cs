@@ -127,13 +127,23 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             Debug.Log("현재 방 오픈 여부: " + PhotonNetwork.CurrentRoom.IsOpen);
 
             Debug.Log("Game Start!");
-            Invoke("GameStart", 4f);
+
+            //TODO : 3초 finding
+            Invoke("SetFindedText", 3f);
+            //TODO : 2초 Finded! 
+            Invoke("GameStart", 2f); //게임 씬으로 이동 
            
         }
     }
 
+
+    void SetFindedText()
+    {
+        GameManager.Instance.SetFindedText();
+    }
     void GameStart()
     {
+        //Debug.Log("끼에에ㅔ에에에ㅔ"); //d여기까진 됨 
         GameManager.Instance.GameStart();//씬 이동 
     }
 }
