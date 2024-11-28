@@ -13,11 +13,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     //TODO : 나중에 로딩창으로 넘기기 
     //현재 서버 상태 확인 
-    public TextMeshProUGUI ConnectionStatus;
-    void Update()
-    {
-        ConnectionStatus.text = PhotonNetwork.NetworkClientState.ToString();
-    }
+    //public TextMeshProUGUI ConnectionStatus;
+    //void Update()
+    //{
+    //    ConnectionStatus.text = PhotonNetwork.NetworkClientState.ToString();
+    //}
 
 
     //Connect 버튼에 연결 
