@@ -130,7 +130,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             Invoke("GameStart", 4f);
            
         }
-        
     }
 
     void GameStart()

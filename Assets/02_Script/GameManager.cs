@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
     {
         if (PhotonNetwork.IsMasterClient)
         {
+            UIManager.Instance.Fadeout();
             //TODO : 이거 잘 실행되는지 확인 -> 상대를 찾으면 알아서 씬이 넘어가야함 
             PhotonNetwork.LoadLevel("GameScene");
         }
