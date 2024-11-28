@@ -8,16 +8,20 @@ public class GameManager : MonoBehaviour
     {
         get
         {
-            if (!_instance)
-            {
-                _instance = FindObjectOfType<GameManager>();
-                if (!_instance)
-                {
-                    GameObject obj = new GameObject();
-                    obj.name = "GameManager";
-                    _instance = obj.AddComponent(typeof(GameManager)) as GameManager;
-                }
-            }
+            //TODO : 싱글턴을 어떻게 해야할지 고민이다..
+            //if (!_instance)
+            //{
+            //    _instance = FindObjectOfType<GameManager>();
+            //    if (!_instance)
+            //    {
+            //        GameObject obj = new GameObject();
+            //        obj.name = "GameManager";
+            //        _instance = obj.AddComponent(typeof(GameManager)) as GameManager;
+
+            //        //TODO : 이런식으로 짜면 이거 필요없지 않나? 어차피 새로 생기니까 
+            //        //DontDestroyOnLoad(gameObject); // 씬이 변경되어도 삭제되지 않도록
+            //    }
+            //}
             return _instance;
         }
     }
@@ -26,6 +30,23 @@ public class GameManager : MonoBehaviour
     private PhotonView pv;
     private void Awake()
     {
+
+        #region 싱글턴 
+        if (_instance == null)
+        {
+            _instance = this;
+            Debug.Log("게임매니저가 생성됐습니다");
+            DontDestroyOnLoad(gameObject); // 씬이 변경되어도 삭제되지 않도록
+        }
+        else
+        {
+            // instance에 이미 다른 GameManager 오브젝트가 할당되어 있는 경우 씬에 두개 이상의 GameManager 오브젝트가 존재한다는 의미. 싱글톤 오브젝트는 하나만 존재해야 하므로 자신의 게임 오브젝트를 파괴
+            Debug.LogWarning("씬에 두개 이상의 게임 매니저가 존재합니다!");
+            Destroy(gameObject);
+            Debug.Log("Destroy 게임매니저");
+        }
+        #endregion
+
         //TODO : 이거 포톤뷰 아이디 맞는지 확인 
         pv = GetComponent<PhotonView>();
     }
@@ -56,7 +77,7 @@ public class GameManager : MonoBehaviour
 
     public void GameStart()
     {
-        pv.RPC("GameStart", RpcTarget.All); 
+        pv.RPC("GameStart_RPC", RpcTarget.All); 
     }
     
 }

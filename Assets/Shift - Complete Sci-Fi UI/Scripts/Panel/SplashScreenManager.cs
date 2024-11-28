@@ -58,12 +58,12 @@ namespace Michsky.UI.Shift
             }
         }
 
-        private void Update()
-        {
-            if (Loading.alpha == 1)
-            {
-                Debug.Log("상대 찾는중 ");
-            }
-        }
+        //private void Update()
+        //{
+        //    if (Loading.alpha == 1)
+        //    {
+        //        Debug.Log("상대 찾는중 ");
+        //    }
+        //}
     }
 }
