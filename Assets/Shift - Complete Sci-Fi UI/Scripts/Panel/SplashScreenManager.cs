@@ -74,6 +74,7 @@ namespace Michsky.UI.Shift
 
         public void LoginScreenCheck()
         {
+            Debug.Log("LoginScreenCheck실행됨 ");
             if (enableLoginScreen == true && enablePressAnyKeyScreen == true)
                 splashScreenAnimator.Play("Press Any Key to Login");
 
