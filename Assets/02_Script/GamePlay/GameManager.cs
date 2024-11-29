@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using Photon.Pun; // Pun : 포톤 유니티 네트워크의 약자
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
@@ -32,9 +32,11 @@ public class GameManager : MonoBehaviour
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    int myActorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+    
     void Start()
     {
-        
+        Debug.Log("내 ActorNumber: " + myActorNumber);
     }
 
     // Update is called once per frame
