@@ -30,21 +30,19 @@ public class UIManager : MonoBehaviour
     }
 
 
-    private void Start()
+    [SerializeField] Animator OpponentIntroUI;
+    [SerializeField] Animator MainPanel;
+
+    public void PlayIntroUI()
     {
         StartCoroutine("DisapperOponentIntroUI");
     }
 
-
-    [SerializeField] Animator OpponentIntroUI;
-    [SerializeField] Animator MainPanel;
     IEnumerator DisapperOponentIntroUI()
     {
         yield return new WaitForSeconds(2f);
         OpponentIntroUI.SetTrigger("Disappear");
         MainPanel.SetTrigger("Show");
-        GameManager.Instance.isPlaying = true;
-
     }
 
 

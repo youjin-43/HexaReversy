@@ -28,20 +28,25 @@ public class GameManager : MonoBehaviour
         #endregion
     }
 
+    private int myActorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
     public bool isPlaying = false;
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    int myActorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+    public int CurrentTurn = 1;
     
     void Start()
     {
         Debug.Log("내 ActorNumber: " + myActorNumber);
+        GameStart();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //TODO : 턴 반복 
+    }
+
+    public void GameStart()
+    {
+        UIManager.Instance.PlayIntroUI();
+        if (CurrentTurn == myActorNumber) isPlaying = true;
     }
 }
