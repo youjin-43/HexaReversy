@@ -28,10 +28,16 @@ public class UIManager : MonoBehaviour
         }
         #endregion
     }
+    private void Start()
+    {
+        HideTimeSlider();
+    }
 
 
     [SerializeField] Animator OpponentIntroUI;
     [SerializeField] Animator MainPanel;
+
+    [SerializeField] GameObject TimeSlider;
 
     public void PlayIntroUI()
     {
@@ -43,7 +49,16 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         OpponentIntroUI.SetTrigger("Disappear");
         MainPanel.SetTrigger("Show");
+    } 
+
+    public void ShowTimeSlider()
+    {
+        TimeSlider.SetActive(true);
     }
 
+    public void HideTimeSlider()
+    {
+        TimeSlider.SetActive(false);
+    }
 
 }
