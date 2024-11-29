@@ -11,7 +11,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
    
     public TextMeshProUGUI userID;
 
-    //TODO : 나중에 로딩창으로 넘기기 
     //현재 서버 상태 확인 
     //public TextMeshProUGUI ConnectionStatus;
     //void Update()
@@ -66,8 +65,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     }
 
-    // 랜덤 룸 입장에 실패했을 떄 호출되는 콜백 함수.
-    // 랜덤 룸 입장에 실패할 경우 내가 직접 방을 만든다.
+    // 랜덤 룸 입장에 실패했을 떄 호출되는 콜백 함수. 랜덤 룸 입장에 실패할 경우엔 내가 직접 방을 만든다.
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         // 에러 메세지 출력
@@ -128,18 +126,16 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
             Debug.Log("Game Start!");
 
-            //TODO : 3초 finding
-            Invoke("SetFindedText", 4f);
-            //TODO : 2초 Finded! 
-            Invoke("GameStart", 6f); //게임 씬으로 이동 
+            Invoke("SetFindedText", 3f);
+            //TODO : Finded! -> 아니 근데 이거 체감상 6초가 아닌것 같은데 착각인가; 
+            Invoke("GameStart", 4f); //게임 씬으로 이동 
            
         }
     }
 
-
+    //Invoke에서 실행하려고 그냥 이렇게 만들음
     void SetFindedText()
     {
-        Debug.Log("끼에에ㅔ에에에ㅔ");
         GameManager.Instance.SetFindedText();
     }
     void GameStart()

@@ -33,7 +33,6 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] GameObject FadeInOut;
 
-
     public void Fadeout()
     {
         Debug.Log("Fadeout 함수 실행됨");

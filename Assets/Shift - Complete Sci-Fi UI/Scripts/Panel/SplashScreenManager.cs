@@ -57,13 +57,5 @@ namespace Michsky.UI.Shift
                 ssTimedEvent.StartIEnumerator();
             }
         }
-
-        //private void Update()
-        //{
-        //    if (Loading.alpha == 1)
-        //    {
-        //        Debug.Log("상대 찾는중 ");
-        //    }
-        //}
     }
 }

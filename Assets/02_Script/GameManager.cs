@@ -48,7 +48,6 @@ public class GameManager : MonoBehaviour
         }
         #endregion
 
-        //TODO : 이거 포톤뷰 아이디 맞는지 확인 
         pv = GetComponent<PhotonView>();
     }
 
@@ -96,5 +95,4 @@ public class GameManager : MonoBehaviour
     {
         pv.RPC("GameStart_RPC", RpcTarget.All); 
     }
-    
 }
