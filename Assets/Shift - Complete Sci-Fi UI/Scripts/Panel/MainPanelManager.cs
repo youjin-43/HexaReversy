@@ -120,64 +120,6 @@ namespace Michsky.UI.Shift
             }
         }
 
-        public void NextPage()
-        {
-            if (currentPanelIndex <= panels.Count - 2)
-            {
-                StopCoroutine("DisablePreviousPanel");
-
-                currentPanel = panels[currentPanelIndex].panelObject;
-                currentButton = panels[currentButtonIndex].buttonObject;
-                nextButton = panels[currentButtonIndex + 1].buttonObject;
-                currentPanel.gameObject.SetActive(true);
-
-                currentPanelAnimator = currentPanel.GetComponent<Animator>();
-                currentButtonAnimator = currentButton.GetComponent<Animator>();
-
-                currentButtonAnimator.Play(buttonFadeNormal);
-                currentPanelAnimator.Play(panelFadeOut);
-
-                currentPanelIndex += 1;
-                currentButtonIndex += 1;
-                nextPanel = panels[currentPanelIndex].panelObject;
-                nextPanel.gameObject.SetActive(true);
-
-                nextPanelAnimator = nextPanel.GetComponent<Animator>();
-                nextButtonAnimator = nextButton.GetComponent<Animator>();
-                nextPanelAnimator.Play(panelFadeIn);
-                nextButtonAnimator.Play(buttonFadeIn);
-            }
-        }
-
-        public void PrevPage()
-        {
-            if (currentPanelIndex >= 1)
-            {
-                StopCoroutine("DisablePreviousPanel");
-
-                currentPanel = panels[currentPanelIndex].panelObject;
-                currentButton = panels[currentButtonIndex].buttonObject;
-                nextButton = panels[currentButtonIndex - 1].buttonObject;
-                currentPanel.gameObject.SetActive(true);
-
-                currentPanelAnimator = currentPanel.GetComponent<Animator>();
-                currentButtonAnimator = currentButton.GetComponent<Animator>();
-
-                currentButtonAnimator.Play(buttonFadeNormal);
-                currentPanelAnimator.Play(panelFadeOut);
-
-                currentPanelIndex -= 1;
-                currentButtonIndex -= 1;
-                nextPanel = panels[currentPanelIndex].panelObject;
-                nextPanel.gameObject.SetActive(true);
-
-                nextPanelAnimator = nextPanel.GetComponent<Animator>();
-                nextButtonAnimator = nextButton.GetComponent<Animator>();
-                nextPanelAnimator.Play(panelFadeIn);
-                nextButtonAnimator.Play(buttonFadeIn);
-            }
-        }
-
         IEnumerator DisablePreviousPanel()
         {
             yield return new WaitForSecondsRealtime(0.5f);

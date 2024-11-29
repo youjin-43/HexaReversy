@@ -10,6 +10,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 {
    
     public TextMeshProUGUI userID;
+    public GameStartManager GSM;
 
     //현재 서버 상태 확인 
     //public TextMeshProUGUI ConnectionStatus;
@@ -136,10 +137,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     //Invoke에서 실행하려고 그냥 이렇게 만들음
     void SetFindedText()
     {
-        GameManager.Instance.SetFindedText();
+        GSM.SetFindedText();
     }
     void GameStart()
     {
-        GameManager.Instance.GameStart();//씬 이동 
+        GSM.GameStart();//씬 이동 
     }
 }

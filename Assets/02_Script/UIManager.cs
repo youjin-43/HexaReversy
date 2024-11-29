@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
         {
             _instance = this;
             Debug.Log("UIManager가 생성됐습니다");
-            DontDestroyOnLoad(gameObject); // 씬이 변경되어도 삭제되지 않도록
+            //DontDestroyOnLoad(gameObject); // 씬이 변경되어도 삭제되지 않도록
         }
         else
         {
@@ -30,12 +30,8 @@ public class UIManager : MonoBehaviour
         #endregion
     }
 
+    //TODO : 게임씬에서만 사용하는걸로 바꿈 
 
-    [SerializeField] GameObject FadeInOut;
 
-    public void Fadeout()
-    {
-        Debug.Log("Fadeout 함수 실행됨");
-        FadeInOut.GetComponent<Animator>().SetTrigger("FadeOut");
-    }
+
 }

@@ -2,10 +2,10 @@ using UnityEngine;
 using Photon.Pun;
 using TMPro;
 
-public class GameManager : MonoBehaviour
+public class GameStartManager : MonoBehaviour
 {
-    private static GameManager _instance;
-    public static GameManager Instance
+    private static GameStartManager _instance;
+    public static GameStartManager Instance
     {
         get
         {
@@ -51,18 +51,10 @@ public class GameManager : MonoBehaviour
         pv = GetComponent<PhotonView>();
     }
 
+    
+
+    #region Finded Text
     [SerializeField] TextMeshProUGUI LoadingText;
-
-
-    //TODO : 이거 처음 UI에서 입력한대로 연동되도록 
-    public string UserID = "Player";
-
-    //TODO : 에 이거 해야하는데 아직은 필요없음
-    public bool isPlaying = false;
-
-    //TODO : 게임 매니저에 포톤뷰를 달고 플레이어 인포를 만들어서 그걸로 플레이어 관리? -> 우선 해보자..
-
-
 
     [PunRPC]
     private void SetFindedTextRPC()
@@ -74,7 +66,19 @@ public class GameManager : MonoBehaviour
     {
         pv.RPC("SetFindedTextRPC", RpcTarget.All);
     }
+    #endregion
 
+    #region FadeOut
+    [SerializeField] GameObject FadeInOut;
+    public void Fadeout()
+    {
+        //Debug.Log("Fadeout 함수 실행됨");
+        FadeInOut.GetComponent<Animator>().SetTrigger("FadeOut");
+    }
+    #endregion
+
+
+    #region GameStart 
     //포톤 매니저에서 두번째 참여(클라이언트)가 오면 이걸 호출
     /// <summary>
     /// 마스터에게 게임 씬 로드하라고 명령하는 함수 
@@ -83,11 +87,10 @@ public class GameManager : MonoBehaviour
     private void GameStart_RPC()
     {
 
-        UIManager.Instance.Fadeout();
+        Fadeout(); //페이드 아웃되며 
         if (PhotonNetwork.IsMasterClient)
         {
-            //TODO : 이거 잘 실행되는지 확인 -> 상대를 찾으면 알아서 씬이 넘어가야함 
-            PhotonNetwork.LoadLevel("GameScene");
+            PhotonNetwork.LoadLevel("GameScene"); //씬이동 
         }
     }
 
@@ -95,4 +98,7 @@ public class GameManager : MonoBehaviour
     {
         pv.RPC("GameStart_RPC", RpcTarget.All); 
     }
+    #endregion
+
+
 }
