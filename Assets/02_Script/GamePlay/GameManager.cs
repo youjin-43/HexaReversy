@@ -1,12 +1,11 @@
-using System.Collections;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    private static UIManager _instance;
-    public static UIManager Instance
+    private static GameManager _instance;
+    public static GameManager Instance
     {
-        get {return _instance;}
+        get { return _instance; }
     }
 
     private void Awake()
@@ -15,37 +14,32 @@ public class UIManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
-            Debug.Log("UIManager가 생성됐습니다");
+            Debug.Log("GameManager가 생성됐습니다");
             //TODO : 이후 씬 변동이 있다면 나중에 활성화 
             //DontDestroyOnLoad(gameObject); // 씬이 변경되어도 삭제되지 않도록
         }
         else
         {
             // instance에 이미 다른 GameManager 오브젝트가 할당되어 있는 경우 씬에 두개 이상의 GameManager 오브젝트가 존재한다는 의미. 싱글톤 오브젝트는 하나만 존재해야 하므로 자신의 게임 오브젝트를 파괴
-            Debug.LogWarning("씬에 두개 이상의 UIManager가 존재합니다!");
+            Debug.LogWarning("씬에 두개 이상의 GameManager가 존재합니다!");
             Destroy(gameObject);
-            Debug.Log("Destroy UIManager");
+            Debug.Log("Destroy GameManager");
         }
         #endregion
-
-
     }
 
+    public bool isPlaying = false;
 
-    private void Start()
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
     {
-        StartCoroutine("DisapperOponentIntroUI");
+        
     }
 
-
-    [SerializeField] Animator OpponentIntroUI; 
-    IEnumerator DisapperOponentIntroUI()
+    // Update is called once per frame
+    void Update()
     {
-        yield return new WaitForSeconds(2f);
-        OpponentIntroUI.SetTrigger("Disappear");
+        
     }
-
-
-
-
 }
