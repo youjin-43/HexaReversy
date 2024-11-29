@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -5,10 +6,7 @@ public class UIManager : MonoBehaviour
     private static UIManager _instance;
     public static UIManager Instance
     {
-        get
-        {
-            return _instance;
-        }
+        get {return _instance;}
     }
 
     private void Awake()
@@ -18,6 +16,7 @@ public class UIManager : MonoBehaviour
         {
             _instance = this;
             Debug.Log("UIManager가 생성됐습니다");
+            //TODO : 이후 씬 변동이 있다면 나중에 활성화 
             //DontDestroyOnLoad(gameObject); // 씬이 변경되어도 삭제되지 않도록
         }
         else
@@ -28,9 +27,24 @@ public class UIManager : MonoBehaviour
             Debug.Log("Destroy UIManager");
         }
         #endregion
+
+
     }
 
-    //TODO : 게임씬에서만 사용하는걸로 바꿈 
+
+    private void Start()
+    {
+        StartCoroutine("DisapperOponentIntroUI");
+    }
+
+
+    [SerializeField] Animator OpponentIntroUI; 
+    IEnumerator DisapperOponentIntroUI()
+    {
+        yield return new WaitForSeconds(2f);
+        OpponentIntroUI.SetTrigger("Disappear");
+    }
+
 
 
 

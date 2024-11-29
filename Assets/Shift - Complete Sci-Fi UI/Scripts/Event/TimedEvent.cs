@@ -28,6 +28,7 @@ namespace Michsky.UI.Shift
             timerAction.Invoke();
         }
 
+        // TODO : ??? 이거 어따 쓰지 ?? 
         public void StartIEnumerator ()
         {
             StartCoroutine("TimedEventStart");
