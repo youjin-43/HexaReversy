@@ -38,10 +38,10 @@ public class GameManager : MonoBehaviour
         GameStart();
     }
 
-    // Update is called once per frame
     void Update()
     {
         //TODO : 턴 반복
+        
 
     }
 

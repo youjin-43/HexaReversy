@@ -28,11 +28,11 @@ public class UIManager : MonoBehaviour
         }
         #endregion
     }
+
     private void Start()
     {
         HideTimeSlider();
     }
-
 
     [SerializeField] Animator OpponentIntroUI;
     [SerializeField] Animator MainPanel;
