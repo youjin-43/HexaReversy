@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
         #endregion
     }
 
+
+    //TODO : 게임 매니저랑 플레이어랑 잘 구분!!
     private int myActorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
     public bool isPlaying = false;
     public int CurrentTurn = 1;
@@ -36,13 +38,6 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("내 ActorNumber: " + myActorNumber);
         GameStart();
-    }
-
-    void Update()
-    {
-        //TODO : 턴 반복
-        
-
     }
 
     public void GameStart()

@@ -12,6 +12,7 @@ public class MouseManager : MonoBehaviour
 
     private void Update()
     {
+        //TODO : 내 턴일때 마우스 매니저를 활성화 하는 방향으로 하면 되겠다 
         if (GameManager.Instance.isPlaying)
         {
             //마우스 호버시 타일을 놓을 수 있는 곳에 아웃라인 
