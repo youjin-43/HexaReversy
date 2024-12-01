@@ -74,7 +74,8 @@ public class MouseManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             SelectedTile?.SetStateTo1();
-            return true;
+            if(SelectedTile.State != 2) return true;
+
         }
         return false;
     }

@@ -5,7 +5,7 @@ public class Player : MonoBehaviour
 
     public StateMachine stateMachine;
 
-    public int PunActorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+    public int PunActorNumber;
     //public bool isPlaying = false;
 
     private void Awake()
@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-
+        PunActorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
         Debug.Log("내 ActorNumber: " + PunActorNumber);
         stateMachine.Initialize(stateMachine.gameStartState); //GameStartState로 시작
 
