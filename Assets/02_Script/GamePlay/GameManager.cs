@@ -1,5 +1,4 @@
 using UnityEngine;
-using Photon.Pun; // Pun : 포톤 유니티 네트워크의 약자
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;

@@ -1,10 +1,8 @@
 using UnityEngine;
-using Photon.Pun;
 
 public class StateMachine 
 {
 
-    Player player;
     public IState CurrentState { get; private set; } //현재 상태는 읽을수는 있지만 셋팅은 못하게
 
     //관리할 State들
@@ -15,7 +13,8 @@ public class StateMachine
     public WinState winState;
     public EndState endState;
 
-    //생성자 
+    //생성자
+    Player player;
     public StateMachine(Player player)
     {
         this.player = player;
@@ -29,48 +28,11 @@ public class StateMachine
         endState = new EndState(player);
     }
 
-
     public void Initialize(IState state)
     {
         CurrentState = state;
         state.Enter();
     }
-
-    //public void TransitionTo(IState nextState)
-    //{
-    //    if (player.pv == null)
-    //    {
-    //        Debug.LogError("PhotonView가 Player 객체에 없습니다!");
-    //    }
-    //    player.pv.RPC("SyncStateTransition", RpcTarget.All, nextState.GetType().Name); // 모든 클라이언트에 전송
-    //}
-
-    //[PunRPC]
-    //private void SyncStateTransition(string stateName)
-    //{
-    //    CurrentState.Exit();
-    //    // 상태 이름을 통해 적절한 상태로 전환
-    //    switch (stateName)
-    //    {
-    //        case "TurnPlayer1":
-    //            CurrentState = player.stateMachine.turnPlayer1; 
-    //            break;
-    //        case "TurnPlayer2":
-    //            CurrentState = player.stateMachine.turnPlayer2;
-    //            break;
-
-    //            // TODO :다른 상태들 추가...
-    //    }
-
-    //    CurrentState.Enter();
-    //}
-
-    //public void TransitionTo(IState nextState)
-    //{
-    //    CurrentState.Exit();
-    //    CurrentState = nextState;
-    //    CurrentState.Enter();
-    //}
 
     public void Excute()
     {
@@ -78,13 +40,14 @@ public class StateMachine
     }
 
     //각 스테이트로 셋팅 
-    public void SetStateToTurnPlayer1()
-    {
-        CurrentState = turnPlayer1;
-    }
-    public void SetStateToTurnPlayer2()
-    {
-        CurrentState = turnPlayer2;
-    }
+    public void SetStateToTurnPlayer1(){ CurrentState = turnPlayer1; }
+    public void SetStateToTurnPlayer2(){ CurrentState = turnPlayer2; }
+
+    //이 뒤는 아직 덜 구현돼서 미사용하는 상태들 
+    public void SetStateToWin() { CurrentState = winState; }
+    public void SetStateToLose() { CurrentState = loseState; }
+    public void SetStateToEnd() { CurrentState = endState; }
+
+    
 
 }

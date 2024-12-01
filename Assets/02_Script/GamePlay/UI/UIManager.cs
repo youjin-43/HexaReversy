@@ -37,8 +37,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] Animator OpponentIntroUI;
     [SerializeField] Animator MainPanel;
 
-    
-
     public void PlayIntroUI()
     {
         StartCoroutine("DisapperOponentIntroUI");
@@ -59,16 +57,6 @@ public class UIManager : MonoBehaviour
     {
         TimeSlider.gameObject.SetActive(true);
     }
-
-    //public void StartDecTimer()
-    //{
-    //    TimeSlider.GetComponent<TimerSlider>().StartdecreaseActionTime();
-    //}
-
-    //public void StopDecTimer()
-    //{
-    //    TimeSlider.GetComponent<TimerSlider>().StopdecreaseActionTime();
-    //}
 
     public void HideTimeSlider()
     {

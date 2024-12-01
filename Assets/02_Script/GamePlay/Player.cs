@@ -1,22 +1,18 @@
 using UnityEngine;
 using Photon.Pun; // Pun : 포톤 유니티 네트워크의 약자
+
 public class Player : MonoBehaviour
 {
-
     public StateMachine stateMachine;
 
     public PhotonView pv;
     public int PunActorNumber;
-    //public bool isPlaying = false;
 
     private void Awake()
     {
         stateMachine = new StateMachine(this);
         pv = GetComponent<PhotonView>();
-        //if (pv == null)
-        //{
-        //    Debug.LogError("PhotonView가 Player 객체에 없습니다!");
-        //}
+        if (pv == null) { Debug.LogError("PhotonView가 Player 객체에 없습니다!"); }
     }
 
     void Start()

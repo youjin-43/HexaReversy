@@ -12,11 +12,9 @@ public class MouseManager : MonoBehaviour
 
     private void Update()
     {
-
             //마우스 호버시 타일을 놓을 수 있는 곳에 아웃라인 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-
 
             if (Physics.Raycast(ray, out hit) && hit.transform.CompareTag("Tile")) //Tile 태그를 가지고 있는것과만 상호작용 하도록 
             {
@@ -44,9 +42,6 @@ public class MouseManager : MonoBehaviour
             {
                 if (SelectedTile) UnSeletTile(); //셀렉된거 언셀렉 
             }
-
-
-   
     }
 
     void SelectTile(GameObject obj)
@@ -57,7 +52,7 @@ public class MouseManager : MonoBehaviour
 
     }
 
-    void UnSeletTile()
+    public void UnSeletTile()
     {
         if (SelectedTile)
         {
@@ -66,7 +61,6 @@ public class MouseManager : MonoBehaviour
             SelectedTile = null;
         }
     }
-
 
     public bool PutTile()
     {
