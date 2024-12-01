@@ -1,4 +1,5 @@
 using UnityEngine;
+using Photon.Pun;
 
 public class StateMachine 
 {
@@ -37,10 +38,35 @@ public class StateMachine
 
     public void TransitionTo(IState nextState)
     {
+        player.pv.RPC("SyncStateTransition", RpcTarget.All, nextState.GetType().Name); // 모든 클라이언트에 전송
+    }
+
+    [PunRPC]
+    private void SyncStateTransition(string stateName)
+    {
         CurrentState.Exit();
-        CurrentState = nextState;
+        // 상태 이름을 통해 적절한 상태로 전환
+        switch (stateName)
+        {
+            case "TurnPlayer1":
+                CurrentState = player.stateMachine.turnPlayer1; 
+                break;
+            case "TurnPlayer2":
+                CurrentState = player.stateMachine.turnPlayer2;
+                break;
+
+                // TODO :다른 상태들 추가...
+        }
+
         CurrentState.Enter();
     }
+
+    //public void TransitionTo(IState nextState)
+    //{
+    //    CurrentState.Exit();
+    //    CurrentState = nextState;
+    //    CurrentState.Enter();
+    //}
 
     public void Excute()
     {

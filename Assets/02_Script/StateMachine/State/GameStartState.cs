@@ -14,8 +14,11 @@ public class GameStartState : IState
 
     void IState.Enter()
     {
+        Debug.Log("현재 State : GameStartState");
+
         MouseControll.enabled = false;
-        UIManager.Instance.PlayIntroUI();        
+        UIManager.Instance.PlayIntroUI();
+        player.stateMachine.TransitionTo(player.stateMachine.turnPlayer1); //플레이어 1의 턴으로 시작 
     }
 
     void IState.Excute()
@@ -27,12 +30,4 @@ public class GameStartState : IState
     {
      
     }
-
-    //bool IState.ShouldTransition(out IState nextState)
-    //{
-    //    nextState = player.stateMachine.turnPlayer1; // 미리 생성된 상태 객체 사용
-    //    //TODO : 수정 필요 
-    //    //return true;
-    //    return false;
-    //}
 }
