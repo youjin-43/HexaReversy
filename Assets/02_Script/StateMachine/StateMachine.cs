@@ -38,6 +38,10 @@ public class StateMachine
 
     public void TransitionTo(IState nextState)
     {
+        if (player.pv == null)
+        {
+            Debug.LogError("PhotonView가 Player 객체에 없습니다!");
+        }
         player.pv.RPC("SyncStateTransition", RpcTarget.All, nextState.GetType().Name); // 모든 클라이언트에 전송
     }
 

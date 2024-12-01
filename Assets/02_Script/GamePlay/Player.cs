@@ -13,6 +13,10 @@ public class Player : MonoBehaviour
     {
         stateMachine = new StateMachine(this);
         pv = GetComponent<PhotonView>();
+        //if (pv == null)
+        //{
+        //    Debug.LogError("PhotonView가 Player 객체에 없습니다!");
+        //}
     }
 
     void Start()
@@ -29,4 +33,8 @@ public class Player : MonoBehaviour
     {
         stateMachine.Excute(); //현재 state에서 실행할 동작을 실행 }
     }
+
+
+    //상태 변화 동기화
+
 }
