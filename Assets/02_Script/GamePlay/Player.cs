@@ -35,6 +35,31 @@ public class Player : MonoBehaviour
     }
 
 
-    //상태 변화 동기화
+    //StateMachine 클래스는 PhotonView를 직접 가질 수 없으므로 Player오브젝트를 거쳐서 트랜지션을 하도록 함 
+    [PunRPC]
+    private void SyncStateTransition(string stateName)
+    {
+        stateMachine.CurrentState.Exit(); //현재 상태는 나가고 
+
+        // 상태 이름을 통해 새로운 상태로 전환
+        switch (stateName)
+        {
+            case "TurnPlayer1":
+                stateMachine.SetStateToTurnPlayer1();
+                break;
+            case "TurnPlayer2":
+                stateMachine.SetStateToTurnPlayer2();
+                break;
+
+                // TODO :다른 상태들 추가...
+        }
+
+        stateMachine.CurrentState.Enter();
+    }
+
+    public void TransitionTo(IState nextState)
+    {
+        pv.RPC("SyncStateTransition", RpcTarget.All, nextState.GetType().Name); // 모든 클라이언트에 전송
+    }
 
 }

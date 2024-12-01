@@ -18,7 +18,7 @@ public class GameStartState : IState
 
         MouseControll.enabled = false;
         UIManager.Instance.PlayIntroUI();
-        player.stateMachine.TransitionTo(player.stateMachine.turnPlayer1); //플레이어 1의 턴으로 시작 
+        player.TransitionTo(player.stateMachine.turnPlayer1); //플레이어 1의 턴으로 시작 
     }
 
     void IState.Excute()

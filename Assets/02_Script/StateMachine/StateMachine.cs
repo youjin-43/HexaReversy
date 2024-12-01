@@ -36,34 +36,34 @@ public class StateMachine
         state.Enter();
     }
 
-    public void TransitionTo(IState nextState)
-    {
-        if (player.pv == null)
-        {
-            Debug.LogError("PhotonView가 Player 객체에 없습니다!");
-        }
-        player.pv.RPC("SyncStateTransition", RpcTarget.All, nextState.GetType().Name); // 모든 클라이언트에 전송
-    }
+    //public void TransitionTo(IState nextState)
+    //{
+    //    if (player.pv == null)
+    //    {
+    //        Debug.LogError("PhotonView가 Player 객체에 없습니다!");
+    //    }
+    //    player.pv.RPC("SyncStateTransition", RpcTarget.All, nextState.GetType().Name); // 모든 클라이언트에 전송
+    //}
 
-    [PunRPC]
-    private void SyncStateTransition(string stateName)
-    {
-        CurrentState.Exit();
-        // 상태 이름을 통해 적절한 상태로 전환
-        switch (stateName)
-        {
-            case "TurnPlayer1":
-                CurrentState = player.stateMachine.turnPlayer1; 
-                break;
-            case "TurnPlayer2":
-                CurrentState = player.stateMachine.turnPlayer2;
-                break;
+    //[PunRPC]
+    //private void SyncStateTransition(string stateName)
+    //{
+    //    CurrentState.Exit();
+    //    // 상태 이름을 통해 적절한 상태로 전환
+    //    switch (stateName)
+    //    {
+    //        case "TurnPlayer1":
+    //            CurrentState = player.stateMachine.turnPlayer1; 
+    //            break;
+    //        case "TurnPlayer2":
+    //            CurrentState = player.stateMachine.turnPlayer2;
+    //            break;
 
-                // TODO :다른 상태들 추가...
-        }
+    //            // TODO :다른 상태들 추가...
+    //    }
 
-        CurrentState.Enter();
-    }
+    //    CurrentState.Enter();
+    //}
 
     //public void TransitionTo(IState nextState)
     //{
@@ -75,12 +75,16 @@ public class StateMachine
     public void Excute()
     {
         CurrentState.Excute();
+    }
 
-        //// 상태 전환 조건 확인
-        //if (CurrentState.ShouldTransition(out IState nextState))
-        //{
-        //    TransitionTo(nextState);
-        //}
+    //각 스테이트로 셋팅 
+    public void SetStateToTurnPlayer1()
+    {
+        CurrentState = turnPlayer1;
+    }
+    public void SetStateToTurnPlayer2()
+    {
+        CurrentState = turnPlayer2;
     }
 
 }
