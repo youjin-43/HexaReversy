@@ -28,8 +28,11 @@ public class LoseState : IState
 
     }
 
-    public bool ShouldTransition()
-    {
-        return false;
-    }
+    //bool IState.ShouldTransition(out IState nextState)
+    //{
+    //    nextState = player.stateMachine.endState; // 미리 생성된 상태 객체 사용
+    //    //TODO : 수정 필요 
+    //    //return true;
+    //    return false;
+    //}
 }

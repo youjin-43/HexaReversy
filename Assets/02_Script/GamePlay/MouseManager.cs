@@ -68,13 +68,15 @@ public class MouseManager : MonoBehaviour
     }
 
 
-    public void PutTile()
+    public bool PutTile()
     {
         //마우스 클릭 이벤트 - 타일놓기 
         if (Input.GetMouseButtonDown(0))
         {
             SelectedTile?.SetStateTo1();
+            return true;
         }
+        return false;
     }
 
     [SerializeField] int i = 0;

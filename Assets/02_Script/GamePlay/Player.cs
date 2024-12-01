@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
     public StateMachine stateMachine;
 
     public int PunActorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-    public bool isPlaying = false;
+    //public bool isPlaying = false;
 
     private void Awake()
     {

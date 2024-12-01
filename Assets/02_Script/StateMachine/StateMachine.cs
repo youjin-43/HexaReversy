@@ -45,6 +45,12 @@ public class StateMachine
     public void Excute()
     {
         CurrentState.Excute();
+
+        //// 상태 전환 조건 확인
+        //if (CurrentState.ShouldTransition(out IState nextState))
+        //{
+        //    TransitionTo(nextState);
+        //}
     }
 
 }

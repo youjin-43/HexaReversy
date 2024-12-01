@@ -37,7 +37,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Animator OpponentIntroUI;
     [SerializeField] Animator MainPanel;
 
-    public GameObject TimeSlider;
+    
 
     public void PlayIntroUI()
     {
@@ -49,26 +49,31 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         OpponentIntroUI.SetTrigger("Disappear");
         MainPanel.SetTrigger("Show");
-    } 
+    }
+
+
+    #region Action Time
+    public GameObject TimeSlider;
 
     public void ShowTimeSlider()
     {
         TimeSlider.SetActive(true);
     }
 
-    public void StartDecTimer()
-    {
-        TimeSlider.GetComponent<TimerSlider>().StartdecreaseActionTime();
-    }
+    //public void StartDecTimer()
+    //{
+    //    TimeSlider.GetComponent<TimerSlider>().StartdecreaseActionTime();
+    //}
 
-    public void StopDecTimer()
-    {
-        TimeSlider.GetComponent<TimerSlider>().StopdecreaseActionTime();
-    }
+    //public void StopDecTimer()
+    //{
+    //    TimeSlider.GetComponent<TimerSlider>().StopdecreaseActionTime();
+    //}
 
     public void HideTimeSlider()
     {
         TimeSlider.SetActive(false);
     }
+    #endregion
 
 }
