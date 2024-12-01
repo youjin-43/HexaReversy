@@ -17,7 +17,7 @@ public class TurnPlayer2 : IState
 
     void IState.Enter()
     {
-        Debug.Log("현재 State : TurnPlayer1");
+        Debug.Log("현재 State : TurnPlayer2");
 
         //1번 플레이어는 마우스 클릭 활성화 
         if (player.PunActorNumber == 2)
@@ -26,6 +26,7 @@ public class TurnPlayer2 : IState
         }
 
         UIManager.Instance.ShowTimeSlider(); //시간제한 슬라이더 보이기
+        slider.value = GameManager.Instance.actionTime;
     }
 
     void IState.Excute()
@@ -35,7 +36,7 @@ public class TurnPlayer2 : IState
 
 
         //돌을 놓거나 시간제한이 끝나면 
-        if (MouseControll.PutTile() || slider.value < 0)
+        if (MouseControll.PutTile() || slider.value <= 0)
         {
             MouseControll.enabled = false; //마우스 클릭 비활성화 
             UIManager.Instance.HideTimeSlider(); //시간제한 슬라이더 숨기기 

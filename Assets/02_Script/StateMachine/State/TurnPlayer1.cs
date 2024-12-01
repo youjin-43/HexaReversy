@@ -12,7 +12,7 @@ public class TurnPlayer1 : IState
     {
         this.player = player;
         MouseControll = player.GetComponent<MouseManager>();
-        slider = UIManager.Instance.TimeSlider.GetComponent<Slider>();
+        slider = UIManager.Instance.TimeSlider;
     }
 
     void IState.Enter()
@@ -26,6 +26,7 @@ public class TurnPlayer1 : IState
         }
 
         UIManager.Instance.ShowTimeSlider(); //시간제한 슬라이더 보이기
+        slider.value = GameManager.Instance.actionTime;
     }
 
     void IState.Excute()
@@ -35,7 +36,7 @@ public class TurnPlayer1 : IState
 
 
         //돌을 놓거나 시간 제한이 끝나면 
-        if (MouseControll.PutTile() || slider.value<0)
+        if (MouseControll.PutTile() || slider.value <= 0)
         {
             MouseControll.enabled = false; //마우스 클릭 비활성화 
             UIManager.Instance.HideTimeSlider(); //시간제한 슬라이더 숨기기 

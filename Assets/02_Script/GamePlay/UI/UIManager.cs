@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     private static UIManager _instance;
@@ -53,11 +53,11 @@ public class UIManager : MonoBehaviour
 
 
     #region Action Time
-    public GameObject TimeSlider;
+    public Slider TimeSlider;
 
     public void ShowTimeSlider()
     {
-        TimeSlider.SetActive(true);
+        TimeSlider.gameObject.SetActive(true);
     }
 
     //public void StartDecTimer()
@@ -72,7 +72,7 @@ public class UIManager : MonoBehaviour
 
     public void HideTimeSlider()
     {
-        TimeSlider.SetActive(false);
+        TimeSlider.gameObject.SetActive(false);
     }
     #endregion
 
