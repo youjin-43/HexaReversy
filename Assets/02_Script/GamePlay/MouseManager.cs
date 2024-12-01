@@ -12,9 +12,7 @@ public class MouseManager : MonoBehaviour
 
     private void Update()
     {
-        //TODO : 내 턴일때 마우스 매니저를 활성화 하는 방향으로 하면 되겠다 
-        if (GameManager.Instance.isPlaying)
-        {
+
             //마우스 호버시 타일을 놓을 수 있는 곳에 아웃라인 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -47,12 +45,8 @@ public class MouseManager : MonoBehaviour
                 if (SelectedTile) UnSeletTile(); //셀렉된거 언셀렉 
             }
 
-            //마우스 클릭 이벤트 - 타일놓기 
-            if (Input.GetMouseButtonDown(0))
-            {
-                SelectedTile?.SetStateTo1();
-            }
-        }
+
+   
     }
 
     void SelectTile(GameObject obj)
@@ -70,6 +64,16 @@ public class MouseManager : MonoBehaviour
             //Debug.Log(SelectedTile.name + "is Selected");
             SelectedTile.GetComponent<Outline>().enabled = false;
             SelectedTile = null;
+        }
+    }
+
+
+    public void PutTile()
+    {
+        //마우스 클릭 이벤트 - 타일놓기 
+        if (Input.GetMouseButtonDown(0))
+        {
+            SelectedTile?.SetStateTo1();
         }
     }
 

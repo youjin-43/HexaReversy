@@ -7,7 +7,7 @@ public class StateMachine
     public IState CurrentState { get; private set; } //현재 상태는 읽을수는 있지만 셋팅은 못하게
 
     //관리할 State들
-    public GameStartState GameStartState;
+    public GameStartState gameStartState;
     public TurnPlayer1 turnPlayer1;
     public TurnPlayer2 turnPlayer2;
     public LoseState loseState;
@@ -20,7 +20,7 @@ public class StateMachine
         this.player = player;
 
         //각 스테이트 생성
-        GameStartState = new GameStartState(player);
+        gameStartState = new GameStartState(player);
         turnPlayer1 = new TurnPlayer1(player);
         turnPlayer2 = new TurnPlayer2(player);
         loseState = new LoseState(player);

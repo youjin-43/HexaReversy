@@ -28,21 +28,8 @@ public class GameManager : MonoBehaviour
         #endregion
     }
 
+    //TODO : 스테이트 머신이 있어서..게임 매니저의 쓸모가 없어졌긴 했는데 이게 맞나ㅣ
 
-    //TODO : 게임 매니저랑 플레이어랑 잘 구분!!
-    private int myActorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-    public bool isPlaying = false;
-    public int CurrentTurn = 1;
-    
-    void Start()
-    {
-        Debug.Log("내 ActorNumber: " + myActorNumber);
-        GameStart();
-    }
+    public float actionTime = 10f; // 행동할 수 있는 시간
 
-    public void GameStart()
-    {
-        UIManager.Instance.PlayIntroUI();
-        if (CurrentTurn == myActorNumber) isPlaying = true;
-    }
 }
