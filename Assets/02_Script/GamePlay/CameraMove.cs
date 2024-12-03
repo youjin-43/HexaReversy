@@ -8,6 +8,7 @@ public class CameraMove : MonoBehaviour
     void Start()
     {
         Camera.main.fieldOfView = 11;
+        Camera.main.transform.position = new Vector3(0, 90, 0.05f);
     }
 
     void Update()
