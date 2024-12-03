@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Photon.Pun; // Pun : 포톤 유니티 네트워크의 약자
+using UnityEngine.Tilemaps;
+
 public class TileInfo : MonoBehaviour
 {
     /// <summary>
@@ -9,6 +11,10 @@ public class TileInfo : MonoBehaviour
     /// 0: 후공 돌 
     /// </summary>
     public int State = 2;
+
+    public Tilemap tilemap; // 타일맵 컴포넌트
+    public Vector3Int Oddr_pos;
+    public Cube Cube_pos;
 
 
     [SerializeField] Material mat;//타일이 놓였을때 바뀔 머티리얼. 투명에서 이 머티리얼로 바꿔야함. 인스펙터에서 할당
@@ -22,7 +28,11 @@ public class TileInfo : MonoBehaviour
 
     void Start()
     {
-        State = 2; 
+        State = 2;
+
+        tilemap = transform.parent.parent.GetComponent<Tilemap>();
+        Oddr_pos = tilemap.WorldToCell(transform.position);
+        Cube_pos = new Cube().oddr_to_cube(Oddr_pos);
     }
 
     [PunRPC]
