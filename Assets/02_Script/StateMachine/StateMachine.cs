@@ -47,7 +47,4 @@ public class StateMachine
     public void SetStateToWin() { CurrentState = winState; }
     public void SetStateToLose() { CurrentState = loseState; }
     public void SetStateToEnd() { CurrentState = endState; }
-
-    
-
 }
