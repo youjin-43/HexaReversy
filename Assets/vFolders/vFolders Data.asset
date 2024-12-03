@@ -14,17 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   folderDatas_byGuid:
     keys:
-    - 9c53962885c2c4f449125a979d6ad240
     - 0842e487749e24a7c8fc9abcafdfa036
     - 431a492a43e39400d949cee645cca733
     - bf0b8ed9c22ed435184fbfb2a40c83ca
     - 245027305e60f4c7f901cd809677a6cb
     - d6e2f62a46680413fad1310655d6d4b5
     values:
-    - iconNameOrGuid: SceneAsset Icon
-      colorIndex: 0
-      isIconRecursive: 0
-      isColorRecursive: 0
     - iconNameOrGuid: cs Script Icon
       colorIndex: 0
       isIconRecursive: 0
