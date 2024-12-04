@@ -10,38 +10,39 @@ public class MouseManager : MonoBehaviour
         SelectedTile = null;
     }
 
+    //TODO : 마우스 호버 효과 수정해야함 
     private void Update()
     {
-            //마우스 호버시 타일을 놓을 수 있는 곳에 아웃라인 
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+            ////마우스 호버시 타일을 놓을 수 있는 곳에 아웃라인 
+            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit) && hit.transform.CompareTag("Tile")) //Tile 태그를 가지고 있는것과만 상호작용 하도록 
-            {
-                //이전에 셀렉된게 없고, 지금 셀렉될 타일이 아직 놓기 전이라면 셀렉(아웃라인 표시 )
-                if (SelectedTile == null)
-                {
-                    if (hit.transform.GetComponent<TileInfo>().State == 2)
-                    {
-                        SelectTile(hit.transform.gameObject);
-                    }
-                }
-                //기존에 셀렉된게 있다면 
-                else
-                {
-                    //기존 셀렉이 새로 충돌한거랑 다른 오브젝트야? 
-                    if (hit.transform.gameObject != SelectedTile)
-                    {
-                        UnSeletTile(); //기존꺼 언셀렉 
-                        if (hit.transform.GetComponent<TileInfo>().State == 2) SelectTile(hit.transform.gameObject); //새로 셀렉 
-                    }
-                }
-            }
-            //레이캐스드가 아무랑도 충돌하지 않으면
-            else
-            {
-                if (SelectedTile) UnSeletTile(); //셀렉된거 언셀렉 
-            }
+            //if (Physics.Raycast(ray, out hit) && hit.transform.CompareTag("Tile")) //Tile 태그를 가지고 있는것과만 상호작용 하도록 
+            //{
+            //    //이전에 셀렉된게 없고, 지금 셀렉될 타일이 아직 놓기 전이라면 셀렉(아웃라인 표시 )
+            //    if (SelectedTile == null)
+            //    {
+            //        if (hit.transform.GetComponent<TileInfo>().State == 2)
+            //        {
+            //            SelectTile(hit.transform.gameObject);
+            //        }
+            //    }
+            //    //기존에 셀렉된게 있다면 
+            //    else
+            //    {
+            //        //기존 셀렉이 새로 충돌한거랑 다른 오브젝트야? 
+            //        if (hit.transform.gameObject != SelectedTile)
+            //        {
+            //            UnSeletTile(); //기존꺼 언셀렉 
+            //            if (hit.transform.GetComponent<TileInfo>().State == 2) SelectTile(hit.transform.gameObject); //새로 셀렉 
+            //        }
+            //    }
+            //}
+            ////레이캐스드가 아무랑도 충돌하지 않으면
+            //else
+            //{
+            //    if (SelectedTile) UnSeletTile(); //셀렉된거 언셀렉 
+            //}
     }
 
     //TODO : 마우스 컨트로 놓을곳에 아웃라인으로 표시되던거 다르게 바꿔야함

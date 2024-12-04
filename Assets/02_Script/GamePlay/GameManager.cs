@@ -38,4 +38,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public int MapSize = 5;
 
+    public int tmpActorNum = 1;
+
 }

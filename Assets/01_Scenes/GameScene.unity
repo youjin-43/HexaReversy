@@ -11643,7 +11643,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectedTile: {fileID: 0}
-  i: 0
 --- !u!114 &1167871652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13341,6 +13340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionTime: 10
+  MapSize: 5
 --- !u!4 &1322264235
 Transform:
   m_ObjectHideFlags: 0

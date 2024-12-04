@@ -27,9 +27,6 @@ public class Cube
         return new Cube(q, r, -q - r);
     }
 
-    public Vector3Int[] direction = new Vector3Int[6]{ new Vector3Int(1, 0, -1 ), new Vector3Int(0, 1, -1), new Vector3Int(-1, 1, 0), new Vector3Int(-1, 0, 1), new Vector3Int(0, -1, 1), new Vector3Int(1, -1, 0) };
-
-
     //function cube_direction(directikjon):
     //    return cube_direction_vectors[direction]
 
