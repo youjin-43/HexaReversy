@@ -44,10 +44,12 @@ public class MouseManager : MonoBehaviour
             }
     }
 
+    //TODO : 마우스 컨트로 놓을곳에 아웃라인으로 표시되던거 다르게 바꿔야함
+
     void SelectTile(GameObject obj)
     {
         SelectedTile = obj.transform.GetComponent<TileInfo>();
-        SelectedTile.GetComponent<Outline>().enabled = true;
+        //SelectedTile.GetComponent<Outline>().enabled = true;
         //Debug.Log(SelectedTile.name + "is Selected");
 
     }
@@ -57,7 +59,7 @@ public class MouseManager : MonoBehaviour
         if (SelectedTile)
         {
             //Debug.Log(SelectedTile.name + "is Selected");
-            SelectedTile.GetComponent<Outline>().enabled = false;
+            //SelectedTile.GetComponent<Outline>().enabled = false;
             SelectedTile = null;
         }
     }
@@ -74,12 +76,4 @@ public class MouseManager : MonoBehaviour
         return false;
     }
 
-    [SerializeField] int i = 0;
-    //TODO : 뒤집을때 쓰면 될듯 -> 머티리얼이 아니라 메시를 바꿔야함... 이거 메커니즘을 바꿔야할것 같은데... 
-    //private void TileChange()
-    //{
-    //    Debug.Log("TileChange is executed");
-    //    SelectedTile.GetComponent<MeshFilter>().mesh = meshs[i % 2];
-    //    i++;
-    //}
 }

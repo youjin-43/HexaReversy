@@ -6,19 +6,22 @@ using UnityEngine.Tilemaps;
 public class TileInfo : MonoBehaviour
 {
     /// <summary>
-    /// 2: 아무도 놓지 않은 상태 
-    /// 1: 선공 돌     
-    /// 0: 후공 돌 
+    /// -1: 아무도 놓지 않은 상태 
+    /// 0: 선공 돌     
+    /// 1: 후공 돌
+    /// 2: Center 
     /// </summary>
-    public int State = 2;
+    public int State = -1;
+    public bool isCenter = false;
 
-    public Tilemap tilemap; // 타일맵 컴포넌트
+    Tilemap tilemap; // 타일맵 컴포넌트
+
+    [Header("Position")]
     public Vector3Int Oddr_pos;
     public Cube Cube_pos;
 
 
-    [SerializeField] Material mat;//타일이 놓였을때 바뀔 머티리얼. 투명에서 이 머티리얼로 바꿔야함. 인스펙터에서 할당
-    [SerializeField] List<Mesh> meshs; // 돌을 놓으면 바뀔 디자인. 인스펙터에서 할당
+    [SerializeField] Material[] mat;//타일이 놓였을때 바뀔 머티리얼. 투명에서 이 머티리얼로 바꿔야함. 인스펙터에서 할당
 
     private PhotonView pv;
     private void Awake()
@@ -28,8 +31,24 @@ public class TileInfo : MonoBehaviour
 
     void Start()
     {
-        State = 2;
+        //State 초기화 
+        switch (transform.parent.gameObject.name)
+        {
+            case "Center":
+                State = 2;
+                break;
+            case "Blue" :
+                State = 0; //선공 
+                break;
+            case "Red":
+                State = 1; //후공 
+                break;
+            default:
+                State = -1; //아무것도 놓지 않은 상태 
+                break;
+        }
 
+        //Position
         tilemap = transform.parent.parent.GetComponent<Tilemap>();
         Oddr_pos = tilemap.WorldToCell(transform.position);
         Cube_pos = new Cube().oddr_to_cube(Oddr_pos);
@@ -38,9 +57,8 @@ public class TileInfo : MonoBehaviour
     [PunRPC]
     public void SetStateTo1_RPC()
     {
-        State = 1;
-        GetComponent<MeshRenderer>().material = mat;
-        GetComponent<MeshFilter>().mesh = meshs[State];
+        State = 0;
+        GetComponent<MeshRenderer>().material = mat[State];
     }
 
     public void SetStateTo1()
@@ -51,9 +69,8 @@ public class TileInfo : MonoBehaviour
    [PunRPC]
     public void SetStateTo2_RPC()
     {
-        State = 2;
-        GetComponent<MeshRenderer>().material = mat;
-        GetComponent<MeshFilter>().mesh = meshs[State];
+        State = 1;
+        GetComponent<MeshRenderer>().material = mat[State];
     }
 
     public void SetStateTo2()
