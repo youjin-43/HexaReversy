@@ -3,76 +3,91 @@ using UnityEngine;
 
 public class MouseManager : MonoBehaviour
 {
-    [SerializeField] TileInfo SelectedTile;
+    [SerializeField] TileInfo HoverdTile;
+    [SerializeField] Material mat_hover; // 인스펙터에서 할당
+    [SerializeField] Material basic; // 인스펙터에서 할당 
 
     private void Start()
     {
-        SelectedTile = null;
+        HoverdTile = null;
     }
 
-    //TODO : 마우스 호버 효과 수정해야함 
     private void Update()
     {
-            ////마우스 호버시 타일을 놓을 수 있는 곳에 아웃라인 
-            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            //RaycastHit hit;
+        // 마우스 호버 효과 
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
 
-            //if (Physics.Raycast(ray, out hit) && hit.transform.CompareTag("Tile")) //Tile 태그를 가지고 있는것과만 상호작용 하도록 
-            //{
-            //    //이전에 셀렉된게 없고, 지금 셀렉될 타일이 아직 놓기 전이라면 셀렉(아웃라인 표시 )
-            //    if (SelectedTile == null)
-            //    {
-            //        if (hit.transform.GetComponent<TileInfo>().State == 2)
-            //        {
-            //            SelectTile(hit.transform.gameObject);
-            //        }
-            //    }
-            //    //기존에 셀렉된게 있다면 
-            //    else
-            //    {
-            //        //기존 셀렉이 새로 충돌한거랑 다른 오브젝트야? 
-            //        if (hit.transform.gameObject != SelectedTile)
-            //        {
-            //            UnSeletTile(); //기존꺼 언셀렉 
-            //            if (hit.transform.GetComponent<TileInfo>().State == 2) SelectTile(hit.transform.gameObject); //새로 셀렉 
-            //        }
-            //    }
-            //}
-            ////레이캐스드가 아무랑도 충돌하지 않으면
-            //else
-            //{
-            //    if (SelectedTile) UnSeletTile(); //셀렉된거 언셀렉 
-            //}
-    }
-
-    //TODO : 마우스 컨트로 놓을곳에 아웃라인으로 표시되던거 다르게 바꿔야함
-
-    void SelectTile(GameObject obj)
-    {
-        SelectedTile = obj.transform.GetComponent<TileInfo>();
-        //SelectedTile.GetComponent<Outline>().enabled = true;
-        //Debug.Log(SelectedTile.name + "is Selected");
-
-    }
-
-    public void UnSeletTile()
-    {
-        if (SelectedTile)
+        if (Physics.Raycast(ray, out hit) && hit.transform.CompareTag("Tile")) //Tile 태그를 가지고 있는것과만 상호작용 하도록 
         {
-            //Debug.Log(SelectedTile.name + "is Selected");
-            //SelectedTile.GetComponent<Outline>().enabled = false;
-            SelectedTile = null;
+            TileInfo tileInfo = hit.transform.GetComponent<TileInfo>();
+
+            if(tileInfo != HoverdTile)
+            {
+                if (tileInfo.Selectable && HoverdTile == null && tileInfo.State == -1) //Selectable이고 호버된 타일이 없다면
+                {
+                    HoverTile(tileInfo);
+                }
+                else
+                {
+                    if (HoverdTile) UnhoverTile(); //호버된게 있다면 언셀렉 
+                }
+            }
         }
+        //레이캐스드가 아무랑도 충돌하지 않으면
+        else
+        {
+            if (HoverdTile) UnhoverTile(); //호버된게 있다면 언셀렉 
+        }
+
+
+        //디버깅용
+        PutTile();
+    }
+
+    void HoverTile(TileInfo tile)
+    {
+        tile.GetComponent<MeshRenderer>().material= mat_hover;
+        HoverdTile = tile;
+        Debug.Log(tile.Cube_pos + "is Selected");
+    }
+
+    public void UnhoverTile()
+    {
+
+        //TODO : 타일 인포에서 가져오는건데 괜찮나,,? -> 에.. 작동 잘 되네...?
+
+        //TODO : 이거 어차피 스테이트 머신 들어가면 바로 꺼질거라 상관없을것 같긴한데 우선 놔둬보자 
+        if (HoverdTile.State == -1)
+        {
+            HoverdTile.GetComponent<MeshRenderer>().material = basic;
+        }
+        HoverdTile = null;
+        
     }
 
     public bool PutTile()
     {
         //마우스 클릭 이벤트 - 타일놓기 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && HoverdTile != null)
         {
-            SelectedTile?.SetStateTo1();
-            if(SelectedTile.State != 2) return true;
+            
+            //todo : rpc로 바꿔야함
 
+            if (GameManager.Instance.tmpActorNum==1)
+            {
+                HoverdTile.SetStateTo1_RPC();
+                //GameManager.Instance.tmpActorNum = 2;  //로컬 디버깅용
+            }
+            else
+            {
+                HoverdTile.SetStateTo2_RPC();
+                //GameManager.Instance.tmpActorNum = 1; //로컬 디버깅용
+                
+            }
+            HoverdTile.Flip(); //사이에 낀 상대편 돌 뒤집기 
+            UnhoverTile(); //호버됐던거 언호버 
+            return true;
         }
         return false;
     }

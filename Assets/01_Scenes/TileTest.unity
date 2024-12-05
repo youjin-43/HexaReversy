@@ -9819,6 +9819,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1983341677}
     m_Modifications:
+    - target: {fileID: 280141690833025606, guid: b22b34952e8e245919d623dabdeb3d35, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 280141690833025606, guid: b22b34952e8e245919d623dabdeb3d35, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2712fc46defac48df86a937994b1d8a7, type: 2}
     - target: {fileID: 4683081481419891905, guid: b22b34952e8e245919d623dabdeb3d35, type: 3}
       propertyPath: sceneViewId
       value: 173

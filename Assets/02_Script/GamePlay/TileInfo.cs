@@ -12,6 +12,7 @@ public class TileInfo : MonoBehaviour
     /// 2: 후공 돌 
     /// </summary>
     public int State = -1;
+    
 
     Tilemap tilemap; // 타일맵 컴포넌트
 
@@ -21,18 +22,9 @@ public class TileInfo : MonoBehaviour
 
 
     [Header("Flip")]
-    //public Stack<Cube> Tiles_1;
-    //public Stack<Cube> Tiles_2;
-    //public Stack<Cube> Tiles_3;
-    //public Stack<Cube> Tiles_4;
-    //public Stack<Cube> Tiles_5;
-    //public Stack<Cube> Tiles_6;
-
+    public bool Selectable = false;
     public Stack<Cube>[] FlipTiles;
-
-
-
-    [SerializeField] Material[] mat;//타일이 놓였을때 바뀔 머티리얼. 투명에서 이 머티리얼로 바꿔야함. 인스펙터에서 할당
+    [SerializeField] Material[] mat;//타일이 놓였을때 바뀔 머티리얼. 투명에서 이 머티리얼로 바꿔야함.
 
     private PhotonView pv;
     private void Awake()
@@ -65,11 +57,13 @@ public class TileInfo : MonoBehaviour
         Cube_pos = new Cube().oddr_to_cube(Oddr_pos);
 
         //Flip
+        Selectable = false;
         FlipTiles = new Stack<Cube>[6];
         for (int i = 0; i < FlipTiles.Length; i++)
         {
             FlipTiles[i] = new Stack<Cube>(); // 각 요소에 Stack 객체 생성 및 할당
         }
+        mat = Resources.LoadAll<Material>("PlayerColor");
     }
 
     [PunRPC]
@@ -96,4 +90,28 @@ public class TileInfo : MonoBehaviour
         pv.RPC("SetStateTo2_RPC", RpcTarget.All);
     }
 
+    //todo : 네트워크 버젼으로 바꿔야함! 
+    public void Flip()
+    {
+        Debug.Log("여기까진 실행됨!");
+        foreach (Stack<Cube> st in FlipTiles)
+        {
+            for(int i=0; i<st.Count; i++) //위험성 높은 while 보다는 for 사용 
+            {
+                TileInfo tile = TileManager.Instance.Tiles[st.Peek()];
+                if (tile.State != GameManager.Instance.tmpActorNum)
+                {
+                    if (GameManager.Instance.tmpActorNum == 1)
+                    {
+                        tile.SetStateTo1_RPC();
+                    }
+                    else
+                    {
+                        tile.SetStateTo2_RPC();
+                    }
+                }
+                st.Pop();
+            }
+        }
+    }
 }

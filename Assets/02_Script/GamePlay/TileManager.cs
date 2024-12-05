@@ -4,9 +4,37 @@ using UnityEngine.Tilemaps;
 using VInspector;
 
 
-//TODO : 싱글턴으로 만들고 스테에트 머신에서 함수들 호출하면 될것 같음 
+
 public class TileManager : MonoBehaviour
 {
+    //TODO : 싱글턴으로 만들고 스테에트 머신에서 함수들 호출
+    private static TileManager _instance;
+    public static TileManager Instance
+    {
+        get { return _instance; }
+    }
+
+    private void Awake()
+    {
+        #region 싱글턴 
+        if (_instance == null)
+        {
+            _instance = this;
+            Debug.Log("TileManager가 생성됐습니다");
+            //TODO : 이후 씬 변동이 있다면 나중에 활성화 
+            //DontDestroyOnLoad(gameObject); // 씬이 변경되어도 삭제되지 않도록
+        }
+        else
+        {
+            // instance에 이미 다른 GameManager 오브젝트가 할당되어 있는 경우 씬에 두개 이상의 GameManager 오브젝트가 존재한다는 의미. 싱글톤 오브젝트는 하나만 존재해야 하므로 자신의 게임 오브젝트를 파괴
+            Debug.LogWarning("씬에 두개 이상의 TileManager가 존재합니다!");
+            Destroy(gameObject);
+            Debug.Log("Destroy TileManager");
+        }
+        #endregion
+    }
+
+
     Vector3Int[] direction = new Vector3Int[6]{
         new Vector3Int(1, 0, -1 ),
         new Vector3Int(0, 1, -1),
@@ -42,7 +70,11 @@ public class TileManager : MonoBehaviour
         //놓을 수있는곳(놓으면 뒤집을 수 있는 곳 )만 활성화 
         for(int i = 0; i < BoundaryTile.Count; i++)
         {
-            if (FindFlippableTiles(BoundaryTile[i].Cube_pos) > 0) BoundaryTile[i].gameObject.GetComponent<Outline>().enabled = true;
+            if (FindFlippableTiles(BoundaryTile[i].Cube_pos) > 0)
+            {
+                BoundaryTile[i].gameObject.GetComponent<Outline>().enabled = true;
+                BoundaryTile[i].Selectable = true;
+            }
         }
        
     }

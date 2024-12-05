@@ -37,7 +37,7 @@ public class TurnPlayer2 : IState
         //돌을 놓거나 시간제한이 끝나면 
         if (MouseControll.PutTile() || slider.value <= 0)
         {
-            MouseControll.UnSeletTile();//아웃라인된게 있으면 끄기 
+            MouseControll.UnhoverTile();//아웃라인된게 있으면 끄기 
             MouseControll.enabled = false; //마우스 클릭 비활성화 
             UIManager.Instance.HideTimeSlider(); //시간제한 슬라이더 숨기기 
             player.TransitionTo(player.stateMachine.turnPlayer1); //플레이어 1의 턴으로 넘어감 
