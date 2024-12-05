@@ -46,8 +46,8 @@ public class TileManager : MonoBehaviour
     [SerializeField] Tilemap tilemap; //인스펙터에서 할당
 
     // Cube 좌표를 키로, 타일 오브젝트를 값으로 저장하는 딕셔너리
-    public SerializedDictionary<Cube, TileInfo> Tiles = new SerializedDictionary<Cube, TileInfo>(); //잘 작동하는지 확인용
-    //public Dictionary<Cube, TileInfo> Tiles = new Dictionary<Cube, TileInfo>();
+    public SerializedDictionary<Cube, TileInfo> TileInfos = new SerializedDictionary<Cube, TileInfo>(); //잘 작동하는지 확인용
+    //public Dictionary<Cube, TileInfo> TileInfos = new Dictionary<Cube, TileInfo>();
 
     public List<TileInfo> BoundaryTile;
 
@@ -90,8 +90,14 @@ public class TileManager : MonoBehaviour
         TileInfo[] list = tilemap.gameObject.GetComponentsInChildren<TileInfo>();
         for (int i = 0; i < list.Length; i++)
         {
-            Tiles.Add(list[i].Cube_pos, list[i]);
+            TileInfos.Add(list[i].Cube_pos, list[i]);
         }
+
+
+        //foreach (var key in TileInfos.Keys)
+        //{
+        //    Debug.Log($"Key: {key}, HashCode: {key.GetHashCode()}");
+        //}
     }
 
 
@@ -113,11 +119,14 @@ public class TileManager : MonoBehaviour
         {
             cube = cube.Add(direction[4]);
             //Debug.Log("cube Pos : " + cube);
+            //Debug.Log($"cube: {cube}, HashCode: {cube.GetHashCode()}");
+
+            
 
             //빈 타일인지 확인 -> 처음 빈타일을 발견하면 리스트에 넣고 break.
-            if (Tiles[cube].State == -1) //todo : 여기 왜 계속 0,-1,1 키가 없다고 그러지? 
+            if (TileInfos[cube].State == -1) //todo : 여기 왜 계속 0,-1,1 키가 없다고 그러지? 
             {
-                BoundaryTile.Add(Tiles[cube]);
+                BoundaryTile.Add(TileInfos[cube]);
                 Debug.Log("Boundary Start : " + cube);
                 break;
             }
@@ -129,7 +138,7 @@ public class TileManager : MonoBehaviour
             Cube n_cube = cube.Add(direction[0]);
             Debug.Log("0번째 이웃 : " + n_cube);
             //Tiles.ContainsKey(n_cube)
-            if (!Tiles.ContainsKey(n_cube) || Tiles[n_cube].State == -1) //0번째 이웃이 판 사이즈를 넘었거나, 빈 타일이라면 → 반시계방향 탐색
+            if (!TileInfos.ContainsKey(n_cube) || TileInfos[n_cube].State == -1) //0번째 이웃이 판 사이즈를 넘었거나, 빈 타일이라면 → 반시계방향 탐색
             {
                 //Debug.Log("0번째 이웃이 빈 타일이네");
 
@@ -139,7 +148,7 @@ public class TileManager : MonoBehaviour
                     //Debug.Log(i+"번째 이웃 : " + n_cube);
 
                     //탐색하다가 이미 놓인 타일을 만난다면 그 전 방향으로 전진
-                    if (Tiles[n_cube].State != -1)
+                    if (TileInfos[n_cube].State != -1)
                     {
                         //Debug.Log(i + "번째 이웃이 이미 놓인 타일임!" );
                         n_cube = cube.Add(direction[i - 1]);
@@ -158,7 +167,7 @@ public class TileManager : MonoBehaviour
                     //Debug.Log(i + "번째 이웃 : " + n_cube);
 
                     // 탐색하다가 빈 타일을 만나면 그 타일로 전진
-                    if (Tiles[n_cube].State == -1)
+                    if (TileInfos[n_cube].State == -1)
                     {
                         //Debug.Log(i + "번째 이웃이 빈타일임!");
                         break;
@@ -167,13 +176,13 @@ public class TileManager : MonoBehaviour
             }
 
             //를 바운더리 시작지점과 만날떄까지 반복
-            if (BoundaryTile[0] == Tiles[n_cube])
+            if (BoundaryTile[0] == TileInfos[n_cube])
             {
                 break;
             }
             else
             {
-                BoundaryTile.Add(Tiles[n_cube]);
+                BoundaryTile.Add(TileInfos[n_cube]);
                 //Debug.Log(n_cube + "을 바운더리 리스트에 넣음!");
                 cube = n_cube;
             }   
@@ -183,7 +192,7 @@ public class TileManager : MonoBehaviour
     int FindFlippableTiles(Cube pos)
     {
         int ret = 0;
-        TileInfo tileInfo = Tiles[pos];
+        TileInfo tileInfo = TileInfos[pos];
 
         //이웃한 6방향 확인
         for(int i = 0; i < 6; i++)
@@ -193,12 +202,12 @@ public class TileManager : MonoBehaviour
 
             //1.빈타일이 아니라면 쭉 담음
             Cube n_cube = pos.Add(direction[i]);
-            if (Tiles[n_cube].State != -1)
+            if (TileInfos[n_cube].State != -1)
             {
                 for (int j = 1; j < GameManager.Instance.MapSize; j++) //위험성 높은 while 보다는 for 사용
                 {
                     n_cube = pos.Add(direction[i] * j);
-                    if (Tiles.ContainsKey(n_cube))
+                    if (TileInfos.ContainsKey(n_cube))
                     {
                         tileInfo.FlipTiles[i].Push(n_cube);
                     }
@@ -214,7 +223,7 @@ public class TileManager : MonoBehaviour
                     Cube cube = tileInfo.FlipTiles[i].Peek();
 
                     //TODO : 임시 액터 넘버 나중에 플레이어 스크립트로 수정 
-                    if (Tiles[cube].State != Player.Instance.PunActorNumber && Tiles[cube].State != 0)
+                    if (TileInfos[cube].State != Player.Instance.PunActorNumber && TileInfos[cube].State != 0)
                     {
                         tileInfo.FlipTiles[i].Pop();
                     }
@@ -231,7 +240,7 @@ public class TileManager : MonoBehaviour
                     Cube cube = tileInfo.FlipTiles[i].Peek();
 
                     //TODO : 임시 액터 넘버 나중에 플레이어 스크립트로 수정 
-                    if (Tiles[cube].State == Player.Instance.PunActorNumber || Tiles[cube].State == 0)
+                    if (TileInfos[cube].State == Player.Instance.PunActorNumber || TileInfos[cube].State == 0)
                     {
                         tileInfo.FlipTiles[i].Pop();
                     }
