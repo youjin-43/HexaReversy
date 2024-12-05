@@ -42,18 +42,18 @@ public class TurnPlayer1 : IState
         {
             //돌을 놓거나 시간 제한이 끝나면
             //todo 이거 돌 놓는게 작동을 안하는것 같음ㅋㅋㅋㅋ
-            //if (MouseControll.PutTile() || slider.value <= 0)
-            //{
-            //    MouseControll.enabled = false; //마우스 클릭 비활성화
-            //    TileManager.Instance.UnhighlightSelectableTiles();//하이라이트 비활성화 
-            //    UIManager.Instance.HideTimeSlider(); //시간제한 슬라이더 숨기기 
-            //    player.TransitionTo(player.stateMachine.turnPlayer2); //플레이어 2의 턴으로 넘어감 
-            //}
+            if (MouseControll.PutTile() || slider.value <= 0)
+            {
+                MouseControll.enabled = false; //마우스 클릭 비활성화
+                TileManager.Instance.UnhighlightSelectableTiles();//하이라이트 비활성화 
+                UIManager.Instance.HideTimeSlider(); //시간제한 슬라이더 숨기기 
+                player.TransitionTo(player.stateMachine.turnPlayer2); //플레이어 2의 턴으로 넘어감 
+            }
 
 
-            bool tmp = MouseControll.PutTile();
-            Debug.Log("마우스 클릭" + tmp);
-            if(tmp) player.TransitionTo(player.stateMachine.turnPlayer2); //플레이어 2의 턴으로 넘어감 
+            //bool tmp = MouseControll.PutTile();
+            //Debug.Log(tmp);
+            //if(tmp) player.TransitionTo(player.stateMachine.turnPlayer2); //플레이어 2의 턴으로 넘어감 
 
         }
     }

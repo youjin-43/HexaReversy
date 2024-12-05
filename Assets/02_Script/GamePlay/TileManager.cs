@@ -112,12 +112,13 @@ public class TileManager : MonoBehaviour
         for (int i = 0; i < GameManager.Instance.MapSize; i++) //어차피 size 제한이 있기 때문에 위험성 높은 while 보다는 for 사용 
         {
             cube = cube.Add(direction[4]);
-            Debug.Log("cube Pos : " + cube);
+            //Debug.Log("cube Pos : " + cube);
 
             //빈 타일인지 확인 -> 처음 빈타일을 발견하면 리스트에 넣고 break.
             if (Tiles[cube].State == -1) //todo : 여기 왜 계속 0,-1,1 키가 없다고 그러지? 
             {
                 BoundaryTile.Add(Tiles[cube]);
+                Debug.Log("Boundary Start : " + cube);
                 break;
             }
         }
@@ -126,11 +127,11 @@ public class TileManager : MonoBehaviour
         {
             //2. 그 타일의 이웃들탐색 → 먼저 0번 방향 봐서
             Cube n_cube = cube.Add(direction[0]);
-            //Debug.Log("0번째 이웃 : " + n_cube);
-
-            if (Tiles[n_cube].State == -1) //빈 타일이라면 → 반시계방향 탐색
+            Debug.Log("0번째 이웃 : " + n_cube);
+            //Tiles.ContainsKey(n_cube)
+            if (!Tiles.ContainsKey(n_cube) || Tiles[n_cube].State == -1) //0번째 이웃이 판 사이즈를 넘었거나, 빈 타일이라면 → 반시계방향 탐색
             {
-                //Debug.Log("n_cube가 빈 타일이네");
+                //Debug.Log("0번째 이웃이 빈 타일이네");
 
                 for (int i = 1; i < 6; i++)
                 {
@@ -149,7 +150,7 @@ public class TileManager : MonoBehaviour
             }
             else //이미 놓인 타일이라면 → 시계방향 탐색
             {
-                //Debug.Log("n_cube엔 이미 놓인 타일이 있어요");
+                //Debug.Log("0번째 이웃엔 이미 놓인 타일이 있어요");
 
                 for (int i = 5; i > 0; i--)
                 {

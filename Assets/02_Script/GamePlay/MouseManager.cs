@@ -39,10 +39,6 @@ public class MouseManager : MonoBehaviour
         {
             if (HoverdTile) UnhoverTile(); //호버된게 있다면 언셀렉 
         }
-
-
-        //디버깅용
-        PutTile();
     }
 
     void HoverTile(TileInfo tile)
@@ -65,13 +61,15 @@ public class MouseManager : MonoBehaviour
         HoverdTile = null;
         
     }
-
+    /// <summary>
+    /// 타일을 놓으면 true 반환
+    /// </summary>
+    /// <returns></returns>
     public bool PutTile()
     {
         //마우스 클릭 이벤트 - 타일놓기 
         if (Input.GetMouseButtonDown(0) && HoverdTile != null)
         {
-            Debug.Log("타일 놓음!! - PutTile() 안에서 실행된 디버그 ");
             if (Player.Instance.PunActorNumber == 1)
             {
                 HoverdTile.SetStateTo1();
