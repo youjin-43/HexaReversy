@@ -177,8 +177,12 @@ public class TileManager : MonoBehaviour
             }
             else
             {
-                BoundaryTile.Add(TileInfos[n_cube]);
-                Debug.Log(n_cube + "을 바운더리 리스트에 넣음!");
+                if (TileInfos.ContainsKey(n_cube))
+                {
+                    BoundaryTile.Add(TileInfos[n_cube]);
+                    Debug.Log(n_cube + "을 바운더리 리스트에 넣음!");
+                }
+                
                 cube = n_cube;
             }   
         }
