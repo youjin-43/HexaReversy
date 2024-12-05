@@ -76,12 +76,10 @@ public class TileManager : MonoBehaviour
 
     public void UnhighlightSelectableTiles()
     {
-        Debug.Log("UnhighlightSelectableTiles 실행됨");
         //기존 아웃라인 해제
         for (int i = 0; i < BoundaryTile.Count; i++)
         {
             BoundaryTile[i].gameObject.GetComponent<Outline>().enabled = false;
-            Debug.Log(i+"번째 Boundary 아웃라인 해제");
         }
     }
 
@@ -127,7 +125,7 @@ public class TileManager : MonoBehaviour
             if (TileInfos[cube].State == -1) //todo : 여기 왜 계속 0,-1,1 키가 없다고 그러지? 
             {
                 BoundaryTile.Add(TileInfos[cube]);
-                Debug.Log("Boundary Start : " + cube);
+                //Debug.Log("Boundary Start : " + cube);
                 break;
             }
         }
@@ -136,7 +134,7 @@ public class TileManager : MonoBehaviour
         {
             //2. 그 타일의 이웃들탐색 → 먼저 0번 방향 봐서
             Cube n_cube = cube.Add(direction[0]);
-            Debug.Log("0번째 이웃 : " + n_cube);
+            //Debug.Log("0번째 이웃 : " + n_cube);
             //Tiles.ContainsKey(n_cube)
             if (!TileInfos.ContainsKey(n_cube) || TileInfos[n_cube].State == -1) //0번째 이웃이 판 사이즈를 넘었거나, 빈 타일이라면 → 반시계방향 탐색
             {

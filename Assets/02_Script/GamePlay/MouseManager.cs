@@ -70,15 +70,18 @@ public class MouseManager : MonoBehaviour
         //마우스 클릭 이벤트 - 타일놓기 
         if (Input.GetMouseButtonDown(0) && HoverdTile != null)
         {
+            
             if (Player.Instance.PunActorNumber == 1)
             {
                 HoverdTile.SetStateTo1();
                 //GameManager.Instance.tmpActorNum = 2;  //로컬 디버깅용
+                Debug.Log("1번 플레이어가 " + HoverdTile.Cube_pos + "에 타일 놓음!");
             }
             else
             {
                 HoverdTile.SetStateTo2();
                 //GameManager.Instance.tmpActorNum = 1; //로컬 디버깅용
+                Debug.Log("2번 플레이어가 " + HoverdTile.Cube_pos + "에 타일 놓음!");
             }
             HoverdTile.Flip(); //사이에 낀 상대편 돌 뒤집기 
             UnhoverTile(); //호버됐던거 언호버 
