@@ -109,23 +109,20 @@ public class TileManager : MonoBehaviour
         //기존 바운더리 삭제
         BoundaryTile.Clear();
 
-        //1. 중심에서 4번 방향으로 빈 타일이 나올떄가지 전진.
+        //1. 중심에서 4번 방향으로 빈 타일이 나올떄가지 전진. -> //todo : 맵 밖으로 나가는 경우 생각....
         Cube cube = new Cube(0, 0, 0); //center
 
         //Debug.Log("Boundary 시작 찾는중");
         for (int i = 0; i < GameManager.Instance.MapSize; i++) //어차피 size 제한이 있기 때문에 위험성 높은 while 보다는 for 사용 
         {
             cube = cube.Add(direction[4]);
-            //Debug.Log("cube Pos : " + cube);
-            //Debug.Log($"cube: {cube}, HashCode: {cube.GetHashCode()}");
-
-            
+            Debug.Log("cube Pos : " + cube);
 
             //빈 타일인지 확인 -> 처음 빈타일을 발견하면 리스트에 넣고 break.
-            if (TileInfos[cube].State == -1) //todo : 여기 왜 계속 0,-1,1 키가 없다고 그러지? 
+            if (TileInfos[cube].State == -1) 
             {
                 BoundaryTile.Add(TileInfos[cube]);
-                //Debug.Log("Boundary Start : " + cube);
+                Debug.Log("Boundary Start : " + cube);
                 break;
             }
         }
@@ -134,21 +131,21 @@ public class TileManager : MonoBehaviour
         {
             //2. 그 타일의 이웃들탐색 → 먼저 0번 방향 봐서
             Cube n_cube = cube.Add(direction[0]);
-            //Debug.Log("0번째 이웃 : " + n_cube);
-            //Tiles.ContainsKey(n_cube)
+            Debug.Log("0번째 이웃 : " + n_cube);
+
             if (!TileInfos.ContainsKey(n_cube) || TileInfos[n_cube].State == -1) //0번째 이웃이 판 사이즈를 넘었거나, 빈 타일이라면 → 반시계방향 탐색
             {
-                //Debug.Log("0번째 이웃이 빈 타일이네");
+                Debug.Log("0번째 이웃이 빈 타일이네");
 
                 for (int i = 1; i < 6; i++)
                 {
                     n_cube = cube.Add(direction[i]);
-                    //Debug.Log(i+"번째 이웃 : " + n_cube);
+                    Debug.Log(i+"번째 이웃 : " + n_cube);
 
                     //탐색하다가 이미 놓인 타일을 만난다면 그 전 방향으로 전진
                     if (TileInfos.ContainsKey(n_cube) && TileInfos[n_cube].State != -1)
                     {
-                        //Debug.Log(i + "번째 이웃이 이미 놓인 타일임!" );
+                        Debug.Log(i + "번째 이웃이 이미 놓인 타일임!" );
                         n_cube = cube.Add(direction[i - 1]);
                         
                         break;
@@ -157,31 +154,31 @@ public class TileManager : MonoBehaviour
             }
             else //이미 놓인 타일이라면 → 시계방향 탐색
             {
-                //Debug.Log("0번째 이웃엔 이미 놓인 타일이 있어요");
+                Debug.Log("0번째 이웃엔 이미 놓인 타일이 있어요");
 
                 for (int i = 5; i > 0; i--)
                 {
                     n_cube = cube.Add(direction[i]);
-                    //Debug.Log(i + "번째 이웃 : " + n_cube);
+                    Debug.Log(i + "번째 이웃 : " + n_cube);
 
                     // 탐색하다가 빈 타일을 만나면 그 타일로 전진
                     if (TileInfos[n_cube].State == -1)
                     {
-                        //Debug.Log(i + "번째 이웃이 빈타일임!");
+                        Debug.Log(i + "번째 이웃이 빈타일임!");
                         break;
                     }
                 }
             }
 
             //를 바운더리 시작지점과 만날떄까지 반복
-            if (BoundaryTile[0] == TileInfos[n_cube])
+            if (TileInfos.ContainsKey(n_cube) && BoundaryTile[0] == TileInfos[n_cube])
             {
                 break;
             }
             else
             {
                 BoundaryTile.Add(TileInfos[n_cube]);
-                //Debug.Log(n_cube + "을 바운더리 리스트에 넣음!");
+                Debug.Log(n_cube + "을 바운더리 리스트에 넣음!");
                 cube = n_cube;
             }   
         }
