@@ -198,9 +198,9 @@ public class TileManager : MonoBehaviour
             // 우선 기존 정보 초기화
             tileInfo.FlipTiles[i].Clear();
 
-            //1.빈타일이 아니라면 쭉 담음
+            //1.맵을 벗어나지 않고 빈타일이 아니라면 쭉 담음
             Cube n_cube = pos.Add(direction[i]);
-            if (TileInfos[n_cube].State != -1)
+            if (TileInfos.ContainsKey(n_cube) && TileInfos[n_cube].State != -1)
             {
                 for (int j = 1; j < GameManager.Instance.MapSize; j++) //위험성 높은 while 보다는 for 사용
                 {
