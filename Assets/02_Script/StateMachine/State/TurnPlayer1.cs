@@ -23,12 +23,13 @@ public class TurnPlayer1 : IState
         if (player.PunActorNumber==1)
         {
             MouseControll.enabled = true;
+
+            UIManager.Instance.ShowTimeSlider(); //시간제한 슬라이더 타이머 보이기
+            slider.value = GameManager.Instance.actionTime; //타이머 초기화
+            TileManager.Instance.HighlightSelectableTiles(); //돌 놓을 수 있는 곳 활성화 
         }
 
-        UIManager.Instance.ShowTimeSlider(); //시간제한 슬라이더 타이머 보이기
-        slider.value = GameManager.Instance.actionTime; //타이머 초기화
-
-        TileManager.Instance.HighlightSelectableTiles(); //돌 놓을 수 있는 곳 활성화 
+        
     }
 
     void IState.Excute()
@@ -36,13 +37,17 @@ public class TurnPlayer1 : IState
         //슬라이더 타이머 감소 
         slider.value -= Time.deltaTime;
 
-        //돌을 놓거나 시간 제한이 끝나면 
-        if (MouseControll.PutTile() || slider.value <= 0)
+        //1번 플레이어가 
+        if (player.PunActorNumber == 1)
         {
-            MouseControll.enabled = false; //마우스 클릭 비활성화
-            TileManager.Instance.UnhighlightSelectableTiles();//하이라이트 비활성화 
-            UIManager.Instance.HideTimeSlider(); //시간제한 슬라이더 숨기기 
-            player.TransitionTo(player.stateMachine.turnPlayer2); //플레이어 2의 턴으로 넘어감 
+            //돌을 놓거나 시간 제한이 끝나면 
+            if (MouseControll.PutTile() || slider.value <= 0)
+            {
+                MouseControll.enabled = false; //마우스 클릭 비활성화
+                TileManager.Instance.UnhighlightSelectableTiles();//하이라이트 비활성화 
+                UIManager.Instance.HideTimeSlider(); //시간제한 슬라이더 숨기기 
+                player.TransitionTo(player.stateMachine.turnPlayer2); //플레이어 2의 턴으로 넘어감 
+            }
         }
     }
 

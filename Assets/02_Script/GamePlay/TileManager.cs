@@ -46,8 +46,8 @@ public class TileManager : MonoBehaviour
     [SerializeField] Tilemap tilemap; //인스펙터에서 할당
 
     // Cube 좌표를 키로, 타일 오브젝트를 값으로 저장하는 딕셔너리
-    //public SerializedDictionary<Cube, TileInfo> Tiles = new SerializedDictionary<Cube, TileInfo>(); //잘 작동하는지 확인용
-    public Dictionary<Cube, TileInfo> Tiles = new Dictionary<Cube, TileInfo>();
+    public SerializedDictionary<Cube, TileInfo> Tiles = new SerializedDictionary<Cube, TileInfo>(); //잘 작동하는지 확인용
+    //public Dictionary<Cube, TileInfo> Tiles = new Dictionary<Cube, TileInfo>();
 
     public List<TileInfo> BoundaryTile;
 

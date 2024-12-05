@@ -37,7 +37,7 @@ public class GameStartManager : MonoBehaviour
         {
             _instance = this;
             Debug.Log("게임매니저가 생성됐습니다");
-            DontDestroyOnLoad(gameObject); // 씬이 변경되어도 삭제되지 않도록
+            //DontDestroyOnLoad(gameObject); // 씬이 변경되어도 삭제되지 않도록
         }
         else
         {
