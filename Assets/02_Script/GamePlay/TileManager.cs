@@ -7,7 +7,6 @@ using VInspector;
 
 public class TileManager : MonoBehaviour
 {
-    //TODO : 싱글턴으로 만들고 스테에트 머신에서 함수들 호출
     private static TileManager _instance;
     public static TileManager Instance
     {
@@ -55,19 +54,16 @@ public class TileManager : MonoBehaviour
     void Start()
     {
         AddTilesToDictionary(); //딕셔너리에 타일 등록
-    }
+    } 
 
-    public void Test()
+    public void HighlightSelectableTiles()
     {
         //기존 아웃라인 해제
-        for (int i = 0; i < BoundaryTile.Count; i++)
-        {
-            BoundaryTile[i].gameObject.GetComponent<Outline>().enabled = false;
-        }
+        //UnhighlightSelectableTiles();
 
-        FindBoundary();
+        FindBoundary(); //새로운 바운더리 탐색 
 
-        //놓을 수있는곳(놓으면 뒤집을 수 있는 곳 )만 활성화 
+        //바운더리 중 놓을 수있는곳(놓으면 뒤집을 수 있는 곳 )만 활성화 
         for(int i = 0; i < BoundaryTile.Count; i++)
         {
             if (FindFlippableTiles(BoundaryTile[i].Cube_pos) > 0)
@@ -76,7 +72,15 @@ public class TileManager : MonoBehaviour
                 BoundaryTile[i].Selectable = true;
             }
         }
-       
+    }
+
+    public void UnhighlightSelectableTiles()
+    {
+        //기존 아웃라인 해제
+        for (int i = 0; i < BoundaryTile.Count; i++)
+        {
+            BoundaryTile[i].gameObject.GetComponent<Outline>().enabled = false;
+        }
     }
 
     void AddTilesToDictionary()
@@ -207,7 +211,7 @@ public class TileManager : MonoBehaviour
                     Cube cube = tileInfo.FlipTiles[i].Peek();
 
                     //TODO : 임시 액터 넘버 나중에 플레이어 스크립트로 수정 
-                    if (Tiles[cube].State != GameManager.Instance.tmpActorNum && Tiles[cube].State != 0)
+                    if (Tiles[cube].State != Player.Instance.PunActorNumber && Tiles[cube].State != 0)
                     {
                         tileInfo.FlipTiles[i].Pop();
                     }
@@ -224,7 +228,7 @@ public class TileManager : MonoBehaviour
                     Cube cube = tileInfo.FlipTiles[i].Peek();
 
                     //TODO : 임시 액터 넘버 나중에 플레이어 스크립트로 수정 
-                    if (Tiles[cube].State == GameManager.Instance.tmpActorNum || Tiles[cube].State == 0)
+                    if (Tiles[cube].State == Player.Instance.PunActorNumber || Tiles[cube].State == 0)
                     {
                         tileInfo.FlipTiles[i].Pop();
                     }

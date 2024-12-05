@@ -12,7 +12,7 @@ public class TileInfo : MonoBehaviour
     /// 2: 후공 돌 
     /// </summary>
     public int State = -1;
-    
+    public bool Selectable = false;
 
     Tilemap tilemap; // 타일맵 컴포넌트
 
@@ -22,9 +22,8 @@ public class TileInfo : MonoBehaviour
 
 
     [Header("Flip")]
-    public bool Selectable = false;
     public Stack<Cube>[] FlipTiles;
-    [SerializeField] Material[] mat;//타일이 놓였을때 바뀔 머티리얼. 투명에서 이 머티리얼로 바꿔야함.
+    Material[] mat;//타일이 놓였을때 바뀔 머티리얼.
 
     private PhotonView pv;
     private void Awake()
@@ -34,6 +33,8 @@ public class TileInfo : MonoBehaviour
 
     void Start()
     {
+        mat = Resources.LoadAll<Material>("PlayerColor"); //인스펙터에서 할당해주기 귀찮아서..
+
         //State 초기화 
         switch (transform.parent.gameObject.name)
         {
@@ -41,10 +42,12 @@ public class TileInfo : MonoBehaviour
                 State = 0;
                 break;
             case "Blue" :
-                State = 1; //선공 
+                State = 1; //선공
+                GetComponent<MeshRenderer>().material = mat[State - 1];
                 break;
             case "Red":
-                State = 2; //후공 
+                State = 2; //후공
+                GetComponent<MeshRenderer>().material = mat[State - 1];
                 break;
             default:
                 State = -1; //아무것도 놓지 않은 상태 
@@ -63,7 +66,7 @@ public class TileInfo : MonoBehaviour
         {
             FlipTiles[i] = new Stack<Cube>(); // 각 요소에 Stack 객체 생성 및 할당
         }
-        mat = Resources.LoadAll<Material>("PlayerColor");
+       
     }
 
     [PunRPC]
@@ -93,15 +96,14 @@ public class TileInfo : MonoBehaviour
     //todo : 네트워크 버젼으로 바꿔야함! 
     public void Flip()
     {
-        Debug.Log("여기까진 실행됨!");
         foreach (Stack<Cube> st in FlipTiles)
         {
             for(int i=0; i<st.Count; i++) //위험성 높은 while 보다는 for 사용 
             {
                 TileInfo tile = TileManager.Instance.Tiles[st.Peek()];
-                if (tile.State != GameManager.Instance.tmpActorNum)
+                if (tile.State != Player.Instance.PunActorNumber)
                 {
-                    if (GameManager.Instance.tmpActorNum == 1)
+                    if (Player.Instance.PunActorNumber == 1)
                     {
                         tile.SetStateTo1_RPC();
                     }

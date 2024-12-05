@@ -26,7 +26,9 @@ public class TurnPlayer1 : IState
         }
 
         UIManager.Instance.ShowTimeSlider(); //시간제한 슬라이더 타이머 보이기
-        slider.value = GameManager.Instance.actionTime; //타이머 초기화 
+        slider.value = GameManager.Instance.actionTime; //타이머 초기화
+
+        TileManager.Instance.HighlightSelectableTiles(); //돌 놓을 수 있는 곳 활성화 
     }
 
     void IState.Excute()
@@ -37,9 +39,8 @@ public class TurnPlayer1 : IState
         //돌을 놓거나 시간 제한이 끝나면 
         if (MouseControll.PutTile() || slider.value <= 0)
         {
-            //Todo : 호버로 바꾸기 
-            //MouseControll.UnSeletTile();//아웃라인된게 있으면 끄기 
-            MouseControll.enabled = false; //마우스 클릭 비활성화 
+            MouseControll.enabled = false; //마우스 클릭 비활성화
+            TileManager.Instance.UnhighlightSelectableTiles();//하이라이트 비활성화 
             UIManager.Instance.HideTimeSlider(); //시간제한 슬라이더 숨기기 
             player.TransitionTo(player.stateMachine.turnPlayer2); //플레이어 2의 턴으로 넘어감 
         }

@@ -74,7 +74,7 @@ public class MouseManager : MonoBehaviour
             
             //todo : rpc로 바꿔야함
 
-            if (GameManager.Instance.tmpActorNum==1)
+            if (Player.Instance.PunActorNumber == 1)
             {
                 HoverdTile.SetStateTo1_RPC();
                 //GameManager.Instance.tmpActorNum = 2;  //로컬 디버깅용

@@ -38,6 +38,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public int MapSize = 5;
 
-    public int tmpActorNum = 1;
+    //public int tmpActorNum = 1; //디버깅용
 
 }
