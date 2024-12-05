@@ -105,11 +105,11 @@ public class TileInfo : MonoBehaviour
                 {
                     if (Player.Instance.PunActorNumber == 1)
                     {
-                        tile.SetStateTo1_RPC();
+                        tile.SetStateTo1();
                     }
                     else
                     {
-                        tile.SetStateTo2_RPC();
+                        tile.SetStateTo2();
                     }
                 }
                 st.Pop();

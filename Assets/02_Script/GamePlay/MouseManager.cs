@@ -76,12 +76,12 @@ public class MouseManager : MonoBehaviour
 
             if (Player.Instance.PunActorNumber == 1)
             {
-                HoverdTile.SetStateTo1_RPC();
+                HoverdTile.SetStateTo1();
                 //GameManager.Instance.tmpActorNum = 2;  //로컬 디버깅용
             }
             else
             {
-                HoverdTile.SetStateTo2_RPC();
+                HoverdTile.SetStateTo2();
                 //GameManager.Instance.tmpActorNum = 1; //로컬 디버깅용
                 
             }
