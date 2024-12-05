@@ -146,7 +146,7 @@ public class TileManager : MonoBehaviour
                     //Debug.Log(i+"번째 이웃 : " + n_cube);
 
                     //탐색하다가 이미 놓인 타일을 만난다면 그 전 방향으로 전진
-                    if (TileInfos[n_cube].State != -1)
+                    if (TileInfos.ContainsKey(n_cube) && TileInfos[n_cube].State != -1)
                     {
                         //Debug.Log(i + "번째 이웃이 이미 놓인 타일임!" );
                         n_cube = cube.Add(direction[i - 1]);
