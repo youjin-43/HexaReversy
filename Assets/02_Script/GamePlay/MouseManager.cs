@@ -49,7 +49,7 @@ public class MouseManager : MonoBehaviour
     {
         tile.GetComponent<MeshRenderer>().material= mat_hover;
         HoverdTile = tile;
-        Debug.Log(tile.Cube_pos + "is Selected");
+        //Debug.Log(tile.Cube_pos + "is Hovered");
     }
 
     public void UnhoverTile()
@@ -71,9 +71,7 @@ public class MouseManager : MonoBehaviour
         //마우스 클릭 이벤트 - 타일놓기 
         if (Input.GetMouseButtonDown(0) && HoverdTile != null)
         {
-            
-            //todo : rpc로 바꿔야함
-
+            Debug.Log("타일 놓음!! - PutTile() 안에서 실행된 디버그 ");
             if (Player.Instance.PunActorNumber == 1)
             {
                 HoverdTile.SetStateTo1();
@@ -83,7 +81,6 @@ public class MouseManager : MonoBehaviour
             {
                 HoverdTile.SetStateTo2();
                 //GameManager.Instance.tmpActorNum = 1; //로컬 디버깅용
-                
             }
             HoverdTile.Flip(); //사이에 낀 상대편 돌 뒤집기 
             UnhoverTile(); //호버됐던거 언호버 

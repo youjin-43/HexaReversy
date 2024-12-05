@@ -76,10 +76,12 @@ public class TileManager : MonoBehaviour
 
     public void UnhighlightSelectableTiles()
     {
+        Debug.Log("UnhighlightSelectableTiles 실행됨");
         //기존 아웃라인 해제
         for (int i = 0; i < BoundaryTile.Count; i++)
         {
             BoundaryTile[i].gameObject.GetComponent<Outline>().enabled = false;
+            Debug.Log(i+"번째 Boundary 아웃라인 해제");
         }
     }
 
@@ -110,10 +112,10 @@ public class TileManager : MonoBehaviour
         for (int i = 0; i < GameManager.Instance.MapSize; i++) //어차피 size 제한이 있기 때문에 위험성 높은 while 보다는 for 사용 
         {
             cube = cube.Add(direction[4]);
-            //Debug.Log("cube Pos : " + cube.q +','+ cube.r + ',' + cube.s);
+            Debug.Log("cube Pos : " + cube);
 
             //빈 타일인지 확인 -> 처음 빈타일을 발견하면 리스트에 넣고 break.
-            if (Tiles[cube].State == -1)
+            if (Tiles[cube].State == -1) //todo : 여기 왜 계속 0,-1,1 키가 없다고 그러지? 
             {
                 BoundaryTile.Add(Tiles[cube]);
                 break;

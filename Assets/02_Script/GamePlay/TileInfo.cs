@@ -98,7 +98,8 @@ public class TileInfo : MonoBehaviour
     {
         foreach (Stack<Cube> st in FlipTiles)
         {
-            for(int i=0; i<st.Count; i++) //위험성 높은 while 보다는 for 사용 
+            int s = st.Count;
+            for (int i=0; i<s; i++) //위험성 높은 while 보다는 for 사용 
             {
                 TileInfo tile = TileManager.Instance.Tiles[st.Peek()];
                 if (tile.State != Player.Instance.PunActorNumber)
