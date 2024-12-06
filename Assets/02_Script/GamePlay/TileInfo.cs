@@ -104,7 +104,7 @@ public class TileInfo : MonoBehaviour
             for (int i=0; i<s; i++) //위험성 높은 while 보다는 for 사용 
             {
                 TileInfo tile = TileManager.Instance.TileInfos[st.Peek()];
-                if (tile.State != -1 && tile.State != Player.Instance.PunActorNumber)
+                if (tile.State != Player.Instance.PunActorNumber)
                 {
                     if (Player.Instance.PunActorNumber == 1)
                     {

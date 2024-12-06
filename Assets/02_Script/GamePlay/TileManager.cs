@@ -207,7 +207,9 @@ public class TileManager : MonoBehaviour
                 for (int j = 1; j < GameManager.Instance.MapSize*2; j++) //위험성 높은 while 보다는 for 사용 -> 최대 맵 가로 사이즈 만큼 체크
                 {
                     n_cube = pos.Add(direction[i] * j);
-                    if (TileInfos.ContainsKey(n_cube))
+
+                    //맵을 벗어나거나 빈 타일이면 거기서 탐색 종료
+                    if (TileInfos.ContainsKey(n_cube) && TileInfos[n_cube].State!=-1)
                     {
                         tileInfo.FlipTiles[i].Push(n_cube);
                     }
