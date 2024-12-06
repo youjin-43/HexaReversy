@@ -68,7 +68,9 @@ public class TileInfo : MonoBehaviour
     [PunRPC]
     public void SetStateTo1_RPC()
     {
+        if (State == 2) TileManager.Instance.Cnt_state2--;
         State = 1;
+        TileManager.Instance.Cnt_state1++;
         GetComponent<MeshRenderer>().material = mat[State-1];
     }
 
@@ -80,7 +82,9 @@ public class TileInfo : MonoBehaviour
    [PunRPC]
     public void SetStateTo2_RPC()
     {
+        if(State == 1) TileManager.Instance.Cnt_state1--;
         State = 2;
+        TileManager.Instance.Cnt_state2++;
         GetComponent<MeshRenderer>().material = mat[State-1];
     }
 
@@ -89,6 +93,8 @@ public class TileInfo : MonoBehaviour
         pv.RPC("SetStateTo2_RPC", RpcTarget.All);
     }
 
+
+    /// <summary> 스택에 있는 타일을 뒤집기! </summary>
     public void Flip()
     {
         foreach (Stack<Cube> st in FlipTiles)

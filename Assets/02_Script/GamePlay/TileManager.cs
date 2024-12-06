@@ -49,11 +49,17 @@ public class TileManager : MonoBehaviour
     //public SerializedDictionary<Cube, TileInfo> TileInfos = new SerializedDictionary<Cube, TileInfo>(); //잘 작동하는지 확인용
     public Dictionary<Cube, TileInfo> TileInfos = new Dictionary<Cube, TileInfo>();
 
+    /// <summary> center제외 총 타일의 갯수 </summary>
+    public int Total_tile_cnt;
+    public int Cnt_state1 = 3; //초기상태 3
+    public int Cnt_state2 = 3; 
+
     public List<TileInfo> BoundaryTile;
 
     void Start()
     {
         AddTilesToDictionary(); //딕셔너리에 타일 등록
+        Total_tile_cnt = TileInfos.Count-1; //센터 제외 
     } 
 
     public void HighlightSelectableTiles()

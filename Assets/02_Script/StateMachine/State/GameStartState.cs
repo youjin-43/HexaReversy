@@ -4,7 +4,7 @@ public class GameStartState : IState
 {
     Player player;
     MouseManager MouseControll;
-    float TimeLimit = 1.5f;
+    float TimeLimit = 2.5f;
     float timer = 0;
 
     //생성자
