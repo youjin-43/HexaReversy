@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour
             Debug.Log("Destroy UIManager");
         }
         #endregion
-        SetPlayerName();
+       
     }
 
 
@@ -41,6 +41,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        SetPlayerName();
         HideTimeSlider();
     }
 

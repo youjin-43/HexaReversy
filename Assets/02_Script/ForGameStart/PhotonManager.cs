@@ -35,7 +35,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         //플레이어가 네트워크에서 사용할 닉네임을 설정. 서버로 보낼 나의 아이디. 
         //TODO : 이거 나중에 게임 매니저 만들어서 바꿔야할듯 
         PhotonNetwork.NickName = userID.text;
-        GameManager.Instance.UserName = userID.text;
+        //GameManager.Instance.UserName = userID.text;
 
         // 포톤 서버와 통신 횟수 확인. 초당 30회. 30이 떠야 정상
         Debug.Log("포톤 서버와 통신 횟수 확인 : " + PhotonNetwork.SendRate);

@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     }
 
     [Header("UserInfo")]
-    public string UserName;
+    //public string UserName;
     //public int tmpActorNum = 1; //디버깅용
 
 
