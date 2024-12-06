@@ -33,9 +33,7 @@ public class GameManager : MonoBehaviour
 
 
     //TODO : 나중에는 맵 사이즈도 설정하면 좋을듯 
-    /// <summary>
-    /// 중앙 타일로부터 몇개까지 뻗어있는지 
-    /// </summary>
+    /// <summary> 중앙 타일로부터 몇개까지 뻗어있는지 </summary>
     public int MapSize = 5;
 
     //public int tmpActorNum = 1; //디버깅용

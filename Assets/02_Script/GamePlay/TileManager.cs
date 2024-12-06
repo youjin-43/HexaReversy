@@ -46,8 +46,8 @@ public class TileManager : MonoBehaviour
     [SerializeField] Tilemap tilemap; //인스펙터에서 할당
 
     // Cube 좌표를 키로, 타일 오브젝트를 값으로 저장하는 딕셔너리
-    public SerializedDictionary<Cube, TileInfo> TileInfos = new SerializedDictionary<Cube, TileInfo>(); //잘 작동하는지 확인용
-    //public Dictionary<Cube, TileInfo> TileInfos = new Dictionary<Cube, TileInfo>();
+    //public SerializedDictionary<Cube, TileInfo> TileInfos = new SerializedDictionary<Cube, TileInfo>(); //잘 작동하는지 확인용
+    public Dictionary<Cube, TileInfo> TileInfos = new Dictionary<Cube, TileInfo>();
 
     public List<TileInfo> BoundaryTile;
 
@@ -58,9 +58,6 @@ public class TileManager : MonoBehaviour
 
     public void HighlightSelectableTiles()
     {
-        //기존 아웃라인 해제
-        //UnhighlightSelectableTiles();
-
         FindBoundary(); //새로운 바운더리 탐색 
 
         //바운더리 중 놓을 수있는곳(놓으면 뒤집을 수 있는 곳 )만 활성화 
@@ -76,7 +73,6 @@ public class TileManager : MonoBehaviour
 
     public void UnhighlightSelectableTiles()
     {
-        //기존 아웃라인 해제
         for (int i = 0; i < BoundaryTile.Count; i++)
         {
             BoundaryTile[i].gameObject.GetComponent<Outline>().enabled = false;
@@ -91,7 +87,6 @@ public class TileManager : MonoBehaviour
             TileInfos.Add(list[i].Cube_pos, list[i]);
         }
 
-
         //foreach (var key in TileInfos.Keys)
         //{
         //    Debug.Log($"Key: {key}, HashCode: {key.GetHashCode()}");
@@ -100,16 +95,13 @@ public class TileManager : MonoBehaviour
 
 
     //TODO  : 아 이거 매번 다시 찾는게 아니라 새로운 부분만 update해서 뭔가 최적화 할 수있을것 같은데 우선 맵이 작아 큰 문제가 없으니 프로젝트 끝나고 만족하면 개선해보는걸로....
-    //TODO : 이거 맵 넘어가는 경우도 처리해야하는것 같은데ㅋㅋㅋㅋㄴ
-    /// <summary>
-    /// 가장 바깥쪽에 놓인 타일들의 그 다음 빈 타일들, 바운더리 타일을 찾음
-    /// </summary>
+    /// <summary> 가장 바깥쪽에 놓인 타일들의 그 다음 빈 타일들, 바운더리 타일을 찾음 </summary>
     void FindBoundary()
     {
         //기존 바운더리 삭제
         BoundaryTile.Clear();
 
-        //1. 중심에서 4번 방향으로 빈 타일이 나올떄가지 전진. -> //todo : 맵 밖으로 나가는 경우 생각.... -> 어찌저찌 된거같은데? 
+        //1. 중심에서 4번 방향으로 빈 타일||맵 끝 이 나올떄가지 전진.
         Cube cube = new Cube(0, 0, 0); //center
 
         //Debug.Log("Boundary 시작 찾는중");
@@ -182,7 +174,6 @@ public class TileManager : MonoBehaviour
                     BoundaryTile.Add(TileInfos[n_cube]);
                     //Debug.Log(n_cube + "을 바운더리 리스트에 넣음!");
                 }
-                
                 cube = n_cube;
             }   
         }
@@ -224,7 +215,6 @@ public class TileManager : MonoBehaviour
                 {
                     Cube cube = tileInfo.FlipTiles[i].Peek();
 
-                    //TODO : 임시 액터 넘버 나중에 플레이어 스크립트로 수정 
                     if (TileInfos[cube].State != Player.Instance.PunActorNumber && TileInfos[cube].State != 0)
                     {
                         tileInfo.FlipTiles[i].Pop();
@@ -241,7 +231,6 @@ public class TileManager : MonoBehaviour
                 {
                     Cube cube = tileInfo.FlipTiles[i].Peek();
 
-                    //TODO : 임시 액터 넘버 나중에 플레이어 스크립트로 수정 
                     if (TileInfos[cube].State == Player.Instance.PunActorNumber || TileInfos[cube].State == 0)
                     {
                         tileInfo.FlipTiles[i].Pop();
@@ -257,9 +246,9 @@ public class TileManager : MonoBehaviour
                 ret += tileInfo.FlipTiles[i].Count;
 
             }//이웃한 돌이 있다면 
-        }//방향 확인 
-        return ret;
+        }//방향 확인
 
+        return ret;
     }
 
 }

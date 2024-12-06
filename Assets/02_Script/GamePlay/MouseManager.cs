@@ -50,17 +50,14 @@ public class MouseManager : MonoBehaviour
 
     public void UnhoverTile()
     {
-
-        //TODO : 타일 인포에서 가져오는건데 괜찮나,,? -> 에.. 작동 잘 되네...?
-
         //TODO : 이거 어차피 스테이트 머신 들어가면 바로 꺼질거라 상관없을것 같긴한데 우선 놔둬보자 
         if (HoverdTile.State == -1)
         {
             HoverdTile.GetComponent<MeshRenderer>().material = basic;
         }
         HoverdTile = null;
-        
     }
+
     /// <summary>
     /// 타일을 놓으면 true 반환
     /// </summary>
@@ -70,7 +67,6 @@ public class MouseManager : MonoBehaviour
         //마우스 클릭 이벤트 - 타일놓기 
         if (Input.GetMouseButtonDown(0) && HoverdTile != null)
         {
-            
             if (Player.Instance.PunActorNumber == 1)
             {
                 HoverdTile.SetStateTo1();

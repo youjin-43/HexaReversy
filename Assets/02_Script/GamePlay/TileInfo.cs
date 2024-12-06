@@ -6,10 +6,7 @@ using UnityEngine.Tilemaps;
 public class TileInfo : MonoBehaviour
 {
     /// <summary>
-    /// -1: 아무도 놓지 않은 상태 
-    /// 0: Center
-    /// 1: 선공 돌     
-    /// 2: 후공 돌 
+    /// -1: 아무도 놓지 않은 상태, 0: Center, 1: 선공 돌, 2: 후공 돌 
     /// </summary>
     public int State = -1;
     public bool Selectable = false;
@@ -19,7 +16,6 @@ public class TileInfo : MonoBehaviour
     [Header("Position")]
     public Vector3Int Oddr_pos;
     public Cube Cube_pos;
-
 
     [Header("Flip")]
     public Stack<Cube>[] FlipTiles;
@@ -54,19 +50,19 @@ public class TileInfo : MonoBehaviour
                 break;
         }
 
+        Selectable = false;
+
         //Position
         tilemap = transform.parent.parent.GetComponent<Tilemap>();
         Oddr_pos = tilemap.WorldToCell(transform.position);
         Cube_pos = new Cube().oddr_to_cube(Oddr_pos);
 
         //Flip
-        Selectable = false;
         FlipTiles = new Stack<Cube>[6];
         for (int i = 0; i < FlipTiles.Length; i++)
         {
             FlipTiles[i] = new Stack<Cube>(); // 각 요소에 Stack 객체 생성 및 할당
         }
-       
     }
 
     [PunRPC]
@@ -93,7 +89,6 @@ public class TileInfo : MonoBehaviour
         pv.RPC("SetStateTo2_RPC", RpcTarget.All);
     }
 
-    //todo : 네트워크 버젼으로 바꿔야함! 
     public void Flip()
     {
         foreach (Stack<Cube> st in FlipTiles)

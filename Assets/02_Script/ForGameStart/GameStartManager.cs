@@ -27,7 +27,6 @@ public class GameStartManager : MonoBehaviour
         }
     }
 
-    //TODO : 포톤매니저가 먼저 실행된 후 이게 실행되는게 맞겠지? 우선 해보고 실험ㄱㄱ
     private PhotonView pv;
     private void Awake()
     {
@@ -79,10 +78,7 @@ public class GameStartManager : MonoBehaviour
 
 
     #region GameStart 
-    //포톤 매니저에서 두번째 참여(클라이언트)가 오면 이걸 호출
-    /// <summary>
-    /// 마스터에게 게임 씬 로드하라고 명령하는 함수 
-    /// </summary>
+    /// <summary> 마스터에게 게임 씬 로드하라고 명령하는 함수 -> 포톤 매니저에서 두번째 참여(클라이언트)가 오면 이걸 호출 </summary>
     [PunRPC]
     private void GameStart_RPC()
     {

@@ -47,10 +47,6 @@ public class TurnPlayer2 : IState
                 UIManager.Instance.HideTimeSlider(); //시간제한 슬라이더 숨기기 
                 player.TransitionTo(player.stateMachine.turnPlayer1); //플레이어 1의 턴으로 넘어감 
             }
-
-            //bool tmp = MouseControll.PutTile();
-            //Debug.Log("마우스 클릭" + tmp);
-            //if (tmp) player.TransitionTo(player.stateMachine.turnPlayer1); //플레이어 2의 턴으로 넘어감 
         }
 
     }
