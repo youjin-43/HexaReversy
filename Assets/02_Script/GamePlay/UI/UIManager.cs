@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using Photon.Pun;
+
 public class UIManager : MonoBehaviour
 {
     private static UIManager _instance;
@@ -27,15 +30,46 @@ public class UIManager : MonoBehaviour
             Debug.Log("Destroy UIManager");
         }
         #endregion
+        SetPlayerName();
     }
+
+
+    [SerializeField] Animator OpponentIntroUI; //인스펙터에서 할당 
+    [SerializeField] Animator MainPanel; //인스펙터에서 할당 
+    
+
 
     private void Start()
     {
         HideTimeSlider();
     }
 
-    [SerializeField] Animator OpponentIntroUI;
-    [SerializeField] Animator MainPanel;
+
+
+    [SerializeField] TextMeshProUGUI IntroMyName; //인스펙터에서 할당 
+    [SerializeField] TextMeshProUGUI IntroOppName; //인스펙터에서 할당
+
+    [SerializeField] TextMeshProUGUI MainUIMyName; //인스펙터에서 할당 
+    [SerializeField] TextMeshProUGUI MainUIOppName; //인스펙터에서 할당 
+
+    void SetPlayerName()
+    {
+        foreach (var player in PhotonNetwork.CurrentRoom.Players)
+        {
+            if(player.Value.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
+            {
+                IntroMyName.text = PhotonNetwork.LocalPlayer.NickName;
+                MainUIMyName.text = PhotonNetwork.LocalPlayer.NickName;
+            }
+            else
+            {
+                IntroOppName.text = player.Value.NickName;
+                MainUIOppName.text = player.Value.NickName;
+            }
+        }
+    }
+
+
 
     public void PlayIntroUI()
     {

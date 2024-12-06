@@ -35,6 +35,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         //플레이어가 네트워크에서 사용할 닉네임을 설정. 서버로 보낼 나의 아이디. 
         //TODO : 이거 나중에 게임 매니저 만들어서 바꿔야할듯 
         PhotonNetwork.NickName = userID.text;
+        GameManager.Instance.UserName = userID.text;
 
         // 포톤 서버와 통신 횟수 확인. 초당 30회. 30이 떠야 정상
         Debug.Log("포톤 서버와 통신 횟수 확인 : " + PhotonNetwork.SendRate);
@@ -127,8 +128,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
             Debug.Log("Game Start!");
 
-            Invoke("SetFindedText", 3f);
-            //TODO : Finded! -> 아니 근데 이거 체감상 6초가 아닌것 같은데 착각인가; 
+            Invoke("SetFindedText", 3f); 
             Invoke("GameStart", 4f); //게임 씬으로 이동 
            
         }
@@ -137,6 +137,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     //Invoke에서 실행하려고 그냥 이렇게 만들음
     void SetFindedText()
     {
+        //TODO ; 찾았다는 브금 추가!!
         GSM.SetFindedText();
     }
     void GameStart()

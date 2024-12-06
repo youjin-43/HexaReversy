@@ -14,8 +14,7 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
             Debug.Log("GameManager가 생성됐습니다");
-            //TODO : 이후 씬 변동이 있다면 나중에 활성화 
-            //DontDestroyOnLoad(gameObject); // 씬이 변경되어도 삭제되지 않도록
+            DontDestroyOnLoad(gameObject); // 씬이 변경되어도 삭제되지 않도록
         }
         else
         {
@@ -27,15 +26,18 @@ public class GameManager : MonoBehaviour
         #endregion
     }
 
-    //TODO : 스테이트 머신이 있어서..게임 매니저의 쓸모가 없어졌긴 했는데 이게 맞나ㅣ
+    [Header("UserInfo")]
+    public string UserName;
+    //public int tmpActorNum = 1; //디버깅용
 
-    public float actionTime = 10f; // 행동할 수 있는 시간
 
+
+    [Header("GamePlay")]
+    /// <summary> 행동할 수 있는 시간 </summary>
+    public float actionTime = 10f;
 
     //TODO : 나중에는 맵 사이즈도 설정하면 좋을듯 
     /// <summary> 중앙 타일로부터 몇개까지 뻗어있는지 </summary>
     public int MapSize = 5;
-
-    //public int tmpActorNum = 1; //디버깅용
 
 }
