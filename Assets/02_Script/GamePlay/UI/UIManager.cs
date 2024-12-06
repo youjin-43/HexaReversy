@@ -45,8 +45,27 @@ public class UIManager : MonoBehaviour
         HideTimeSlider();
     }
 
+    [Header("TileCount")]
+    public TextMeshProUGUI Cnt_Mytile; //인스펙터에서 할당
+    public TextMeshProUGUI Cnt_Opptile; //인스펙터에서 할당
+
+    public void UpdateTileCntUI()
+    {
+        if(Player.Instance.PunActorNumber == 1)
+        {
+            Cnt_Mytile.text = TileManager.Instance.Cnt_state1.ToString();
+            Cnt_Opptile.text = TileManager.Instance.Cnt_state2.ToString();
+        }
+        else
+        {
+            Cnt_Mytile.text = TileManager.Instance.Cnt_state2.ToString();
+            Cnt_Opptile.text = TileManager.Instance.Cnt_state1.ToString();
+        }
+       
+    }
 
 
+    [Header("PlayerName")]
     [SerializeField] TextMeshProUGUI IntroMyName; //인스펙터에서 할당 
     [SerializeField] TextMeshProUGUI IntroOppName; //인스펙터에서 할당
 

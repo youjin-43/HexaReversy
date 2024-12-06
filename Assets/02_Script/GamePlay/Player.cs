@@ -43,8 +43,6 @@ public class Player : MonoBehaviour
         PunActorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
         Debug.Log("내 ActorNumber: " + PunActorNumber);
         stateMachine.Initialize(stateMachine.gameStartState); //GameStartState로 시작
-
-        //TODO : UI 효과중에는 클릭 안먹게 하고싶은데...
     }
 
 

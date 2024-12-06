@@ -33,7 +33,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         //PhotonNetwork.GameVersion = version;
 
         //플레이어가 네트워크에서 사용할 닉네임을 설정. 서버로 보낼 나의 아이디. 
-        //TODO : 이거 나중에 게임 매니저 만들어서 바꿔야할듯 
         PhotonNetwork.NickName = userID.text;
         //GameManager.Instance.UserName = userID.text;
 

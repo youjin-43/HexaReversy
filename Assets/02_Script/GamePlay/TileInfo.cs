@@ -72,11 +72,13 @@ public class TileInfo : MonoBehaviour
         State = 1;
         TileManager.Instance.Cnt_state1++;
         GetComponent<MeshRenderer>().material = mat[State-1];
+        UIManager.Instance.UpdateTileCntUI();
     }
 
     public void SetStateTo1()
     {
         pv.RPC("SetStateTo1_RPC", RpcTarget.All);
+        
     }
 
    [PunRPC]
@@ -86,11 +88,13 @@ public class TileInfo : MonoBehaviour
         State = 2;
         TileManager.Instance.Cnt_state2++;
         GetComponent<MeshRenderer>().material = mat[State-1];
+        UIManager.Instance.UpdateTileCntUI();
     }
 
     public void SetStateTo2()
     {
         pv.RPC("SetStateTo2_RPC", RpcTarget.All);
+        
     }
 
 
