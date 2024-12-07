@@ -257,4 +257,7 @@ public class TileManager : MonoBehaviour
         return ret;
     }
 
+    public bool Check_IsGameEnd(){
+        return Total_tile_cnt ==(Cnt_state1+Cnt_state2);
+    }
 }

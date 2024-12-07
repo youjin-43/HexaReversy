@@ -45,7 +45,12 @@ public class TurnPlayer2 : IState
                 TileManager.Instance.UnhighlightSelectableTiles();//하이라이트 비활성화 
                 MouseControll.enabled = false; //마우스 클릭 비활성화 
                 UIManager.Instance.HideTimeSlider(); //시간제한 슬라이더 숨기기 
-                player.TransitionTo(player.stateMachine.turnPlayer1); //플레이어 1의 턴으로 넘어감 
+
+                if(TileManager.Instance.Check_IsGameEnd()){
+                    player.TransitionTo(player.stateMachine.endState); //게임 끝 
+                }else{
+                    player.TransitionTo(player.stateMachine.turnPlayer1); //플레이어 1의 턴으로 넘어감 
+                }
             }
         }
 

@@ -67,7 +67,9 @@ public class Player : MonoBehaviour
             case "TurnPlayer2":
                 stateMachine.SetStateToTurnPlayer2();
                 break;
-
+            case "EndState":
+                stateMachine.SetStateToEnd();
+                break;
                 // TODO :다른 상태들 추가...
         }
 

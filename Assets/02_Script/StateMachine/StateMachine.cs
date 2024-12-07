@@ -42,9 +42,10 @@ public class StateMachine
     //각 스테이트로 셋팅 
     public void SetStateToTurnPlayer1(){ CurrentState = turnPlayer1; }
     public void SetStateToTurnPlayer2(){ CurrentState = turnPlayer2; }
+    public void SetStateToEnd() { CurrentState = endState; }
 
     //이 뒤는 아직 덜 구현돼서 미사용하는 상태들 
     public void SetStateToWin() { CurrentState = winState; }
     public void SetStateToLose() { CurrentState = loseState; }
-    public void SetStateToEnd() { CurrentState = endState; }
+    
 }
