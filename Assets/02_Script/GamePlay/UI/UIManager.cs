@@ -43,6 +43,7 @@ public class UIManager : MonoBehaviour
     {
         SetPlayerName();
         HideTimeSlider();
+        UpdateTileCntUI();
     }
 
     [Header("TileCount")]
