@@ -131,9 +131,42 @@ public class UIManager : MonoBehaviour
 
     [Header("End Game")]
     public GameObject EndUI; //인스펙터에서 할당
+    public TextMeshProUGUI Text_WinOrLose; //인스펙터에서 할당
     public GameObject FadeOutObj;
+
+    void SetWinOrLoseText()
+    {
+        if (TileManager.Instance.Cnt_state1 == TileManager.Instance.Cnt_state2)
+        {
+            Text_WinOrLose.text = "Deuce!";
+        }
+        else if(TileManager.Instance.Cnt_state1 > TileManager.Instance.Cnt_state2)
+        {
+            if(Player.Instance.PunActorNumber == 1)
+            {
+                Text_WinOrLose.text = "Win!";
+            }
+            else
+            {
+                Text_WinOrLose.text = "Lose!";
+            }
+        }
+        else
+        {
+            if (Player.Instance.PunActorNumber == 1)
+            {
+                Text_WinOrLose.text = "Lose!";
+            }
+            else
+            {
+                Text_WinOrLose.text = "Win!";
+            }
+        }
+    }
+
     public void ShowEndUI()
     {
+        SetWinOrLoseText();
         EndUI.SetActive(true);
     }
 
