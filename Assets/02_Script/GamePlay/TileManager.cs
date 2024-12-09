@@ -211,7 +211,7 @@ public class TileManager : MonoBehaviour
             for (int i = 0; i < 6; i++)
             {
                 Cube n_cube = cube.Add(direction[i]);
-                if (AllTiles[n_cube].State != -1)
+                if (AllTiles.ContainsKey(n_cube) && AllTiles[n_cube].State != -1)
                 {
                     BoundaryTile.Add(AllTiles[n_cube]);
                     break;
