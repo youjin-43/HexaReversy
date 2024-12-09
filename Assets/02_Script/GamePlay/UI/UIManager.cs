@@ -141,4 +141,21 @@ public class UIManager : MonoBehaviour
     {
         FadeOutObj.GetComponent<Animator>().SetTrigger("FadeOut");
     }
+
+
+    [Header("ESC")]
+    public GameObject ESCUI; //인스펙터에서 할당
+    public void ShowOrHide_ESCUI()
+    {
+        if (ESCUI.GetComponent<CanvasGroup>().alpha == 1)
+        {
+            ESCUI.GetComponent<CanvasGroup>().alpha = 0;
+        }
+        else
+        {
+            ESCUI.GetComponent<CanvasGroup>().alpha = 1;
+        }
+        
+    }
+
 }
