@@ -62,7 +62,7 @@ public class MouseManager : MonoBehaviour
     /// 타일을 놓으면 true 반환
     /// </summary>
     /// <returns></returns>
-    public bool PutTile()
+    public Cube PutTile()
     {
         //마우스 클릭 이벤트 - 타일놓기 
         if (Input.GetMouseButtonDown(0) && HoverdTile != null)
@@ -79,11 +79,12 @@ public class MouseManager : MonoBehaviour
                 //GameManager.Instance.tmpActorNum = 1; //로컬 디버깅용
                 Debug.Log("2번 플레이어가 " + HoverdTile.Cube_pos + "에 타일 놓음!");
             }
-            HoverdTile.Flip(); //사이에 낀 상대편 돌 뒤집기 
+            Cube ret = HoverdTile.Cube_pos;
+            //HoverdTile.Flip(); //사이에 낀 상대편 돌 뒤집기 
             UnhoverTile(); //호버됐던거 언호버 
-            return true;
+            return ret;
         }
-        return false;
+        return null;
     }
 
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -44,34 +45,47 @@ public class TurnPlayer1 : IState
         
     }
 
+
     void IState.Excute()
     {
-        //슬라이더 타이머 감소 
+        // 슬라이더 타이머 감소
         slider.value -= Time.deltaTime;
 
-        //1번 플레이어가 
+        // 1번 플레이어가 
         if (player.PunActorNumber == 1)
         {
-            //돌을 놓거나 시간 제한이 끝나면
-            bool isPUT = MouseControll.PutTile();
-            if (isPUT || slider.value <= 0)
+            // 돌을 놓거나 시간 제한이 끝나면
+            Cube isPUT = MouseControll.PutTile();
+            if (isPUT != null || slider.value <= 0)
             {
-                //시간 안에 돌을 놓지 못한경우 랜덤으로 알아서 타일을 놔줌
-                if (isPUT == false) TileManager.Instance.PutTile_InRandomPos();
+                // 시간 안에 돌을 놓지 못한 경우 랜덤으로 알아서 타일을 놔줌
+                if (isPUT == null) TileManager.Instance.PutTile_InRandomPos();
 
-                MouseControll.enabled = false; //마우스 클릭 비활성화
-                TileManager.Instance.UnhighlightSelectableTiles();//하이라이트 비활성화 
-                UIManager.Instance.HideTimeSlider(); //시간제한 슬라이더 숨기기 
+                MouseControll.enabled = false; // 마우스 클릭 비활성화
+                TileManager.Instance.UnhighlightSelectableTiles(); // 하이라이트 비활성화 
+                UIManager.Instance.HideTimeSlider(); // 시간제한 슬라이더 숨기기
 
-                if(TileManager.Instance.Check_IsGameEnd()){
-                    player.TransitionTo(player.stateMachine.endState); //게임 끝 
-                }else{
-                    player.TransitionTo(player.stateMachine.turnPlayer2); //플레이어 2의 턴으로 넘어감 
-                }
-                
+                // 여기서 뒤집는 코루틴이 끝날 때까지 기다렸다가 다음 함수 실행
+                CoroutineRunner.Instance.RunCoroutine(
+                    TileManager.Instance.AllTiles[isPUT].FlipWithDelay(), // 코루틴 호출
+                    () =>
+                    {
+                    // 코루틴 완료 후 실행
+                    if (TileManager.Instance.Check_IsGameEnd())
+                        {
+                            player.TransitionTo(player.stateMachine.endState); // 게임 끝
+                    }
+                        else
+                        {
+                            player.TransitionTo(player.stateMachine.turnPlayer2); // 플레이어 2의 턴으로 넘어감
+                    }
+                    }
+                );
             }
         }
     }
+
+
 
     void IState.Exit()
     {

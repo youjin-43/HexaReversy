@@ -121,7 +121,7 @@ public class TileInfo : MonoBehaviour
         StartCoroutine(FlipWithDelay());
     }
 
-    private IEnumerator FlipWithDelay()
+    public IEnumerator FlipWithDelay()
     {
         for (int s = 0; s < 6; s++)
         {
