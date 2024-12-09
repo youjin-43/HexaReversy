@@ -106,7 +106,19 @@ public class UIManager : MonoBehaviour
 
 
     #region Action Time
+    [Header("Action Time")]
+    public TextMeshProUGUI Pass_text; //인스펙터에서 할당
     public Slider TimeSlider;
+
+    public void ShowPassText()
+    {
+        Pass_text.gameObject.SetActive(true);
+    }
+
+    public void HidePassText()
+    {
+        Pass_text.gameObject.SetActive(false);
+    }
 
     public void ShowTimeSlider()
     {

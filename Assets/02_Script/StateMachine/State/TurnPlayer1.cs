@@ -19,14 +19,26 @@ public class TurnPlayer1 : IState
     {
         Debug.Log("현재 State : TurnPlayer1");
 
-        //1번 플레이어는 마우스 클릭 활성화 
         if (player.PunActorNumber==1)
         {
-            MouseControll.enabled = true;
+            TileManager.Instance.HighlightSelectableTiles(); //돌 놓을 수 있는 곳 활성화
 
-            UIManager.Instance.ShowTimeSlider(); //시간제한 슬라이더 타이머 보이기
-            slider.value = GameManager.Instance.actionTime; //타이머 초기화
-            TileManager.Instance.HighlightSelectableTiles(); //돌 놓을 수 있는 곳 활성화 
+            if (TileManager.Instance.SelectableBoundaryTile.Count > 0)
+            {
+                //놓을 수 있는 곳이 있으면 1번 플레이어는 마우스 클릭 활성화 
+                MouseControll.enabled = true;
+                UIManager.Instance.ShowTimeSlider(); //시간제한 슬라이더 타이머 보이기
+                slider.value = GameManager.Instance.actionTime; //타이머 초기화
+            }
+            else
+            {
+                //돌을 놓을 수 있는곳이 없으면 pass 보여주고 바로 다음턴으로 넘어감
+                UIManager.Instance.ShowPassText();
+
+                //todo : 타이머 재활용 할 수 있으려나?
+                slider.value = 2; //타이머 초기화 -> 2초뒤 넘어가도록 
+            }
+            
         }
 
         

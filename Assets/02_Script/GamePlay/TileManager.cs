@@ -55,6 +55,7 @@ public class TileManager : MonoBehaviour
     public int Cnt_state2 = 3; 
 
     public List<TileInfo> BoundaryTile;
+    public List<TileInfo> SelectableBoundaryTile;
 
     void Start()
     {
@@ -71,6 +72,7 @@ public class TileManager : MonoBehaviour
         {
             if (FindFlippableTiles(BoundaryTile[i].Cube_pos) > 0)
             {
+                SelectableBoundaryTile.Add(BoundaryTile[i]);
                 BoundaryTile[i].gameObject.GetComponent<Outline>().enabled = true;
                 BoundaryTile[i].Selectable = true;
             }
