@@ -113,10 +113,15 @@ public class TileInfo : MonoBehaviour
             Stack<Cube> st = FlipTiles[k];
             int s = st.Count;
             Debug.Log("Stack size = " + s);
+            int angle = 180 - 60 * k;
 
             for (int i=0; i<s; i++) //위험성 높은 while 보다는 for 사용 
             {
                 TileInfo tile = TileManager.Instance.AllTiles[st.Peek()];
+
+                //방향에 따라 회전 
+                tile.rotate.transform.eulerAngles = new Vector3(tile.rotate.transform.eulerAngles.x, angle, tile.rotate.transform.eulerAngles.z);
+
 
                 //center도 아니고 내 타일도 아니라면  
                 if (tile.State != 0 && tile.State != Player.Instance.PunActorNumber )
