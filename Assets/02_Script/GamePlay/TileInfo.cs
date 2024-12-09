@@ -73,7 +73,7 @@ public class TileInfo : MonoBehaviour
         TileManager.Instance.Cnt_state1++;
         TileManager.Instance.EraseInEmptyTilesDic(Cube_pos);
 
-
+        GetComponent<Animator>().SetTrigger("Flip");
         GetComponent<MeshRenderer>().material = mat[State-1];
         UIManager.Instance.UpdateTileCntUI();
     }
@@ -92,6 +92,7 @@ public class TileInfo : MonoBehaviour
         TileManager.Instance.Cnt_state2++;
         TileManager.Instance.EraseInEmptyTilesDic(Cube_pos);
 
+        GetComponent<Animator>().SetTrigger("Flip");
         GetComponent<MeshRenderer>().material = mat[State-1];
         UIManager.Instance.UpdateTileCntUI();
     }
