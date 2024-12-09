@@ -317,7 +317,7 @@ public class TileManager : MonoBehaviour
     }
 
 
-    public void PutTile_InRandomPos()
+    public Cube PutTile_InRandomPos()
     {
         Debug.Log("PutTile_InRandomPos함수 실행 ");
         //바운더리 중 놓을 수있는곳(selectable == true)인 곳 중 랜덤으로 타일 놓음
@@ -343,7 +343,8 @@ public class TileManager : MonoBehaviour
             randomTile.SetStateTo2();
             Debug.Log("2번 플레이어가 " + randomTile.Cube_pos + "에 타일 놓음!");
         }
-        randomTile.Flip(); //사이에 낀 상대편 돌 뒤집기 
+        //randomTile.Flip(); //사이에 낀 상대편 돌 뒤집기
+        return randomTile.Cube_pos;
     }
     
 

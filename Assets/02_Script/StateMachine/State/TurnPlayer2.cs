@@ -68,15 +68,15 @@ public class TurnPlayer2 : IState
                     TileManager.Instance.AllTiles[isPUT].FlipWithDelay(), // 코루틴 호출
                     () =>
                     {
-                    // 코루틴 완료 후 실행
-                    if (TileManager.Instance.Check_IsGameEnd())
+                        // 코루틴 완료 후 실행
+                        if (TileManager.Instance.Check_IsGameEnd())
                         {
                             player.TransitionTo(player.stateMachine.endState); // 게임 끝
-                    }
+                        }
                         else
                         {
-                            player.TransitionTo(player.stateMachine.turnPlayer2); // 플레이어 2의 턴으로 넘어감
-                    }
+                            player.TransitionTo(player.stateMachine.turnPlayer1); // 플레이어 2의 턴으로 넘어감
+                        }
                     }
                 );
             }
