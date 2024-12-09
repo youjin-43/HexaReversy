@@ -18,6 +18,7 @@ public class TileInfo : MonoBehaviour
     public Cube Cube_pos;
 
     [Header("Flip")]
+    Rotate rotate;
     public Stack<Cube>[] FlipTiles;
     Material[] mat;//타일이 놓였을때 바뀔 머티리얼.
 
@@ -58,6 +59,7 @@ public class TileInfo : MonoBehaviour
         Cube_pos = new Cube().oddr_to_cube(Oddr_pos);
 
         //Flip
+        rotate = transform.parent.GetComponent<Rotate>();
         FlipTiles = new Stack<Cube>[6];
         for (int i = 0; i < FlipTiles.Length; i++)
         {
@@ -118,6 +120,7 @@ public class TileInfo : MonoBehaviour
                 //center도 아니고 내 타일도 아니라면  
                 if (tile.State != 0 && tile.State != Player.Instance.PunActorNumber )
                 {
+                    tile.rotate.RotateTile();
                     if (Player.Instance.PunActorNumber == 1)
                     {
                         tile.SetStateTo1();
