@@ -118,10 +118,6 @@ public class TileInfo : MonoBehaviour
 
     public void Flip()
     {
-        pv.RPC("Flip_RPC", RpcTarget.All);
-    }
-    public void Flip_RPC()
-    {
         StartCoroutine(FlipWithDelay());
     }
 
@@ -143,7 +139,7 @@ public class TileInfo : MonoBehaviour
 
 
             int cnt = st.Count;
-            int angle = 180 - 60 * s;
+            float angle = 180 - 60 * s;
             //Debug.Log(s + "번째 Stack size = " + cnt + "angle : " + angle);
 
             for (int i = 0; i < cnt; i++) // while 대신 for 사용
@@ -153,22 +149,16 @@ public class TileInfo : MonoBehaviour
                 // center도 아니고 내 타일도 아니라면  
                 if (tile.State != 0 && tile.State != Player.Instance.PunActorNumber)
                 {
-                    // 방향에 따라 회전
-                    tile.rotate.transform.eulerAngles = new Vector3(
-                        tile.rotate.transform.eulerAngles.x,
-                        angle,
-                        tile.rotate.transform.eulerAngles.z
-                    );
+                    SetAndRotateTile(tile, angle);
 
                     if (Player.Instance.PunActorNumber == 1)
                     {
                         tile.SetStateTo1();
-                        tile.rotate.RotateTile(); // 회전
+                        
                     }
                     else
                     {
                         tile.SetStateTo2();
-                        tile.rotate.RotateTile(); // 회전
                     }
                 }
 
@@ -179,4 +169,17 @@ public class TileInfo : MonoBehaviour
             }
         }
     }
+
+    public void SetAndRotateTile(TileInfo tile, float angle)
+    {
+        Debug.Log("tileInfo의 RotateTile 함수 실행 ");
+        tile.rotate.transform.eulerAngles = new Vector3(
+            tile.rotate.transform.eulerAngles.x,
+            angle,
+            tile.rotate.transform.eulerAngles.z
+        );
+        tile.rotate.RotateTile(); 
+    }
+
+    
 }
