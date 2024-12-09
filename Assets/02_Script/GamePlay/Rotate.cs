@@ -10,7 +10,7 @@ public class Rotate : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(new Vector3(0, 0, rotationSpeed * Time.deltaTime));
+        //transform.Rotate(new Vector3(0, 0, rotationSpeed * Time.deltaTime));
         //if (!isRotating)
         //{
         //    StartCoroutine(Rotate180());
@@ -24,7 +24,7 @@ public class Rotate : MonoBehaviour
 
     IEnumerator Rotate180()
     {
-        Debug.Log("Rotate180 코루틴 실행 ");
+        //Debug.Log("Rotate180 코루틴 실행 ");
         isRotating = true;
 
         // 목표 각도를 계산
@@ -43,7 +43,7 @@ public class Rotate : MonoBehaviour
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, targetAngle);
 
         // 딜레이
-        yield return new WaitForSeconds(delayBetweenRotations);
+        //yield return new WaitForSeconds(delayBetweenRotations);
         isRotating = false;
     }
 }
