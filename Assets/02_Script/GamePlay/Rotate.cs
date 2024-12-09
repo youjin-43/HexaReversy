@@ -8,13 +8,14 @@ public class Rotate : MonoBehaviour
 
     private bool isRotating = false;
 
-    //void Update()
-    //{
-    //    if (!isRotating)
-    //    {
-    //        StartCoroutine(Rotate180());
-    //    }
-    //}
+    void Update()
+    {
+        transform.Rotate(new Vector3(0, 0, rotationSpeed * Time.deltaTime));
+        //if (!isRotating)
+        //{
+        //    StartCoroutine(Rotate180());
+        //}
+    }
 
     public void RotateTile()
     {
@@ -23,22 +24,23 @@ public class Rotate : MonoBehaviour
 
     IEnumerator Rotate180()
     {
+        Debug.Log("Rotate180 코루틴 실행 ");
         isRotating = true;
 
         // 목표 각도를 계산
-        float targetAngle = transform.eulerAngles.y + 180f;
-        float startAngle = transform.eulerAngles.y;
+        float targetAngle = transform.eulerAngles.z + 180f;
+        float startAngle = transform.eulerAngles.z;
 
         // 회전
-        while (Mathf.Abs(transform.eulerAngles.y - targetAngle) > 0.1f)
+        while (Mathf.Abs(transform.eulerAngles.z - targetAngle) > 0.1f)
         {
-            float angle = Mathf.MoveTowardsAngle(transform.eulerAngles.y, targetAngle, rotationSpeed * Time.deltaTime);
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, angle, transform.eulerAngles.z);
+            float angle = Mathf.MoveTowardsAngle(transform.eulerAngles.z, targetAngle, rotationSpeed * Time.deltaTime);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, angle);
             yield return null;
         }
 
         // 정렬 (정확한 값 보정)
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, targetAngle, transform.eulerAngles.z);
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, targetAngle);
 
         // 딜레이
         yield return new WaitForSeconds(delayBetweenRotations);

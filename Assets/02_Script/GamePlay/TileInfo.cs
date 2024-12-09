@@ -79,7 +79,7 @@ public class TileInfo : MonoBehaviour
         //transform.parent.rotation = Quaternion.Euler(0, 0, 0); //원래대로
         //transform.parent.localRotation = Quaternion.Euler(0, transform.localRotation.eulerAngles.y % 360, 0); //회전 초기화 
 
-        rotate.RotateTile();
+        //rotate.RotateTile();
 
         GetComponent<MeshRenderer>().material = mat[State-1];
         UIManager.Instance.UpdateTileCntUI();
@@ -103,7 +103,7 @@ public class TileInfo : MonoBehaviour
         //transform.parent.rotation = Quaternion.Euler(0, 0, 0); //원래대로
         //transform.parent.localRotation = Quaternion.Euler(0, transform.localRotation.eulerAngles.y % 360, 0); //회전 초기화
 
-        rotate.RotateTile();
+        //rotate.RotateTile();
 
         GetComponent<MeshRenderer>().material = mat[State-1];
         UIManager.Instance.UpdateTileCntUI();
