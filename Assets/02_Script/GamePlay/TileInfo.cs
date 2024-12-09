@@ -149,7 +149,8 @@ public class TileInfo : MonoBehaviour
                 // center도 아니고 내 타일도 아니라면  
                 if (tile.State != 0 && tile.State != Player.Instance.PunActorNumber)
                 {
-                    SetAndRotateTile(tile, angle);
+                    tile.SetAngle(angle);
+                    tile.Rotate();
 
                     if (Player.Instance.PunActorNumber == 1)
                     {
@@ -170,16 +171,43 @@ public class TileInfo : MonoBehaviour
         }
     }
 
-    public void SetAndRotateTile(TileInfo tile, float angle)
+    public void SetAngle(float angle)
     {
-        Debug.Log("tileInfo의 RotateTile 함수 실행 ");
-        tile.rotate.transform.eulerAngles = new Vector3(
-            tile.rotate.transform.eulerAngles.x,
-            angle,
-            tile.rotate.transform.eulerAngles.z
-        );
-        tile.rotate.RotateTile(); 
+        pv.RPC("SetAngle_RPC", RpcTarget.All,angle);
     }
+
+    [PunRPC]
+    public void SetAngle_RPC(float angle)
+    {
+        rotate.transform.eulerAngles = new Vector3(
+            rotate.transform.eulerAngles.x,
+            angle,
+            rotate.transform.eulerAngles.z
+        );
+    }
+
+    public void Rotate()
+    {
+        pv.RPC("Rotate_RPC", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void Rotate_RPC(float angle)
+    {
+        rotate.RotateTile();
+    }
+
+    //[PunRPC]
+    //public void SetAndRotateTile_RPC(TileInfo tile, float angle)
+    //{
+    //    Debug.Log("tileInfo의 RotateTile 함수 실행 ");
+    //    tile.rotate.transform.eulerAngles = new Vector3(
+    //        tile.rotate.transform.eulerAngles.x,
+    //        angle,
+    //        tile.rotate.transform.eulerAngles.z
+    //    );
+    //    tile.rotate.RotateTile(); 
+    //}
 
     
 }
