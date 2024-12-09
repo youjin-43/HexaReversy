@@ -14014,7 +14014,7 @@ MonoBehaviour:
   IntroOppName: {fileID: 443652856}
   MainUIMyName: {fileID: 1300392219}
   MainUIOppName: {fileID: 1130454039}
-  Pass_text: {fileID: 0}
+  Pass_text: {fileID: 577136762}
   TimeSlider: {fileID: 1817784964}
 --- !u!4 &1382617598
 Transform:
