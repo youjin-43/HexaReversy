@@ -74,7 +74,9 @@ public class TileInfo : MonoBehaviour
         TileManager.Instance.EraseInEmptyTilesDic(Cube_pos);
 
         transform.parent.GetComponent<Animator>().SetTrigger("Flip");
-        transform.rotation = Quaternion.Euler(0, 0, 0); //원래대로
+        //transform.parent.rotation = Quaternion.Euler(0, 0, 0); //원래대로
+        transform.parent.localRotation = Quaternion.Euler(0, transform.localRotation.eulerAngles.y % 360, 0); //회전 초기화 
+
 
         GetComponent<MeshRenderer>().material = mat[State-1];
         UIManager.Instance.UpdateTileCntUI();
@@ -95,7 +97,8 @@ public class TileInfo : MonoBehaviour
         TileManager.Instance.EraseInEmptyTilesDic(Cube_pos);
 
         transform.parent.GetComponent<Animator>().SetTrigger("Flip"); //180도 회전
-        transform.rotation = Quaternion.Euler(0, 0, 0); //원래대로
+        //transform.parent.rotation = Quaternion.Euler(0, 0, 0); //원래대로
+        transform.parent.localRotation = Quaternion.Euler(0, transform.localRotation.eulerAngles.y % 360, 0); //회전 초기화 
 
         GetComponent<MeshRenderer>().material = mat[State-1];
         UIManager.Instance.UpdateTileCntUI();
