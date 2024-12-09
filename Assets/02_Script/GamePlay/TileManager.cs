@@ -47,7 +47,11 @@ public class TileManager : MonoBehaviour
 
     // Cube 좌표를 키로, 타일 오브젝트를 값으로 저장하는 딕셔너리
     //public SerializedDictionary<Cube, TileInfo> TileInfos = new SerializedDictionary<Cube, TileInfo>(); //잘 작동하는지 확인용
-    public Dictionary<Cube, TileInfo> TileInfos = new Dictionary<Cube, TileInfo>();
+    public Dictionary<Cube, TileInfo> AllTiles = new Dictionary<Cube, TileInfo>();
+
+    //todo : 하... 안에 박힌 타일들 더 최적화 해서 찾고싶은데,,, 시간부족 아이디어부족,,,
+    public Dictionary<Cube, TileInfo> EmtpyTiles = new Dictionary<Cube, TileInfo>();
+
 
     /// <summary> center제외 총 타일의 갯수 </summary>
     public int Total_tile_cnt;
@@ -60,16 +64,17 @@ public class TileManager : MonoBehaviour
     void Start()
     {
         AddTilesToDictionary(); //딕셔너리에 타일 등록
-        Total_tile_cnt = TileInfos.Count-1; //센터 제외 
+        Total_tile_cnt = AllTiles.Count-1; //센터 제외 
     } 
 
     public void HighlightSelectableTiles()
     {
         SelectableBoundaryTile.Clear(); //타일을 놓을 수 있는곳 초기화      
-        FindBoundary(); //새로운 바운더리 탐색 
+        //FindBoundary(); //새로운 바운더리 탐색
+        FindBoundary2();
 
         //바운더리 중 놓을 수있는곳(놓으면 뒤집을 수 있는 곳 )만 활성화 
-        for(int i = 0; i < BoundaryTile.Count; i++)
+        for (int i = 0; i < BoundaryTile.Count; i++)
         {
             if (FindFlippableTiles(BoundaryTile[i].Cube_pos) > 0)
             {
@@ -78,6 +83,8 @@ public class TileManager : MonoBehaviour
                 BoundaryTile[i].Selectable = true;
             }
         }
+
+
     }
 
     public void UnhighlightSelectableTiles()
@@ -93,7 +100,8 @@ public class TileManager : MonoBehaviour
         TileInfo[] list = tilemap.gameObject.GetComponentsInChildren<TileInfo>();
         for (int i = 0; i < list.Length; i++)
         {
-            TileInfos.Add(list[i].Cube_pos, list[i]);
+            AllTiles.Add(list[i].Cube_pos, list[i]);
+            if (list[i].State == -1) EmtpyTiles.Add(list[i].Cube_pos, list[i]);
         }
 
         //foreach (var key in TileInfos.Keys)
@@ -120,9 +128,9 @@ public class TileManager : MonoBehaviour
             Debug.Log("cube Pos : " + cube);
 
             //빈 타일인지 확인 -> 처음 빈타일을 발견하면 리스트에 넣고 break.
-            if (TileInfos.ContainsKey(cube) && TileInfos[cube].State == -1) 
+            if (AllTiles.ContainsKey(cube) && AllTiles[cube].State == -1) 
             {
-                BoundaryTile.Add(TileInfos[cube]);
+                BoundaryTile.Add(AllTiles[cube]);
                 //Debug.Log("Boundary Start : " + cube);
                 break;
             }
@@ -137,7 +145,7 @@ public class TileManager : MonoBehaviour
             Cube n_cube = cube.Add(direction[0]);
             Debug.Log("0번째 이웃 : " + n_cube);
 
-            if (!TileInfos.ContainsKey(n_cube) || TileInfos[n_cube].State == -1) //0번째 이웃이 판 사이즈를 넘었거나, 빈 타일이라면 → 반시계방향 탐색
+            if (!AllTiles.ContainsKey(n_cube) || AllTiles[n_cube].State == -1) //0번째 이웃이 판 사이즈를 넘었거나, 빈 타일이라면 → 반시계방향 탐색
             {
                 Debug.Log("0번째 이웃이 빈 타일이네");
 
@@ -147,7 +155,7 @@ public class TileManager : MonoBehaviour
                     Debug.Log(i+"번째 이웃 : " + n_cube);
 
                     //탐색하다가 이미 놓인 타일을 만난다면 그 전 방향으로 전진
-                    if (TileInfos.ContainsKey(n_cube) && TileInfos[n_cube].State != -1)
+                    if (AllTiles.ContainsKey(n_cube) && AllTiles[n_cube].State != -1)
                     {
                         Debug.Log(i + "번째 이웃이 이미 놓인 타일임!" );
                         n_cube = cube.Add(direction[i - 1]);
@@ -166,7 +174,7 @@ public class TileManager : MonoBehaviour
                     Debug.Log(i + "번째 이웃 : " + n_cube);
 
                     // 탐색하다가 빈 타일을 만나거나 맵을 벗어나면 거기로 전진
-                    if (!TileInfos.ContainsKey(n_cube) || TileInfos[n_cube].State == -1)
+                    if (!AllTiles.ContainsKey(n_cube) || AllTiles[n_cube].State == -1)
                     {
                         Debug.Log(i + "번째 이웃이 빈타일임!");
                         break;
@@ -175,15 +183,15 @@ public class TileManager : MonoBehaviour
             }
 
             //를 바운더리 시작지점과 만날떄까지 반복
-            if (TileInfos.ContainsKey(n_cube) && BoundaryTile.Count >0 && BoundaryTile[0] == TileInfos[n_cube])
+            if (AllTiles.ContainsKey(n_cube) && BoundaryTile.Count >0 && BoundaryTile[0] == AllTiles[n_cube])
             {
                 break;
             }
             else
             {
-                if (TileInfos.ContainsKey(n_cube))
+                if (AllTiles.ContainsKey(n_cube))
                 {
-                    BoundaryTile.Add(TileInfos[n_cube]);
+                    BoundaryTile.Add(AllTiles[n_cube]);
                     Debug.Log(n_cube + "을 바운더리 리스트에 넣음!");
                 }
                 cube = n_cube;
@@ -191,10 +199,36 @@ public class TileManager : MonoBehaviour
         }
     }
 
+
+    void FindBoundary2()
+    {
+        //모든 빈 타일에 대해서 6방향 탐색해서 주변에 놓인 타일이 하나라도 있으면 바운더리 타일에 넣음
+        foreach (KeyValuePair<Cube, TileInfo> tile in EmtpyTiles)
+        {
+            //Console.WriteLine("Key: {0}, Value: {1}", tile.Key, tile.Value);
+
+            Cube cube = tile.Key;
+            for (int i = 0; i < 6; i++)
+            {
+                Cube n_cube = cube.Add(direction[i]);
+                if (AllTiles[n_cube].State != -1)
+                {
+                    BoundaryTile.Add(AllTiles[n_cube]);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void EraseInEmptyTilesDic(Cube cube)
+    {
+        EmtpyTiles.Remove(cube);
+    }
+
     int FindFlippableTiles(Cube pos)
     {
         int ret = 0;
-        TileInfo tileInfo = TileInfos[pos];
+        TileInfo tileInfo = AllTiles[pos];
 
         //이웃한 6방향 확인
         for(int i = 0; i < 6; i++)
@@ -205,14 +239,14 @@ public class TileManager : MonoBehaviour
             //1.맵을 벗어나지 않고 빈타일이 아니라면 쭉 담음
             Cube n_cube = pos.Add(direction[i]);
 
-            if (TileInfos.ContainsKey(n_cube) && TileInfos[n_cube].State != -1)
+            if (AllTiles.ContainsKey(n_cube) && AllTiles[n_cube].State != -1)
             {
                 for (int j = 1; j < GameManager.Instance.MapSize*2; j++) //위험성 높은 while 보다는 for 사용 -> 최대 맵 가로 사이즈 만큼 체크
                 {
                     n_cube = pos.Add(direction[i] * j);
 
                     //맵을 벗어나거나 빈 타일이면 거기서 탐색 종료
-                    if (TileInfos.ContainsKey(n_cube) && TileInfos[n_cube].State!=-1)
+                    if (AllTiles.ContainsKey(n_cube) && AllTiles[n_cube].State!=-1)
                     {
                         tileInfo.FlipTiles[i].Push(n_cube);
                     }
@@ -227,7 +261,7 @@ public class TileManager : MonoBehaviour
                 {
                     Cube cube = tileInfo.FlipTiles[i].Peek();
 
-                    if (TileInfos[cube].State != Player.Instance.PunActorNumber && TileInfos[cube].State != 0)
+                    if (AllTiles[cube].State != Player.Instance.PunActorNumber && AllTiles[cube].State != 0)
                     {
                         tileInfo.FlipTiles[i].Pop();
                     }
@@ -243,7 +277,7 @@ public class TileManager : MonoBehaviour
                 {
                     Cube cube = tileInfo.FlipTiles[i].Peek();
 
-                    if (TileInfos[cube].State == Player.Instance.PunActorNumber || TileInfos[cube].State == 0)
+                    if (AllTiles[cube].State == Player.Instance.PunActorNumber || AllTiles[cube].State == 0)
                     {
                         tileInfo.FlipTiles[i].Pop();
                     }

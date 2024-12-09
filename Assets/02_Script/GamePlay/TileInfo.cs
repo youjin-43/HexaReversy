@@ -71,6 +71,9 @@ public class TileInfo : MonoBehaviour
         if (State == 2) TileManager.Instance.Cnt_state2--;
         State = 1;
         TileManager.Instance.Cnt_state1++;
+        TileManager.Instance.EraseInEmptyTilesDic(Cube_pos);
+
+
         GetComponent<MeshRenderer>().material = mat[State-1];
         UIManager.Instance.UpdateTileCntUI();
     }
@@ -87,6 +90,8 @@ public class TileInfo : MonoBehaviour
         if(State == 1) TileManager.Instance.Cnt_state1--;
         State = 2;
         TileManager.Instance.Cnt_state2++;
+        TileManager.Instance.EraseInEmptyTilesDic(Cube_pos);
+
         GetComponent<MeshRenderer>().material = mat[State-1];
         UIManager.Instance.UpdateTileCntUI();
     }
@@ -108,7 +113,7 @@ public class TileInfo : MonoBehaviour
 
             for (int i=0; i<s; i++) //위험성 높은 while 보다는 for 사용 
             {
-                TileInfo tile = TileManager.Instance.TileInfos[st.Peek()];
+                TileInfo tile = TileManager.Instance.AllTiles[st.Peek()];
                 if (tile.State != Player.Instance.PunActorNumber)
                 {
                     if (Player.Instance.PunActorNumber == 1)
