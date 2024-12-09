@@ -108,8 +108,9 @@ public class TileInfo : MonoBehaviour
     /// <summary> 스택에 있는 타일을 뒤집기! </summary>
     public void Flip()
     {
-        foreach (Stack<Cube> st in FlipTiles)
+        for(int k=0;k<6;k++)
         {
+            Stack<Cube> st = FlipTiles[k];
             int s = st.Count;
             Debug.Log("Stack size = " + s);
 
