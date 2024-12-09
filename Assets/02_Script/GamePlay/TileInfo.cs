@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using Photon.Pun; // Pun : 포톤 유니티 네트워크의 약자
 using UnityEngine.Tilemaps;
-using System.Collections;
 
 public class TileInfo : MonoBehaviour
 {
@@ -106,62 +105,32 @@ public class TileInfo : MonoBehaviour
     }
 
 
-  
+    /// <summary> 스택에 있는 타일을 뒤집기! </summary>
     public void Flip()
     {
-        StartCoroutine(FlipWithDelay());
-    }
-
-    private IEnumerator FlipWithDelay()
-    {
-        for (int s = 0; s < 6; s++)
+        foreach (Stack<Cube> st in FlipTiles)
         {
-            Stack<Cube> st = new Stack<Cube>(); //실행순서를 반대로 하기위해서
+            int s = st.Count;
+            Debug.Log("Stack size = " + s);
 
-            //st에 거꾸로 담음 
-            Stack<Cube> tmp = FlipTiles[s];
-            int tmp_cnt = tmp.Count;
-            for (int i = 0; i < tmp_cnt; i++)
-            {
-                st.Push(tmp.Peek());
-                tmp.Pop();
-            }
-
-
-            int cnt = st.Count;
-            int angle = 180 - 60 * s;
-            Debug.Log(s + "번째 Stack size = " + cnt + "angle : " + angle);
-
-            for (int i = 0; i < cnt; i++) // while 대신 for 사용
+            for (int i=0; i<s; i++) //위험성 높은 while 보다는 for 사용 
             {
                 TileInfo tile = TileManager.Instance.AllTiles[st.Peek()];
 
-                // center도 아니고 내 타일도 아니라면  
-                if (tile.State != 0 && tile.State != Player.Instance.PunActorNumber)
+                //center도 아니고 내 타일도 아니라면  
+                if (tile.State != 0 && tile.State != Player.Instance.PunActorNumber )
                 {
-                    // 방향에 따라 회전
-                    tile.rotate.transform.eulerAngles = new Vector3(
-                        tile.rotate.transform.eulerAngles.x,
-                        angle,
-                        tile.rotate.transform.eulerAngles.z
-                    );
-                    tile.rotate.RotateTile(); // 회전
-
+                    tile.rotate.RotateTile();
                     if (Player.Instance.PunActorNumber == 1)
                     {
                         tile.SetStateTo1();
-                        
                     }
                     else
                     {
                         tile.SetStateTo2();
                     }
                 }
-
                 st.Pop();
-
-                // 여기서 0.2초의 시간차를 둠
-                yield return new WaitForSeconds(0.2f);
             }
         }
     }
