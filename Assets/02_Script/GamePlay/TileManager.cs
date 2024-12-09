@@ -92,6 +92,7 @@ public class TileManager : MonoBehaviour
         for (int i = 0; i < BoundaryTile.Count; i++)
         {
             BoundaryTile[i].gameObject.GetComponent<Outline>().enabled = false;
+            BoundaryTile[i].Selectable = false;
         }
     }
 
@@ -301,6 +302,37 @@ public class TileManager : MonoBehaviour
 
         return ret;
     }
+
+
+    public void PutTile_InRandomPos()
+    {
+        Debug.Log("PutTile_InRandomPos함수 실행 ");
+        //바운더리 중 놓을 수있는곳(selectable == true)인 곳 중 랜덤으로 타일 놓음
+        //todo : 지금은 그냥 처음에 나오는걸로 했는데 랜덤성을 부여할 방법 나중에 고민 ㄱㄱ
+        
+        TileInfo randomTile = new TileInfo(); //todo : 이거 왜 생성자 안해주면 오류냐 생성자 꼭 해줘야하나?? 
+        foreach (TileInfo tile in BoundaryTile)
+        {
+            if (tile.Selectable)
+            {
+                randomTile = tile;
+                break;
+            }
+        }
+
+        if (Player.Instance.PunActorNumber == 1)
+        {
+            randomTile.SetStateTo1();
+            Debug.Log("1번 플레이어가 " + randomTile.Cube_pos + "에 타일 놓음!");
+        }
+        else
+        {
+            randomTile.SetStateTo2();
+            Debug.Log("2번 플레이어가 " + randomTile.Cube_pos + "에 타일 놓음!");
+        }
+        randomTile.Flip(); //사이에 낀 상대편 돌 뒤집기 
+    }
+    
 
     public bool Check_IsGameEnd(){
         return Total_tile_cnt ==(Cnt_state1+Cnt_state2);

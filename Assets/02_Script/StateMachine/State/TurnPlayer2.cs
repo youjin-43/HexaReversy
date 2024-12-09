@@ -55,6 +55,9 @@ public class TurnPlayer2 : IState
             //돌을 놓거나 시간제한이 끝나면 
             if (MouseControll.PutTile() || slider.value <= 0)
             {
+                //시간 안에 돌을 놓지 못한경우 랜덤으로 알아서 타일을 놔줌
+                if (MouseControll.PutTile() == false) TileManager.Instance.PutTile_InRandomPos();
+
                 TileManager.Instance.UnhighlightSelectableTiles();//하이라이트 비활성화 
                 MouseControll.enabled = false; //마우스 클릭 비활성화 
                 UIManager.Instance.HideTimeSlider(); //시간제한 슬라이더 숨기기 
