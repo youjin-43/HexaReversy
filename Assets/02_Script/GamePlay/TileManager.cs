@@ -261,7 +261,7 @@ public class TileManager : MonoBehaviour
                     }
                 }
 
-                //2. 내 타일이 나올떄까지 Pop -> 내 타일이 아닌데 center도 아닌경우 
+                //2. 내 타일이 나올떄까지 Pop -> center도 내 타일로 취급 
                 for (int s = tileInfo.FlipTiles[i].Count - 1; s >= 0; s--) //위험성 높은 while 보다는 for 사용
                 {
                     Cube cube = tileInfo.FlipTiles[i].Peek();
