@@ -213,10 +213,12 @@ public class TileManager : MonoBehaviour
             for (int i = 0; i < 6; i++)
             {
                 Cube n_cube = cube.Add(direction[i]);
+                Debug.Log("n_cube : " + n_cube);
                 if (AllTiles.ContainsKey(n_cube) && AllTiles[n_cube].State != -1)
                 {
-                    BoundaryTile.Add(AllTiles[n_cube]);
-                    Debug.Log(n_cube + "을 바운더리 리스트에 넣음!");
+                    Debug.Log(n_cube + "가 -1이 아님!! ");
+                    BoundaryTile.Add(tile.Value);
+                    Debug.Log(tile.Key + "을 바운더리 리스트에 넣음!");
                     break;
                 }
             }
