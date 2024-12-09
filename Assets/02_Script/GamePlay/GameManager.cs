@@ -44,6 +44,10 @@ public class GameManager : MonoBehaviour
 
     public void ReLoad_GameScene()
     {
+        Debug.Log("AutomaticallySyncScene? :"+ PhotonNetwork.AutomaticallySyncScene);
+        PhotonNetwork.AutomaticallySyncScene = true; //이 값이 true일 때 MasterClient는 PhotonNetwork.LoadLevel()을 호출 할 수 있고 모든 연결된 플레이어들은 동일한 레벨(씬)을 자동적으로 로드
+        Debug.Log("AutomaticallySyncScene? :" + PhotonNetwork.AutomaticallySyncScene);
+
         UIManager.Instance.FadeOut();
         PhotonNetwork.LoadLevel("GameScene"); //씬이동 
     }
