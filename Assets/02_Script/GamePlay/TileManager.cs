@@ -202,23 +202,23 @@ public class TileManager : MonoBehaviour
 
     void FindBoundary2()
     {
-        Debug.Log("FindBoundary2 함수 실행 ");
+        BoundaryTile.Clear(); //기존 바운더리 삭제
 
         //모든 빈 타일에 대해서 6방향 탐색해서 주변에 놓인 타일이 하나라도 있으면 바운더리 타일에 넣음
         foreach (KeyValuePair<Cube, TileInfo> tile in EmtpyTiles)
         {
-            Debug.Log("Key:"+ tile.Key + "Value: "+ tile.Value);
+            //Debug.Log("Key:"+ tile.Key + "Value: "+ tile.Value);
 
             Cube cube = tile.Key;
             for (int i = 0; i < 6; i++)
             {
                 Cube n_cube = cube.Add(direction[i]);
-                Debug.Log("n_cube : " + n_cube);
+                //Debug.Log("n_cube : " + n_cube);
                 if (AllTiles.ContainsKey(n_cube) && AllTiles[n_cube].State != -1)
                 {
-                    Debug.Log(n_cube + "가 -1이 아님!! ");
+                    //Debug.Log(n_cube + "가 -1이 아님!! ");
                     BoundaryTile.Add(tile.Value);
-                    Debug.Log(tile.Key + "을 바운더리 리스트에 넣음!");
+                    //Debug.Log(tile.Key + "을 바운더리 리스트에 넣음!");
                     break;
                 }
             }

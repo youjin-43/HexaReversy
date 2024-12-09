@@ -71,6 +71,6 @@ public class TurnPlayer2 : IState
 
     void IState.Exit()
     {
-
+        UIManager.Instance.HidePassText();
     }
 }
