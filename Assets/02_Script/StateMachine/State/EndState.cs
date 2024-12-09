@@ -14,7 +14,8 @@ public class EndState : IState
     {
         Debug.Log("현재 State : GameEnd");
 
-        //TODO : Show 승패 UI -> 리겜? -> 상대방이 리매치를 신청합니다 -> 상대방 응답 기다리는중 -> ... -> 씬 다시 로드 
+        //TODO : Show 승패 UI -> 리겜? -> 상대방이 리매치를 신청합니다 -> 상대방 응답 기다리는중 -> ... -> 씬 다시 로드
+        UIManager.Instance.ShowEndUI();
     }
 
     void IState.Excute()

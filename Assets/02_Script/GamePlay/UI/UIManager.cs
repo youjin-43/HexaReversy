@@ -105,7 +105,6 @@ public class UIManager : MonoBehaviour
     }
 
 
-    #region Action Time
     [Header("Action Time")]
     public TextMeshProUGUI Pass_text; //인스펙터에서 할당
     public Slider TimeSlider;
@@ -129,6 +128,17 @@ public class UIManager : MonoBehaviour
     {
         TimeSlider.gameObject.SetActive(false);
     }
-    #endregion
 
+    [Header("End Game")]
+    public GameObject EndUI; //인스펙터에서 할당
+    public GameObject FadeOutObj;
+    public void ShowEndUI()
+    {
+        EndUI.SetActive(true);
+    }
+
+    public void FadeOut()
+    {
+        FadeOutObj.GetComponent<Animator>().SetTrigger("FadeOut");
+    }
 }

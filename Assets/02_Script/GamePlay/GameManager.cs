@@ -1,4 +1,5 @@
 using UnityEngine;
+using Photon.Pun;
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
@@ -39,5 +40,18 @@ public class GameManager : MonoBehaviour
     //TODO : 나중에는 맵 사이즈도 설정하면 좋을듯 
     /// <summary> 중앙 타일로부터 몇개까지 뻗어있는지 </summary>
     public int MapSize = 5;
+
+
+    public void ReLoad_GameScene()
+    {
+        UIManager.Instance.FadeOut();
+        PhotonNetwork.LoadLevel("GameScene"); //씬이동 
+    }
+
+    public void ReLoad_TitleScene()
+    {
+        UIManager.Instance.FadeOut();
+        PhotonNetwork.LoadLevel("TitleScene"); //씬이동 
+    }
 
 }
