@@ -83,7 +83,7 @@ public class TurnPlayer1 : IState
                         {
                             if (GameManager.Instance.isAImode)
                             {
-                                player.TransitionTo(player.stateMachine.turnAI); // 플레이어 2의 턴으로 넘어감
+                                player.TransitionTo(player.stateMachine.turnAI); // AI 턴으로 넘어감
                             }
                             else
                             {
@@ -100,7 +100,14 @@ public class TurnPlayer1 : IState
         if (TileManager.Instance.SelectableBoundaryTile.Count ==0 && slider.value <= 0)
         {
             UIManager.Instance.HidePassText();
-            player.TransitionTo(player.stateMachine.turnPlayer2); // 플레이어 2의 턴으로 넘어감
+            if (GameManager.Instance.isAImode)
+            {
+                player.TransitionTo(player.stateMachine.turnAI); //AI 턴으로 넘어감
+            }
+            else
+            {
+                player.TransitionTo(player.stateMachine.turnPlayer2); // 플레이어 2의 턴으로 넘어감
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
@@ -67,5 +68,11 @@ public class GameManager : MonoBehaviour
         PhotonNetwork.LoadLevel("TitleScene"); //씬이동 
     }
 
+    public void ReLoad_AIModeScene()
+    {
+        //AIModeScene
+        GameManager.Instance.isAImode = true;
+        SceneManager.LoadScene("AIModeScene");
+    }
 
 }
