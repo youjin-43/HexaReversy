@@ -118,11 +118,16 @@ public class TileInfo : MonoBehaviour
 
     public void Flip()
     {
+        pv.RPC("Flip_RPC", RpcTarget.All);
+    }
+    public void Flip_RPC()
+    {
         StartCoroutine(FlipWithDelay());
     }
 
     public IEnumerator FlipWithDelay()
     {
+        Debug.Log("FlipWithDelay실행 ");
         for (int s = 0; s < 6; s++)
         {
             Stack<Cube> st = new Stack<Cube>(); //실행순서를 반대로 하기위해서
@@ -139,7 +144,7 @@ public class TileInfo : MonoBehaviour
 
             int cnt = st.Count;
             int angle = 180 - 60 * s;
-            Debug.Log(s + "번째 Stack size = " + cnt + "angle : " + angle);
+            //Debug.Log(s + "번째 Stack size = " + cnt + "angle : " + angle);
 
             for (int i = 0; i < cnt; i++) // while 대신 for 사용
             {
