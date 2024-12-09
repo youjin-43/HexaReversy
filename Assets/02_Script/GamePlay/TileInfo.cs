@@ -18,6 +18,7 @@ public class TileInfo : MonoBehaviour
     public Cube Cube_pos;
 
     [Header("Flip")]
+    Rotate  rotate;
     public Stack<Cube>[] FlipTiles;
     Material[] mat;//타일이 놓였을때 바뀔 머티리얼.
 
@@ -58,6 +59,7 @@ public class TileInfo : MonoBehaviour
         Cube_pos = new Cube().oddr_to_cube(Oddr_pos);
 
         //Flip
+        rotate = transform.parent.GetComponent<Rotate>();
         FlipTiles = new Stack<Cube>[6];
         for (int i = 0; i < FlipTiles.Length; i++)
         {
@@ -73,10 +75,11 @@ public class TileInfo : MonoBehaviour
         TileManager.Instance.Cnt_state1++;
         TileManager.Instance.EraseInEmptyTilesDic(Cube_pos);
 
-        transform.parent.GetComponent<Animator>().SetTrigger("Flip");
+        //transform.parent.GetComponent<Animator>().SetTrigger("Flip");
         //transform.parent.rotation = Quaternion.Euler(0, 0, 0); //원래대로
-        transform.parent.localRotation = Quaternion.Euler(0, transform.localRotation.eulerAngles.y % 360, 0); //회전 초기화 
+        //transform.parent.localRotation = Quaternion.Euler(0, transform.localRotation.eulerAngles.y % 360, 0); //회전 초기화 
 
+        rotate.RotateTile();
 
         GetComponent<MeshRenderer>().material = mat[State-1];
         UIManager.Instance.UpdateTileCntUI();
@@ -96,9 +99,11 @@ public class TileInfo : MonoBehaviour
         TileManager.Instance.Cnt_state2++;
         TileManager.Instance.EraseInEmptyTilesDic(Cube_pos);
 
-        transform.parent.GetComponent<Animator>().SetTrigger("Flip"); //180도 회전
+        //transform.parent.GetComponent<Animator>().SetTrigger("Flip"); //180도 회전
         //transform.parent.rotation = Quaternion.Euler(0, 0, 0); //원래대로
-        transform.parent.localRotation = Quaternion.Euler(0, transform.localRotation.eulerAngles.y % 360, 0); //회전 초기화 
+        //transform.parent.localRotation = Quaternion.Euler(0, transform.localRotation.eulerAngles.y % 360, 0); //회전 초기화
+
+        rotate.RotateTile();
 
         GetComponent<MeshRenderer>().material = mat[State-1];
         UIManager.Instance.UpdateTileCntUI();

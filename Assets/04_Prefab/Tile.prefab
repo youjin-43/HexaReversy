@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7847535112174426188}
   - component: {fileID: 7071754284499120444}
+  - component: {fileID: 8151050061710511707}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -55,6 +56,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8151050061710511707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8792951200818644913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5af91c183953b4c6995e329d91eb6bc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 180
+  delayBetweenRotations: 0.5
 --- !u!1001 &7476507194760599808
 PrefabInstance:
   m_ObjectHideFlags: 0
