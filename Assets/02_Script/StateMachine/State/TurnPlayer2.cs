@@ -53,10 +53,12 @@ public class TurnPlayer2 : IState
         if (player.PunActorNumber == 2)
         {
             //돌을 놓거나 시간제한이 끝나면 
-            if (MouseControll.PutTile() || slider.value <= 0)
+            //돌을 놓거나 시간 제한이 끝나면
+            bool isPUT = MouseControll.PutTile();
+            if (isPUT || slider.value <= 0)
             {
                 //시간 안에 돌을 놓지 못한경우 랜덤으로 알아서 타일을 놔줌
-                if (MouseControll.PutTile() == false) TileManager.Instance.PutTile_InRandomPos();
+                if (isPUT == false) TileManager.Instance.PutTile_InRandomPos();
 
                 TileManager.Instance.UnhighlightSelectableTiles();//하이라이트 비활성화 
                 MouseControll.enabled = false; //마우스 클릭 비활성화 
