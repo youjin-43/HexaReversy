@@ -65,6 +65,7 @@ public class TileManager : MonoBehaviour
 
     public void HighlightSelectableTiles()
     {
+        SelectableBoundaryTile.Clear(); //타일을 놓을 수 있는곳 초기화      
         FindBoundary(); //새로운 바운더리 탐색 
 
         //바운더리 중 놓을 수있는곳(놓으면 뒤집을 수 있는 곳 )만 활성화 
@@ -129,7 +130,8 @@ public class TileManager : MonoBehaviour
 
         Debug.Log("Boundary Start : " + cube);
 
-        for (int t=0; t < GameManager.Instance.MapSize * 6; t++) //어차피 size 제한이 있기 때문에 위험성 높은 while 보다는 for 사용 
+        //todo : 이거 최대 길이가 GameManager.Instance.MapSize * 6이 아님!! 수정해야함!! -> 우선 두배로 해놓음 
+        for (int t=0; t < GameManager.Instance.MapSize * 6 * 2; t++) //어차피 size 제한이 있기 때문에 위험성 높은 while 보다는 for 사용 
         {
             //2. 그 타일의 이웃들탐색 → 먼저 0번 방향 봐서
             Cube n_cube = cube.Add(direction[0]);
@@ -163,8 +165,8 @@ public class TileManager : MonoBehaviour
                     n_cube = cube.Add(direction[i]);
                     Debug.Log(i + "번째 이웃 : " + n_cube);
 
-                    // 탐색하다가 빈 타일을 만나면 그 타일로 전진
-                    if (TileInfos.ContainsKey(n_cube) && TileInfos[n_cube].State == -1)
+                    // 탐색하다가 빈 타일을 만나거나 맵을 벗어나면 거기로 전진
+                    if (!TileInfos.ContainsKey(n_cube) || TileInfos[n_cube].State == -1)
                     {
                         Debug.Log(i + "번째 이웃이 빈타일임!");
                         break;
