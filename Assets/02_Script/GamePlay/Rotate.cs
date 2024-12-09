@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Photon.Pun; // Pun : 포톤 유니티 네트워크의 약자
 
 public class Rotate : MonoBehaviour
 {
@@ -7,6 +8,12 @@ public class Rotate : MonoBehaviour
     public float delayBetweenRotations = 0.5f; // 회전 사이 간격
 
     private bool isRotating = false;
+
+    private PhotonView pv;
+    private void Start()
+    {
+        pv = GetComponentInChildren<PhotonView>();
+    }
 
     void Update()
     {
@@ -18,6 +25,11 @@ public class Rotate : MonoBehaviour
     }
 
     public void RotateTile()
+    {
+        pv.RPC("RotateTile_RPC", RpcTarget.All);
+    }
+
+    public void RotateTile_RPC()
     {
         StartCoroutine(Rotate180());
     }
