@@ -43,6 +43,7 @@ public class MouseManager : MonoBehaviour
 
     void HoverTile(TileInfo tile)
     {
+        AudioManager.Instance.PlayHoverSound();
         tile.GetComponent<MeshRenderer>().material= mat_hover;
         HoverdTile = tile;
         //Debug.Log(tile.Cube_pos + "is Hovered");
@@ -67,6 +68,7 @@ public class MouseManager : MonoBehaviour
         //마우스 클릭 이벤트 - 타일놓기 
         if (Input.GetMouseButtonDown(0) && HoverdTile != null)
         {
+            AudioManager.Instance.PlayClickSound();
             if (Player.Instance.PunActorNumber == 1)
             {
                 HoverdTile.SetStateTo1();

@@ -165,7 +165,7 @@ public class TileInfo : MonoBehaviour
                 st.Pop();
 
                 // 여기서 0.2초의 시간차를 둠
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.15f);
             }
         }
     }
@@ -193,6 +193,7 @@ public class TileInfo : MonoBehaviour
     [PunRPC]
     public void Rotate_RPC()
     {
+        AudioManager.Instance.PlayFlipSound();
         rotate.RotateTile();
     }
     

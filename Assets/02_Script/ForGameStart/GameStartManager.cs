@@ -44,6 +44,7 @@ public class GameStartManager : MonoBehaviour
     private void SetFindedTextRPC()
     {
         LoadingText.text = "Finded!";
+        AudioManager.Instance.PlayGoSound();
     }
 
     public void SetFindedText()
