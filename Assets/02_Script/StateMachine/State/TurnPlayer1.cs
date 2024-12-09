@@ -36,6 +36,7 @@ public class TurnPlayer1 : IState
             {
                 //돌을 놓을 수 있는곳이 없으면 pass 보여주고 바로 다음턴으로 넘어감
                 UIManager.Instance.ShowPassText();
+                isPut = true; //놨다 침 
 
                 //todo : 타이머 재활용 할 수 있으려나?
                 slider.value = 2; //타이머 초기화 -> 2초뒤 넘어가도록 
@@ -76,7 +77,7 @@ public class TurnPlayer1 : IState
                         // 코루틴 완료 후 실행
                         if (TileManager.Instance.Check_IsGameEnd())
                         {
-                                player.TransitionTo(player.stateMachine.endState); // 게임 끝
+                            player.TransitionTo(player.stateMachine.endState); // 게임 끝
                         }
                         else
                         {
@@ -86,13 +87,19 @@ public class TurnPlayer1 : IState
                 );
             }
         }
-    }
 
+        //놓을 수 있는곳이 없는 경우 시간이 지나면 
+        if (TileManager.Instance.SelectableBoundaryTile.Count ==0 && slider.value <= 0)
+        {
+            UIManager.Instance.HidePassText();
+            player.TransitionTo(player.stateMachine.turnPlayer2); // 플레이어 2의 턴으로 넘어감
+        }
+    }
 
 
     void IState.Exit()
     {
-        UIManager.Instance.HidePassText();
+        
     }
 
 }

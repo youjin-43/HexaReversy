@@ -155,7 +155,6 @@ public class TileInfo : MonoBehaviour
                     if (Player.Instance.PunActorNumber == 1)
                     {
                         tile.SetStateTo1();
-                        
                     }
                     else
                     {
@@ -192,22 +191,9 @@ public class TileInfo : MonoBehaviour
     }
 
     [PunRPC]
-    public void Rotate_RPC(float angle)
+    public void Rotate_RPC()
     {
         rotate.RotateTile();
     }
-
-    //[PunRPC]
-    //public void SetAndRotateTile_RPC(TileInfo tile, float angle)
-    //{
-    //    Debug.Log("tileInfo의 RotateTile 함수 실행 ");
-    //    tile.rotate.transform.eulerAngles = new Vector3(
-    //        tile.rotate.transform.eulerAngles.x,
-    //        angle,
-    //        tile.rotate.transform.eulerAngles.z
-    //    );
-    //    tile.rotate.RotateTile(); 
-    //}
-
     
 }

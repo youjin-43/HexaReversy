@@ -45,6 +45,8 @@ MonoBehaviour:
   - SetStateTo1_RPC
   - SetStateTo2_RPC
   - SyncStateTransition
+  - Rotate_RPC
+  - SetAngle_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
