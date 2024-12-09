@@ -112,11 +112,11 @@ public class TileManager : MonoBehaviour
         //1. 중심에서 4번 방향으로 빈 타일||맵 끝 이 나올떄가지 전진.
         Cube cube = new Cube(0, 0, 0); //center
 
-        //Debug.Log("Boundary 시작 찾는중");
+        Debug.Log("Boundary 시작 찾는중");
         for (int i = 0; i < GameManager.Instance.MapSize; i++) //어차피 size 제한이 있기 때문에 위험성 높은 while 보다는 for 사용 
-        {
+        {   
             cube = cube.Add(direction[4]);
-            Debug.Log("cube Pos : " + cube);
+            //Debug.Log("cube Pos : " + cube);
 
             //빈 타일인지 확인 -> 처음 빈타일을 발견하면 리스트에 넣고 break.
             if (TileInfos[cube].State == -1) 
@@ -127,7 +127,9 @@ public class TileManager : MonoBehaviour
             }
         }
 
-        for(int t=0; t < GameManager.Instance.MapSize * 6; t++) //어차피 size 제한이 있기 때문에 위험성 높은 while 보다는 for 사용 
+        Debug.Log("Boundary Start : " + cube);
+
+        for (int t=0; t < GameManager.Instance.MapSize * 6; t++) //어차피 size 제한이 있기 때문에 위험성 높은 while 보다는 for 사용 
         {
             //2. 그 타일의 이웃들탐색 → 먼저 0번 방향 봐서
             Cube n_cube = cube.Add(direction[0]);
@@ -171,7 +173,7 @@ public class TileManager : MonoBehaviour
             }
 
             //를 바운더리 시작지점과 만날떄까지 반복
-            if (TileInfos.ContainsKey(n_cube) && BoundaryTile[0] == TileInfos[n_cube])
+            if (TileInfos.ContainsKey(n_cube) && BoundaryTile.Count >0 && BoundaryTile[0] == TileInfos[n_cube])
             {
                 break;
             }
@@ -180,7 +182,7 @@ public class TileManager : MonoBehaviour
                 if (TileInfos.ContainsKey(n_cube))
                 {
                     BoundaryTile.Add(TileInfos[n_cube]);
-                    //Debug.Log(n_cube + "을 바운더리 리스트에 넣음!");
+                    Debug.Log(n_cube + "을 바운더리 리스트에 넣음!");
                 }
                 cube = n_cube;
             }   
