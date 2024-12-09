@@ -233,7 +233,7 @@ public class TileManager : MonoBehaviour
 
     int FindFlippableTiles(Cube pos)
     {
-        Debug.Log(pos + "에 대하여 FindFlippableTiles 실행!------------ ");
+        //Debug.Log(pos + "에 대하여 FindFlippableTiles 실행!------------ ");
 
         int ret = 0;
         TileInfo tileInfo = AllTiles[pos];
@@ -245,7 +245,7 @@ public class TileManager : MonoBehaviour
             tileInfo.FlipTiles[i].Clear();
 
             //1.맵을 벗어나지 않고 빈타일이 아니라면 쭉 담음
-            Debug.Log("1.맵을 벗어나지 않고 빈타일이 아니라면 쭉 담음");
+            //Debug.Log("1.맵을 벗어나지 않고 빈타일이 아니라면 쭉 담음");
             Cube n_cube = pos.Add(direction[i]);
 
             if (AllTiles.ContainsKey(n_cube) && AllTiles[n_cube].State != -1)
@@ -258,7 +258,7 @@ public class TileManager : MonoBehaviour
                     if (AllTiles.ContainsKey(n_cube) && AllTiles[n_cube].State!=-1)
                     {
                         tileInfo.FlipTiles[i].Push(n_cube);
-                        Debug.Log(n_cube + "를 " + i + "번째 스택에 넣음!");
+                        //Debug.Log(n_cube + "를 " + i + "번째 스택에 넣음!");
                     }
                     else
                     {
@@ -267,42 +267,42 @@ public class TileManager : MonoBehaviour
                 }
 
                 //2. 내 타일이 나올떄까지 Pop -> center도 내 타일로 취급
-                Debug.Log("2.내 타일이 나올떄까지 Pop");
+                //Debug.Log("2.내 타일이 나올떄까지 Pop");
                 for (int s = tileInfo.FlipTiles[i].Count - 1; s >= 0; s--) //위험성 높은 while 보다는 for 사용
                 {
                     Cube cube = tileInfo.FlipTiles[i].Peek();
 
                     if (AllTiles[cube].State != Player.Instance.PunActorNumber && AllTiles[cube].State != 0)
                     {
-                        Debug.Log(tileInfo.FlipTiles[i].Peek() + "를 " + i + "번째 스택에서 pop");
+                        //Debug.Log(tileInfo.FlipTiles[i].Peek() + "를 " + i + "번째 스택에서 pop");
                         tileInfo.FlipTiles[i].Pop();
 
                     }
                     else
                     {
                         //내 타일이 나오면 break;
-                        Debug.Log(tileInfo.FlipTiles[i].Peek() + "은 내 타일임 끝!!");
+                        //Debug.Log(tileInfo.FlipTiles[i].Peek() + "은 내 타일임 끝!!");
                         break;
                     }
                 }
 
                 //3. 뒤집을 상대 타일만 남겨놓기 위해 이제는 상대 타일이 나올떄까지 pop
-                Debug.Log("3.뒤집을 상대 타일만 남겨놓기 위해 이제는 상대 타일이 나올떄까지 pop");
+                //Debug.Log("3.뒤집을 상대 타일만 남겨놓기 위해 이제는 상대 타일이 나올떄까지 pop");
                 for (int s = tileInfo.FlipTiles[i].Count - 1; s >= 0; s--) //위험성 높은 while 보다는 for 사용
                 {
                     Cube cube = tileInfo.FlipTiles[i].Peek();
 
                     if (AllTiles[cube].State == Player.Instance.PunActorNumber || AllTiles[cube].State == 0)
                     {
-                        Debug.Log("Player.Instance.PunActorNumber :" + Player.Instance.PunActorNumber);
-                        Debug.Log("AllTiles[cube].State : " + AllTiles[cube].State);
-                        Debug.Log(tileInfo.FlipTiles[i].Peek() + "를 " + i + "번째 스택에서 pop"); ;
+                        //Debug.Log("Player.Instance.PunActorNumber :" + Player.Instance.PunActorNumber);
+                        //Debug.Log("AllTiles[cube].State : " + AllTiles[cube].State);
+                        //Debug.Log(tileInfo.FlipTiles[i].Peek() + "를 " + i + "번째 스택에서 pop"); ;
                         tileInfo.FlipTiles[i].Pop();
                     }
                     else
                     {
                         //상대 타일이 나오면 break;
-                        Debug.Log(tileInfo.FlipTiles[i].Peek() + "은 상대 타일임 끝!!");
+                        //Debug.Log(tileInfo.FlipTiles[i].Peek() + "은 상대 타일임 끝!!");
                         break;
                     }
                 }
