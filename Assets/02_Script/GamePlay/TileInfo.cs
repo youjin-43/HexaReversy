@@ -71,16 +71,11 @@ public class TileInfo : MonoBehaviour
     [PunRPC]
     public void SetStateTo1_RPC()
     {
+        Debug.Log("SetStateTo1_RPC실행");
         if (State == 2) TileManager.Instance.Cnt_state2--;
         State = 1;
         TileManager.Instance.Cnt_state1++;
         TileManager.Instance.EraseInEmptyTilesDic(Cube_pos);
-
-        //transform.parent.GetComponent<Animator>().SetTrigger("Flip");
-        //transform.parent.rotation = Quaternion.Euler(0, 0, 0); //원래대로
-        //transform.parent.localRotation = Quaternion.Euler(0, transform.localRotation.eulerAngles.y % 360, 0); //회전 초기화 
-
-        //rotate.RotateTile();
 
         GetComponent<MeshRenderer>().material = mat[State-1];
         UIManager.Instance.UpdateTileCntUI();
@@ -95,16 +90,11 @@ public class TileInfo : MonoBehaviour
    [PunRPC]
     public void SetStateTo2_RPC()
     {
+        Debug.Log("SetStateTo2_RPC실행");
         if(State == 1) TileManager.Instance.Cnt_state1--;
         State = 2;
         TileManager.Instance.Cnt_state2++;
         TileManager.Instance.EraseInEmptyTilesDic(Cube_pos);
-
-        //transform.parent.GetComponent<Animator>().SetTrigger("Flip"); //180도 회전
-        //transform.parent.rotation = Quaternion.Euler(0, 0, 0); //원래대로
-        //transform.parent.localRotation = Quaternion.Euler(0, transform.localRotation.eulerAngles.y % 360, 0); //회전 초기화
-
-        //rotate.RotateTile();
 
         GetComponent<MeshRenderer>().material = mat[State-1];
         UIManager.Instance.UpdateTileCntUI();
@@ -140,27 +130,47 @@ public class TileInfo : MonoBehaviour
 
             int cnt = st.Count;
             float angle = 180 - 60 * s;
-            //Debug.Log(s + "번째 Stack size = " + cnt + "angle : " + angle);
+            Debug.Log(s + "번째 Stack size = " + cnt + "angle : " + angle);
 
             for (int i = 0; i < cnt; i++) // while 대신 for 사용
             {
                 TileInfo tile = TileManager.Instance.AllTiles[st.Peek()];
+                Debug.Log("Peek: " + tile.Cube_pos);
 
-                // center도 아니고 내 타일도 아니라면  
-                if (tile.State != 0 && tile.State != Player.Instance.PunActorNumber)
+                //AI턴이라면 
+                if (GameManager.Instance.isAImode && Player.Instance.stateMachine.CurrentState == Player.Instance.stateMachine.turnAI)
                 {
-                    tile.SetAngle(angle);
-                    tile.Rotate();
 
-                    if (Player.Instance.PunActorNumber == 1)
+                    // center도 아니고 내 타일도 아니라면  
+                    if (tile.State != 0 && tile.State != 2)
                     {
-                        tile.SetStateTo1();
-                    }
-                    else
-                    {
+
+                        tile.SetAngle(angle);
+                        tile.Rotate();
                         tile.SetStateTo2();
                     }
                 }
+                else
+                {
+                    // center도 아니고 내 타일도 아니라면  
+                    if (tile.State != 0 && tile.State != Player.Instance.PunActorNumber)
+                    {
+
+                        tile.SetAngle(angle);
+                        tile.Rotate();
+
+                        if (Player.Instance.PunActorNumber == 1)
+                        {
+                            tile.SetStateTo1();
+                        }
+                        else
+                        {
+                            tile.SetStateTo2();
+                        }
+                    }
+                }
+               
+              
 
                 st.Pop();
 
@@ -168,6 +178,9 @@ public class TileInfo : MonoBehaviour
                 yield return new WaitForSeconds(0.15f);
             }
         }
+
+        //1초 기다림 
+        yield return new WaitForSeconds(1f);
     }
 
     public void SetAngle(float angle)

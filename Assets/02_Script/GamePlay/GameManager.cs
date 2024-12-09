@@ -21,9 +21,9 @@ public class GameManager : MonoBehaviour
         else
         {
             // instance에 이미 다른 GameManager 오브젝트가 할당되어 있는 경우 씬에 두개 이상의 GameManager 오브젝트가 존재한다는 의미. 싱글톤 오브젝트는 하나만 존재해야 하므로 자신의 게임 오브젝트를 파괴
-            Debug.LogWarning("씬에 두개 이상의 GameManager가 존재합니다!");
-            Destroy(gameObject);
-            Debug.Log("Destroy GameManager");
+            //Debug.LogWarning("씬에 두개 이상의 GameManager가 존재합니다!");
+            //Destroy(gameObject);
+            //Debug.Log("Destroy GameManager");
         }
         #endregion
 
@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     [Header("UserInfo")]
     //public string UserName;
     //public int tmpActorNum = 1; //디버깅용
+    public bool isAImode = false;
 
 
 
@@ -44,6 +45,10 @@ public class GameManager : MonoBehaviour
     /// <summary> 중앙 타일로부터 몇개까지 뻗어있는지 </summary>
     public int MapSize = 5;
 
+    public void SetAImode_True()
+    {
+        isAImode = true;
+    }
     public void ReLoad_GameScene()
     {
         pv.RPC("ReLoad_GameScene_RPC", RpcTarget.All);
@@ -61,5 +66,6 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.FadeOut();
         PhotonNetwork.LoadLevel("TitleScene"); //씬이동 
     }
+
 
 }

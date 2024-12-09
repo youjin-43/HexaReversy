@@ -87,6 +87,26 @@ public class TileManager : MonoBehaviour
 
     }
 
+    //AI모드용
+    public void FindSelectableBoundatry()
+    {
+        Debug.Log("----------------------FindSelectableBoundatry 실행----------------------------");
+        SelectableBoundaryTile.Clear(); //타일을 놓을 수 있는곳 초기화      
+        FindBoundary2();
+
+        //바운더리 중 놓을 수있는곳(놓으면 뒤집을 수 있는 곳 )만 활성화 
+        for (int i = 0; i < BoundaryTile.Count; i++)
+        {
+            if (FindFlippableTiles(BoundaryTile[i].Cube_pos) > 0)
+            {
+                SelectableBoundaryTile.Add(BoundaryTile[i]);
+                BoundaryTile[i].Selectable = true;
+            }
+        }
+
+
+    }
+
     public void UnhighlightSelectableTiles()
     {
         for (int i = 0; i < BoundaryTile.Count; i++)
@@ -272,18 +292,39 @@ public class TileManager : MonoBehaviour
                 {
                     Cube cube = tileInfo.FlipTiles[i].Peek();
 
-                    if (AllTiles[cube].State != Player.Instance.PunActorNumber && AllTiles[cube].State != 0)
+                    if (GameManager.Instance.isAImode && Player.Instance.stateMachine.CurrentState == Player.Instance.stateMachine.turnAI)
                     {
-                        //Debug.Log(tileInfo.FlipTiles[i].Peek() + "를 " + i + "번째 스택에서 pop");
-                        tileInfo.FlipTiles[i].Pop();
+                        //AI모드 + 현재 AI턴일떈 일땐 내가 2번이라고 생각하면 됨 
+                        if (AllTiles[cube].State != 2 && AllTiles[cube].State != 0)
+                        {
+                            //Debug.Log(tileInfo.FlipTiles[i].Peek() + "를 " + i + "번째 스택에서 pop");
+                            tileInfo.FlipTiles[i].Pop();
 
+                        }
+                        else
+                        {
+                            //내 타일이 나오면 break;
+                            //Debug.Log(tileInfo.FlipTiles[i].Peek() + "은 내 타일임 끝!!");
+                            break;
+                        }
                     }
                     else
                     {
-                        //내 타일이 나오면 break;
-                        //Debug.Log(tileInfo.FlipTiles[i].Peek() + "은 내 타일임 끝!!");
-                        break;
+                        if (AllTiles[cube].State != Player.Instance.PunActorNumber && AllTiles[cube].State != 0)
+                        {
+                            //Debug.Log(tileInfo.FlipTiles[i].Peek() + "를 " + i + "번째 스택에서 pop");
+                            tileInfo.FlipTiles[i].Pop();
+
+                        }
+                        else
+                        {
+                            //내 타일이 나오면 break;
+                            //Debug.Log(tileInfo.FlipTiles[i].Peek() + "은 내 타일임 끝!!");
+                            break;
+                        }
                     }
+
+                  
                 }
 
                 //3. 뒤집을 상대 타일만 남겨놓기 위해 이제는 상대 타일이 나올떄까지 pop
@@ -292,19 +333,36 @@ public class TileManager : MonoBehaviour
                 {
                     Cube cube = tileInfo.FlipTiles[i].Peek();
 
-                    if (AllTiles[cube].State == Player.Instance.PunActorNumber || AllTiles[cube].State == 0)
+
+                    if (GameManager.Instance.isAImode && Player.Instance.stateMachine.CurrentState == Player.Instance.stateMachine.turnAI)
                     {
-                        //Debug.Log("Player.Instance.PunActorNumber :" + Player.Instance.PunActorNumber);
-                        //Debug.Log("AllTiles[cube].State : " + AllTiles[cube].State);
-                        //Debug.Log(tileInfo.FlipTiles[i].Peek() + "를 " + i + "번째 스택에서 pop"); ;
-                        tileInfo.FlipTiles[i].Pop();
+                        if (AllTiles[cube].State == 2 || AllTiles[cube].State == 0)
+                        {
+                            //Debug.Log(tileInfo.FlipTiles[i].Peek() + "를 " + i + "번째 스택에서 pop"); ;
+                            tileInfo.FlipTiles[i].Pop();
+                        }
+                        else
+                        {
+                            //상대 타일이 나오면 break;
+                            //Debug.Log(tileInfo.FlipTiles[i].Peek() + "은 상대 타일임 끝!!");
+                            break;
+                        }
                     }
                     else
                     {
-                        //상대 타일이 나오면 break;
-                        //Debug.Log(tileInfo.FlipTiles[i].Peek() + "은 상대 타일임 끝!!");
-                        break;
+                        if (AllTiles[cube].State == Player.Instance.PunActorNumber || AllTiles[cube].State == 0)
+                        {
+                            //Debug.Log(tileInfo.FlipTiles[i].Peek() + "를 " + i + "번째 스택에서 pop"); ;
+                            tileInfo.FlipTiles[i].Pop();
+                        }
+                        else
+                        {
+                            //상대 타일이 나오면 break;
+                            //Debug.Log(tileInfo.FlipTiles[i].Peek() + "은 상대 타일임 끝!!");
+                            break;
+                        }
                     }
+                        
                 }
 
                 //4. 남은게 이제 뒤집을 타일들 -> 바닥 부분에는 내 타일이 있을 수도 있긴 한데 암튼 위쪽에는 뒤집을 수있는 타일이 있음. 
@@ -333,16 +391,26 @@ public class TileManager : MonoBehaviour
             }
         }
 
-        if (Player.Instance.PunActorNumber == 1)
+        if (GameManager.Instance.isAImode)
         {
-            randomTile.SetStateTo1();
-            Debug.Log("1번 플레이어가 " + randomTile.Cube_pos + "에 타일 놓음!");
+            randomTile.SetStateTo2();
+            Debug.Log("AI가 " + randomTile.Cube_pos + "에 타일 놓음!");
         }
         else
         {
-            randomTile.SetStateTo2();
-            Debug.Log("2번 플레이어가 " + randomTile.Cube_pos + "에 타일 놓음!");
+            if (Player.Instance.PunActorNumber == 1)
+            {
+                randomTile.SetStateTo1();
+                Debug.Log("1번 플레이어가 " + randomTile.Cube_pos + "에 타일 놓음!");
+            }
+            else
+            {
+                randomTile.SetStateTo2();
+                Debug.Log("2번 플레이어가 " + randomTile.Cube_pos + "에 타일 놓음!");
+            }
         }
+
+       
         //randomTile.Flip(); //사이에 낀 상대편 돌 뒤집기
         return randomTile.Cube_pos;
     }

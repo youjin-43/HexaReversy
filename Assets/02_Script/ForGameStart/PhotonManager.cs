@@ -116,7 +116,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             Debug.Log($"{player.Value.NickName}, {player.Value.ActorNumber}"); //ActorNumber:몇번째로 들어왔냐
         }
 
-        if (PhotonNetwork.CurrentRoom.PlayerCount >= 2)
+        if (GameManager.Instance.isAImode || PhotonNetwork.CurrentRoom.PlayerCount >= 2)
         {
             Debug.Log("현재 인원수: " + PhotonNetwork.CurrentRoom.PlayerCount);
 
@@ -127,9 +127,15 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
             Debug.Log("Game Start!");
 
-            Invoke("SetFindedText", 3f); 
-            Invoke("GameStart", 4f); //게임 씬으로 이동 
-           
+            Invoke("SetFindedText", 3f);
+            if (GameManager.Instance.isAImode)
+            {
+                Invoke("AImodeStart", 4f); //게임 씬으로 이동 
+            }
+            else
+            {
+                Invoke("GameStart", 4f); //게임 씬으로 이동 
+            }
         }
     }
 
@@ -142,5 +148,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     void GameStart()
     {
         GSM.GameStart();//씬 이동 
+    }
+
+    void AImodeStart()
+    {
+        GSM.ReLoad_AIModeScene();
     }
 }

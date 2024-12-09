@@ -1,6 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameStartManager : MonoBehaviour
 {
@@ -82,5 +83,11 @@ public class GameStartManager : MonoBehaviour
     }
     #endregion
 
+    public void ReLoad_AIModeScene()
+    {
+        //AIModeScene
+        GameManager.Instance.isAImode = true;
+        SceneManager.LoadScene("AIModeScene");
+    }
 
 }

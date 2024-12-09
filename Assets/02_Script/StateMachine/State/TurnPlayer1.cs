@@ -81,7 +81,15 @@ public class TurnPlayer1 : IState
                         }
                         else
                         {
-                            player.TransitionTo(player.stateMachine.turnPlayer2); // 플레이어 2의 턴으로 넘어감
+                            if (GameManager.Instance.isAImode)
+                            {
+                                player.TransitionTo(player.stateMachine.turnAI); // 플레이어 2의 턴으로 넘어감
+                            }
+                            else
+                            {
+                                player.TransitionTo(player.stateMachine.turnPlayer2); // 플레이어 2의 턴으로 넘어감
+                            }
+                            
                         }
                     }
                 );

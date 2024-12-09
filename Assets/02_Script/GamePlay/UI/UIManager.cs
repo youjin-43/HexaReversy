@@ -75,19 +75,30 @@ public class UIManager : MonoBehaviour
 
     void SetPlayerName()
     {
-        foreach (var player in PhotonNetwork.CurrentRoom.Players)
+        if (GameManager.Instance.isAImode)
         {
-            if(player.Value.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
+            IntroMyName.text = PhotonNetwork.LocalPlayer.NickName;
+            MainUIMyName.text = PhotonNetwork.LocalPlayer.NickName;
+            IntroOppName.text = "AI";
+            MainUIOppName.text = "AI";
+        }
+        else
+        {
+            foreach (var player in PhotonNetwork.CurrentRoom.Players)
             {
-                IntroMyName.text = PhotonNetwork.LocalPlayer.NickName;
-                MainUIMyName.text = PhotonNetwork.LocalPlayer.NickName;
-            }
-            else
-            {
-                IntroOppName.text = player.Value.NickName;
-                MainUIOppName.text = player.Value.NickName;
+                if (player.Value.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
+                {
+                    IntroMyName.text = PhotonNetwork.LocalPlayer.NickName;
+                    MainUIMyName.text = PhotonNetwork.LocalPlayer.NickName;
+                }
+                else
+                {
+                    IntroOppName.text = player.Value.NickName;
+                    MainUIOppName.text = player.Value.NickName;
+                }
             }
         }
+      
     }
 
 
